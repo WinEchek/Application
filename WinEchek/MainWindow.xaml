@@ -9,7 +9,7 @@
     <Window.Resources>
         <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
     </Window.Resources>
-    <StackPanel Name="mabite">
+    <Grid Name="mabite">
         
-    </StackPanel>
+    </Grid>
 </Window>

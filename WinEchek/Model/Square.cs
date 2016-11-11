@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace WinEchek.Model
 {
     public class Square
     {
-        public Piece.Piece piece { get; set; }
+        public Piece.Piece Piece { get; set; }
         public Color Color { get; set; }
+        public int X { get; }
+        public int Y { get; }
 
-        public Square(Color color)
+        public Square(Color color, int x, int y)
         {
             Color = color;
+            X = x;
+            Y = y;
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using WinEchek.Model;
+﻿using System.Windows.Media;
+using WinEchek.Model.Piece;
+using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.Model
 {
@@ -20,7 +16,14 @@ namespace WinEchek.Model
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    Squares[i, j] = new Square((i % 2 == 0) ? Colors.Black : Colors.White);
+                    Squares[i, j] = new Square(((i+j+1) % 2 == 0) ? Colors.SaddleBrown : Colors.Beige, i, j);
+                }
+            }
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    Squares[i, j].Piece = new King(Color.Black);
                 }
             }
         }
