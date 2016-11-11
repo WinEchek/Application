@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GUI\PieceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,21 +67,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Bishop.cs" />
+    <Compile Include="GUI\PieceView.xaml.cs">
+      <DependentUpon>PieceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Piece\Bishop.cs" />
     <Compile Include="Model\Board.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="GUI\Ressources\Sprites\Pieces.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\King.cs" />
-    <Compile Include="Model\Pawn.cs" />
-    <Compile Include="Model\Piece.cs" />
-    <Compile Include="Model\Queen.cs" />
-    <Compile Include="Model\Rook.cs" />
+    <Compile Include="Model\Piece\King.cs" />
+    <Compile Include="Model\Piece\Pawn.cs" />
+    <Compile Include="Model\Piece\Piece.cs" />
+    <Compile Include="Model\Piece\Queen.cs" />
+    <Compile Include="Model\Piece\Rook.cs" />
     <Compile Include="Model\Square.cs" />
-    <Compile Include="Model\Tower.cs" />
+    <Compile Include="Model\Piece\Tower.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +117,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Sprites\queenBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\rookBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Sprites\bishopBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\kingBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\knightBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\pawnBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Sprites\bishopWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\kingWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\knightWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\pawnWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\queenWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\rookWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

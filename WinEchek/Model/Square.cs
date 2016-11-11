@@ -9,7 +9,7 @@ namespace WinEchek.Model
 {
     public class Square
     {
-        public Piece piece { get; set; }
+        public Piece.Piece piece { get; set; }
         public Color Color { get; set; }
 
         public Square(Color color)

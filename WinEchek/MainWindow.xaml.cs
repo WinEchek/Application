@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinEchek.GUI;
+using WinEchek.Model.Piece;
+using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek
 {
@@ -20,9 +23,11 @@ namespace WinEchek
     /// </summary>
     public partial class MainWindow : Window
     {
+        private UserControl uc = new PieceView(new King(Color.Black));
         public MainWindow()
         {
             InitializeComponent();
+            mabite.Children.Add(uc);
         }
     }
 }

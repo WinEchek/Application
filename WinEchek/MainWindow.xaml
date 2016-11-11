@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:WinEchek"
         mc:Ignorable="d"
         Title="MainWindow" >
-    <Grid>
-
-    </Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
+    </Window.Resources>
+    <StackPanel Name="mabite">
+        
+    </StackPanel>
 </Window>
