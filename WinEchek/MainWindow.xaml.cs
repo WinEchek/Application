@@ -17,7 +17,6 @@ namespace WinEchek
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private UserControl uc = new BoardView(new Board());
         public MainWindow()
         {

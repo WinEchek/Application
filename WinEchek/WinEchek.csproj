@@ -75,6 +75,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Engine\IEngine.cs" />
+    <Compile Include="Engine\YoloMoteur.cs" />
     <Compile Include="GUI\PieceView.xaml.cs">
       <DependentUpon>PieceView.xaml</DependentUpon>
     </Compile>

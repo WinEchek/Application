@@ -11,7 +11,7 @@ namespace WinEchek.Model
 
         public Board()
         {
-            Squares = new Square[8,8];
+            Squares = new Square[Size,Size];
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size; j++)
