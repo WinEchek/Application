@@ -9,12 +9,11 @@ namespace WinEchek
     /// </summary>
     public partial class MainWindow
     {
-
         public MainWindow()
         {
             InitializeComponent();
-            Game game = new Game();
-            Grid.Children.Add(game.BoardView);
-        }
+            MainControl.Content = new GUI.Core.Home(this);
+            
+	    }
     }
 }

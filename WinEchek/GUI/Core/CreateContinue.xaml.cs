@@ -15,19 +15,21 @@ using System.Windows.Shapes;
 
 namespace WinEchek.GUI.Core {
     /// <summary>
-    /// Logique d'interaction pour Home.xaml
+    /// Logique d'interaction pour CreateContinue.xaml
     /// </summary>
-    public partial class Home : UserControl
+    public partial class CreateContinue : UserControl
     {
-        private MainWindow _mainWindow;
-        public Home(MainWindow mw) {
+        private readonly MainWindow _mainWindow;
+
+        public CreateContinue(MainWindow mainWindow)
+        {
             InitializeComponent();
-            _mainWindow = mw;
+            _mainWindow = mainWindow;
         }
 
-        private void LocalGameButton_OnClick(object sender, RoutedEventArgs e)
+        private void CreateNewGameTile_OnClick(object sender, RoutedEventArgs e)
         {
-            _mainWindow.MainControl.Content = new CreateContinue(_mainWindow);
+            _mainWindow.MainControl.Content = new GameView(_mainWindow);
         }
     }
 }

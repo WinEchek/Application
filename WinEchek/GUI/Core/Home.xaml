@@ -26,15 +26,13 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-    <!-- <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="auto"> -->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Column="0"
+        <TextBlock Grid.Column="0"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Foreground="{DynamicResource BlackBrush}"
@@ -51,34 +49,37 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top">
             <controls:Tile Title="Jouer en local"
+                           Name="LocalGameButton"
                                Margin="3"
                                Style="{StaticResource LargeTileStyle}"
                                Background="Teal"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                               HorizontalTitleAlignment="Center">
-                    <iconPacks:PackIconModern Width="40"
+                               HorizontalTitleAlignment="Center"
+                               Click="LocalGameButton_OnClick"
+                           >
+                <iconPacks:PackIconOcticons Width="40"
                                              Height="40"
-                                             Kind="Calendar" />
-                </controls:Tile>
+                                             Kind="DeviceDesktop" />
+            </controls:Tile>
             <controls:Tile Title="Jouer en réseau"
                                Margin="3"
                                Style="{StaticResource LargeTileStyle}"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
                                HorizontalTitleAlignment="Center">
-                <iconPacks:PackIconMaterial Width="40"
+                <iconPacks:PackIconModern Width="40"
                                                   Height="40"
-                                                  Kind="BackupRestore" />
-                </controls:Tile>
-                
-                <controls:Tile Title="Jouer contre l'ordinateur"
+                                                  Kind="CloudPlay" />
+            </controls:Tile>
+
+            <controls:Tile Title="Jouer contre l'ordinateur"
                                Style="{StaticResource LargeTileStyle}"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
                                Background="#D2691E"
                                HorizontalTitleAlignment="Center">
-                    <iconPacks:PackIconModern Width="40"
+                <iconPacks:PackIconMaterial Width="40"
                                              Height="40"
-                                             Kind="PeopleMultiple" />
-                </controls:Tile>
+                                             Kind="Robot" />
+            </controls:Tile>
 
             <StackPanel Orientation="Horizontal">
                 <controls:Tile Title="Paramètres"
@@ -103,7 +104,6 @@
 
             </StackPanel>
         </WrapPanel>
-        </Grid>
-   <!-- </ScrollViewer>-->
+    </Grid>
 </UserControl>
 
