@@ -139,7 +139,7 @@
     <Compile Include="Model\Piece\Queen.cs" />
     <Compile Include="Model\Piece\Rook.cs" />
     <Compile Include="Model\Square.cs" />
-    <Compile Include="Model\Piece\Tower.cs" />
+    <Compile Include="Model\Piece\Knight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

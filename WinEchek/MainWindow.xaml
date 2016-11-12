@@ -6,7 +6,8 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:WinEchek"
         xmlns:core="clr-namespace:WinEchek.GUI.Core"
-                      
+        xmlns:gui="clr-namespace:WinEchek.GUI"
+
         mc:Ignorable="d"
                       Icon="GUI/Ressources/Logo/Icon.png"
         Title="WinEchek (0.0.1116b - dev)" 
@@ -16,8 +17,7 @@
     <Window.Resources>
         <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <core:Home></core:Home>
+    <Grid Name="Grid">
     </Grid>
 </controls:MetroWindow>
 

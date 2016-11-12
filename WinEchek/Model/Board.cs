@@ -1,6 +1,5 @@
-﻿using System.Windows.Media;
-using WinEchek.Model.Piece;
-using Color = WinEchek.Model.Piece.Color;
+﻿using WinEchek.Model.Piece;
+using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Model
 {
@@ -16,14 +15,16 @@ namespace WinEchek.Model
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    Squares[i, j] = new Square(((i+j+1) % 2 == 0) ? Colors.SaddleBrown : Colors.Beige, i, j);
+                    Squares[i, j] = new Square(((i+j) % 2 == 0) ? Color.White : Color.Black, i, j);
                 }
             }
+            //TODO Move piece placement logic appart from the board
+            Piece.Piece[] Pieces = {new Bishop(Piece.Color.Black), new King(Piece.Color.White), new Queen(Piece.Color.Black), new Pawn(Piece.Color.White), new Rook(Piece.Color.Black), new Knight(Piece.Color.White) };
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    Squares[i, j].Piece = new King(Color.Black);
+                    Squares[i, j].Piece = Pieces[(i + j)%6];
                 }
             }
         }

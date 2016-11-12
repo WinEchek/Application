@@ -2,6 +2,7 @@
 using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using WinEchek.Model.Piece;
 using Color = WinEchek.Model.Piece.Color;
@@ -33,8 +34,8 @@ namespace WinEchek.GUI {
                 case Type.Pawn:
                     Image.Source = (Piece.Color == Color.Black ? FindResource("BlackPawn") : FindResource("WhitePawn")) as ImageSource;
                     break;
-                case Type.Tower:
-                    Image.Source = (Piece.Color == Color.Black ? FindResource("BlackTower") : FindResource("WhiteTower")) as ImageSource;
+                case Type.Knight:
+                    Image.Source = (Piece.Color == Color.Black ? FindResource("BlackKnight") : FindResource("WhiteKnight")) as ImageSource;
                     break;
                 case Type.Rook:
                     Image.Source = (Piece.Color == Color.Black ? FindResource("BlackRook") : FindResource("WhiteRook")) as ImageSource;

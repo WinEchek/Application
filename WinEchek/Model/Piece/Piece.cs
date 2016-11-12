@@ -1,6 +1,5 @@
 ﻿namespace WinEchek.Model.Piece
 {
-    //TODO Add an enum or something like that to define the piece color
     public class Piece
     {
         public Type Type { get; }
@@ -18,7 +17,7 @@
         King,
         Queen,
         Pawn,
-        Tower,
+        Knight,
         Rook
     }
 

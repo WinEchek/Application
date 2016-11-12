@@ -1,4 +1,4 @@
-﻿using System.Windows.Media;
+﻿using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.Model
 {
