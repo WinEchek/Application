@@ -7,7 +7,7 @@
     <BitmapImage x:Key="BlackKing" UriSource="kingBlack.png" />
     <BitmapImage x:Key="BlackPawn" UriSource="pawnBlack.png" />
     <BitmapImage x:Key="BlackQueen" UriSource="queenBlack.png" />
-    <BitmapImage x:Key="BlackRock" UriSource="rookBlack.png" />
+    <BitmapImage x:Key="BlackRook" UriSource="rookBlack.png" />
     
     <BitmapImage x:Key="WhiteBishop" UriSource="bishopWhite.png"/>
     <BitmapImage x:Key="WhiteKnight" UriSource="knightWhite.png"/>

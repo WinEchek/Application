@@ -123,6 +123,8 @@
     <Compile Include="GUI\Core\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Engine\IEngine.cs" />
+    <Compile Include="Engine\YoloMoteur.cs" />
     <Compile Include="GUI\Core\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -153,7 +155,7 @@
     <Compile Include="Model\Piece\Queen.cs" />
     <Compile Include="Model\Piece\Rook.cs" />
     <Compile Include="Model\Square.cs" />
-    <Compile Include="Model\Piece\Tower.cs" />
+    <Compile Include="Model\Piece\Knight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
