@@ -23,6 +23,8 @@ namespace WinEchek.GUI.Core {
         public GameView(MainWindow mw) {
             InitializeComponent();
             _mainWindow = mw;
+            Game game = new Game();
+            Grid.Children.Add(game.BoardView);
         }
     }
 }

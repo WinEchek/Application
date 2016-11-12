@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:WinEchek.GUI.Core"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Label>Vous êtes dans le Game View c'est cool non ?</Label>
+    <Grid Name="Grid">
     </Grid>
 </UserControl>
