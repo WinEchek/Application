@@ -8,16 +8,30 @@
         xmlns:core="clr-namespace:WinEchek.GUI.Core"
                       
         mc:Ignorable="d"
-                      Icon="GUI/Ressources/Logo/Icon.png"
+        Icon="GUI/Ressources/Logo/Icon.png"
         Title="WinEchek (0.0.1116b - dev)" 
-                      ShowIconOnTitleBar="True"
+        ShowIconOnTitleBar="True"
         TitleCharacterCasing="Normal"
                       >
+
     <Window.Resources>
         <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
     </Window.Resources>
+
+
     <Grid>
-        <core:Home></core:Home>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_Fichier">
+                <MenuItem Header="_Quitter"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <controls:TransitioningContentControl Grid.Row="1" x:Name="MainControl" Transition="Left" />
     </Grid>
 </controls:MetroWindow>
+
+
 

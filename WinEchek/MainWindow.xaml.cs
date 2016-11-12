@@ -17,10 +17,11 @@ namespace WinEchek
     /// </summary>
     public partial class MainWindow
     {
-
         public MainWindow()
         {
             InitializeComponent();
+            MainControl.Content = new GUI.Core.Home(this);
+            
 	    }
     }
 }
