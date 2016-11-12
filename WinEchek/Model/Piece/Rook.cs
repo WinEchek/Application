@@ -2,7 +2,7 @@
 {
     class Rook : Piece
     {
-        public Rook(Color color) : base(Type.Rook, color)
+        public Rook(Color color, Square square) : base(Type.Rook, color, square)
         {
         }
     }

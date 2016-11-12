@@ -2,7 +2,7 @@
 {
     class Knight : Piece
     {
-        public Knight(Color color) : base(Type.Knight, color)
+        public Knight(Color color, Square square) : base(Type.Knight, color, square)
         {
         }
     }

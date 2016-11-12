@@ -2,7 +2,7 @@
 {
     class Pawn : Piece
     {
-        public Pawn(Color color) : base(Type.Pawn, color)
+        public Pawn(Color color, Square square) : base(Type.Pawn, color, square)
         {
         }
     }

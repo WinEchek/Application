@@ -10,7 +10,7 @@ namespace WinEchek.Model
 
         public Board()
         {
-            Squares = new Square[8,8];
+            Squares = new Square[Size,Size];
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size; j++)
@@ -19,12 +19,11 @@ namespace WinEchek.Model
                 }
             }
             //TODO Move piece placement logic appart from the board
-            Piece.Piece[] Pieces = {new Bishop(Piece.Color.Black), new King(Piece.Color.White), new Queen(Piece.Color.Black), new Pawn(Piece.Color.White), new Rook(Piece.Color.Black), new Knight(Piece.Color.White) };
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    Squares[i, j].Piece = Pieces[(i + j)%6];
+                    Squares[i, j].Piece = ((i+j) %2 ==0) ? new Bishop(Color.Black, Squares[i,j]) : new Bishop(Color.White, Squares[i, j]);
                 }
             }
         }
