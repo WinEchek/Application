@@ -13,9 +13,12 @@ namespace WinEchek.GUI
     /// </summary>
     public partial class BoardView : UserControl
     {
-        public BoardView(Board board)
+        public RealPlayer RealPlayer { get; set; }
+        public BoardView(Board board, RealPlayer player)
         {
             InitializeComponent();
+            RealPlayer = player;
+
             for (int i = 0; i < Board.Size; i++)
             {
                 Grid.RowDefinitions.Add(new RowDefinition());
@@ -24,6 +27,8 @@ namespace WinEchek.GUI
             foreach (Square square in board.Squares)
             {
                 SquareView squareView = new SquareView(square);
+                if (square?.Piece.Color == player.Color) //TODO Check the boardview add the player to the pieceview
+                    squareView.PieceView.Player = player;
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
         }
@@ -77,7 +82,7 @@ namespace WinEchek.GUI
 
             if (selectedSquare == null)
             {
-                if (clickedPieceView == null) return;
+                if(clickedPieceView?.Player.Color != RealPlayer.Color) return;
                 selectedSquare = view;
                 selectedPiece = view.PieceView;
                 view.BorderThickness = new Thickness(4);
