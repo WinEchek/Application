@@ -1,4 +1,7 @@
-﻿using WinEchek.Model.Piece;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using WinEchek.Annotations;
+using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Model

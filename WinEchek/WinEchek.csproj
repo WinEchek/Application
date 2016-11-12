@@ -85,6 +85,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Game.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RealPlayer.cs" />
     <Page Include="GUI\Core\Home.xaml">
       <SubType>Designer</SubType>

@@ -14,25 +14,31 @@ namespace WinEchek.GUI
     public partial class BoardView : UserControl
     {
         public RealPlayer RealPlayer { get; set; }
+        public Board Board { get; set; }
         public BoardView(Board board, RealPlayer player)
         {
             InitializeComponent();
             RealPlayer = player;
+            Board = board;
 
+            Refresh();
+        }
+
+        public void Refresh()
+        {
             for (int i = 0; i < Board.Size; i++)
             {
                 Grid.RowDefinitions.Add(new RowDefinition());
                 Grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
-            foreach (Square square in board.Squares)
+            foreach (Square square in Board.Squares)
             {
                 SquareView squareView = new SquareView(square);
-                if (square?.Piece.Color == player.Color) //TODO Check the boardview add the player to the pieceview
-                    squareView.PieceView.Player = player;
+                if (square?.Piece.Color == RealPlayer.Color) //TODO Check the boardview add the player to the pieceview
+                    squareView.PieceView.Player = RealPlayer;
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
         }
-
         //TODO check if this resizing policy isn't problematic
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
@@ -82,7 +88,8 @@ namespace WinEchek.GUI
 
             if (selectedSquare == null)
             {
-                if(clickedPieceView?.Player.Color != RealPlayer.Color) return;
+                if (clickedPieceView == null) return;
+                if (clickedPieceView.Piece.Color != RealPlayer.Color) return;
                 selectedSquare = view;
                 selectedPiece = view.PieceView;
                 view.BorderThickness = new Thickness(4);

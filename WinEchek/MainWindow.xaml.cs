@@ -13,8 +13,8 @@ namespace WinEchek
         public MainWindow()
         {
             InitializeComponent();
-            //TODO Determine who adds the board an how
-            Grid.Children.Add(new BoardView(new Board()));
+            Game game = new Game();
+            Grid.Children.Add(game.BoardView);
         }
     }
 }
