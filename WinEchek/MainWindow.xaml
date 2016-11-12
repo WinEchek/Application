@@ -1,15 +1,23 @@
-﻿<Window x:Class="WinEchek.MainWindow"
+﻿<controls:MetroWindow x:Class="WinEchek.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:WinEchek"
+        xmlns:core="clr-namespace:WinEchek.GUI.Core"
+        xmlns:gui="clr-namespace:WinEchek.GUI"
+
         mc:Ignorable="d"
-        Title="MainWindow" >
+                      Icon="GUI/Ressources/Logo/Icon.png"
+        Title="WinEchek (0.0.1116b - dev)" 
+                      ShowIconOnTitleBar="True"
+        TitleCharacterCasing="Normal"
+                      >
     <Window.Resources>
         <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
     </Window.Resources>
-    <Grid Name="mabite">
-        
+    <Grid Name="Grid">
     </Grid>
-</Window>
+</controls:MetroWindow>
+

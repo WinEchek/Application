@@ -15,13 +15,14 @@ namespace WinEchek
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private UserControl uc = new BoardView(new Board());
+
         public MainWindow()
         {
             InitializeComponent();
-            mabite.Children.Add(uc);
-	    }
+            //TODO Determine who adds the board an how
+            Grid.Children.Add(new BoardView(new Board()));
+        }
     }
 }

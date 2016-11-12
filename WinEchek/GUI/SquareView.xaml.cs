@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WinEchek.Model;
+using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.GUI
 {
@@ -21,13 +10,26 @@ namespace WinEchek.GUI
     /// </summary>
     public partial class SquareView : UserControl
     {
-        public PieceView PieceView { get; set; }      
+        private PieceView _pieceView;
+        public PieceView PieceView
+        {
+            get { return _pieceView; }
+            set
+            {
+                if(_pieceView != null)
+                    Grid.Children.Remove(_pieceView);
+                if (value != null)
+                    Grid.Children.Add(value);
+                _pieceView = value;
+            } 
+        }
+
         public SquareView(Square square)
         {
             InitializeComponent();
             PieceView = new PieceView(square.Piece);
-            Grid.Children.Add(PieceView);
-            Background = new SolidColorBrush(square.Color);
+            //TODO add color theme support
+            Background = new SolidColorBrush(square.Color == Color.Black ? Colors.Gray : Colors.DodgerBlue); 
             Grid.SetColumn(this, square.X);
             Grid.SetRow(this, square.Y);
         }
