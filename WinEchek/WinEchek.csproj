@@ -85,9 +85,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Game.cs" />
+    <Compile Include="Core\Game.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="RealPlayer.cs" />
+    <Compile Include="Core\RealPlayer.cs" />
     <Page Include="GUI\Core\CreateContinue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,7 +134,7 @@
     <Compile Include="GUI\PieceView.xaml.cs">
       <DependentUpon>PieceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IPlayer.cs" />
+    <Compile Include="Core\IPlayer.cs" />
     <Compile Include="Model\Piece\Bishop.cs" />
     <Compile Include="GUI\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
