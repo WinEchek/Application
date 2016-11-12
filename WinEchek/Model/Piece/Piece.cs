@@ -4,11 +4,13 @@
     {
         public Type Type { get; }
         public Color Color { get; }
+        public Square Square { get; set; }
 
-        public Piece(Type type, Color color)
+        public Piece(Type type, Color color, Square square)
         {
             this.Type = type;
             Color = color;
+            Square = square;
         }
 
     }

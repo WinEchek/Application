@@ -10,23 +10,26 @@ namespace WinEchek.Engine
 {
     class YoloMoteur : IEngine
     {
-        public YoloMoteur(Board _board)
+        public Board Board { get; set; }
+
+        public YoloMoteur(Board board)
         {
-            Board board = _board;
+            Board = board;
         }
 
         public bool DoMove(Piece piece, Square square)
         {
-            if (0 != 0)//Si case vide
+            if (square.Piece==null)//Si case vide
             {
-                //déplacement pièce
+                piece.Square.Piece = null;
+                piece.Square = square;
             }
-            else//Sinon
+            else
             {
-                //On supprime la pièce dans la case d'arrivée
-                //déplacement de la pièce
+                square.Piece = null;
+                piece.Square.Piece = null;
+                piece.Square = square;
             }
-
             return true;
         }
     }

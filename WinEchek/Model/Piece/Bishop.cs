@@ -2,7 +2,7 @@
 {
     class Bishop : Piece
     {
-        public Bishop(Color color) : base(Type.Bishop, color)
+        public Bishop(Color color, Square square) : base(Type.Bishop, color, square)
         {
         }
     }
