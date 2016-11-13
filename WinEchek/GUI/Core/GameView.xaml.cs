@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -31,6 +32,11 @@ namespace WinEchek.GUI.Core {
 
                 _mainWindow.ShowMessageAsync("Erreur", "Impossible d'afficher une partie non créée");
             }    
+        }
+
+        private void Save_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

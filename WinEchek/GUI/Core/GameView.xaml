@@ -16,7 +16,7 @@
         <StackPanel Grid.Column="2">
             <GroupBox Header="Options de la partie">
                 <StackPanel>
-                    <Button Name="Save">Sauvegarder</Button>
+                    <Button Name="Save" Click="Save_OnClick">Sauvegarder</Button>
                     <Button Name="Cast">Caster</Button>
                 </StackPanel>
             </GroupBox>
