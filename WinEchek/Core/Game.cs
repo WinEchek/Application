@@ -7,12 +7,15 @@ namespace WinEchek
 {
     public class Game
     {
-        YoloMoteur moteur = new YoloMoteur(new Board());
+        public YoloMoteur Moteur { get; set; }
         public BoardView BoardView { get; set; }
+
         public Game()
         {
-            BoardView = new BoardView(moteur.Board, new RealPlayer(this, Color.White));
+            Moteur = new YoloMoteur(new Board());
+            BoardView = new BoardView(Moteur.Board, new RealPlayer(this, Color.White));
         }
+
         public void DoMove(Piece piece, Square square)
         {
             moteur.DoMove(piece, square);

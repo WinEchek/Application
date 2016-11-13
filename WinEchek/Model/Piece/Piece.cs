@@ -2,9 +2,13 @@
 using System.Runtime.CompilerServices;
 using WinEchek.Annotations;
 
+using System;
+
 namespace WinEchek.Model.Piece
 {
     public class Piece : INotifyPropertyChanged
+    [Serializable]
+    public class Piece
     {
         public Type Type { get; }
         public Color Color { get; }

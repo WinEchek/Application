@@ -15,9 +15,11 @@ namespace WinEchek.GUI
         public SquareView(Square square)
         {
             InitializeComponent();
+            if(square.Piece != null)
+                PieceView = new PieceView(square.Piece);
             DataContext = this;
             //TODO add color theme support
-            Background = new SolidColorBrush(square.Color == Color.Black ? Colors.Gray : Colors.DodgerBlue); 
+            Background = new SolidColorBrush((square.X+square.Y)%2 == 0 ? Colors.Gray : Colors.DodgerBlue); 
             Grid.SetColumn(this, square.X);
             Grid.SetRow(this, square.Y);
         }

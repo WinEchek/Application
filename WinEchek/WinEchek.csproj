@@ -86,6 +86,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Persistance\ILoader.cs" />
+    <Compile Include="Persistance\ISaver.cs" />
+    <Compile Include="Persistance\XMLLoader.cs" />
+    <Compile Include="Persistance\XMLSaver.cs" />
     <Compile Include="Core\WinEchek.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Core\RealPlayer.cs" />

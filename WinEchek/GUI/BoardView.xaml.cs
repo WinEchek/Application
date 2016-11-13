@@ -9,49 +9,51 @@ using WinEchek.Model;
 namespace WinEchek.GUI
 {
     /// <summary>
-    /// Interaction logic for BoardView.xaml
+    ///     Interaction logic for BoardView.xaml
     /// </summary>
     public partial class BoardView : UserControl
     {
+        private PieceView selectedPiece;
+
+        private SquareView selectedSquare;
         public RealPlayer RealPlayer { get; set; }
         public Board Board { get; set; }
+
         public BoardView(Board board, RealPlayer player)
         {
             InitializeComponent();
-            RealPlayer = player;
             Board = board;
             for (int i = 0; i < Board.Size; i++) {
                 Grid.RowDefinitions.Add(new RowDefinition());
                 Grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
-            foreach (Square square in Board.Squares) {
-                SquareView squareView = new SquareView(square);
-                if (square?.Piece.Color == RealPlayer.Color) //TODO Check the boardview add the player to the pieceview
+            foreach (var square in Board.Squares)
+            {
+                var squareView = new SquareView(square);
+                if (square.Piece != null && square.Piece.Color == RealPlayer.Color)
                     squareView.PieceView.Player = RealPlayer;
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
         }
+
         //TODO check if this resizing policy isn't problematic
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
-            double minNewSizeOfParentUserControl = Math.Min(sizeInfo.NewSize.Height, sizeInfo.NewSize.Width);
+            var minNewSizeOfParentUserControl = Math.Min(sizeInfo.NewSize.Height, sizeInfo.NewSize.Width);
             Grid.Width = minNewSizeOfParentUserControl;
             Grid.Height = minNewSizeOfParentUserControl;
         }
 
-        
-        private SquareView selectedSquare;
-        private PieceView selectedPiece;
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
             var point = Mouse.GetPosition(Grid);
 
-            int row = 0;
-            int col = 0;
-            double accumulatedHeight = 0.0;
-            double accumulatedWidth = 0.0;
+            var row = 0;
+            var col = 0;
+            var accumulatedHeight = 0.0;
+            var accumulatedWidth = 0.0;
 
             // calc row mouse was over
             foreach (var rowDefinition in Grid.RowDefinitions)
@@ -72,11 +74,11 @@ namespace WinEchek.GUI
             }
 
             //TODO Move the event logic appart from this class
-            SquareView view = Grid.Children
+            var view = Grid.Children
                 .Cast<SquareView>() //Wonderful cast right here
                 .First(x => Grid.GetRow(x) == row && Grid.GetColumn(x) == col);
 
-            PieceView clickedPieceView = view.PieceView;
+            var clickedPieceView = view.PieceView;
 
             if (selectedSquare == null)
             {
