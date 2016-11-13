@@ -10,7 +10,10 @@
         ResizeMode="CanResizeWithGrip"
         mc:Ignorable="d"
         Icon="GUI/Ressources/Logo/Icon.png"
+        Title="WinEchek"
+                      <!--
         Title="WinEchek (0.0.1116b - dev)" 
+    -->
         ShowIconOnTitleBar="True"
         TitleCharacterCasing="Normal"
                       >
