@@ -15,13 +15,14 @@ namespace WinEchek.GUI
     {
         private PieceView selectedPiece;
 
-        private SquareView selectedSquare;
+        private SquareView previousSquare;
         public RealPlayer RealPlayer { get; set; }
         public Board Board { get; set; }
 
         public BoardView(Board board, RealPlayer player)
         {
             InitializeComponent();
+            RealPlayer = player;
             Board = board;
             for (int i = 0; i < Board.Size; i++) {
                 Grid.RowDefinitions.Add(new RowDefinition());
@@ -74,38 +75,36 @@ namespace WinEchek.GUI
             }
 
             //TODO Move the event logic appart from this class
-            var view = Grid.Children
+            var clickedSquare = Grid.Children
                 .Cast<SquareView>() //Wonderful cast right here
                 .First(x => Grid.GetRow(x) == row && Grid.GetColumn(x) == col);
 
-            var clickedPieceView = view.PieceView;
+            var clickedPieceView = clickedSquare.PieceView;
 
-            if (selectedSquare == null)
+            if (previousSquare == null)
             {
                 if (clickedPieceView == null) return;
                 if (clickedPieceView.Piece.Color != RealPlayer.Color) return;
-                selectedSquare = view;
-                selectedPiece = view.PieceView;
-                view.BorderThickness = new Thickness(4);
-                view.BorderBrush = new SolidColorBrush(Colors.Blue);
+                previousSquare = clickedSquare;
+                selectedPiece = clickedSquare.PieceView;
+                clickedSquare.BorderThickness = new Thickness(4);
+                clickedSquare.BorderBrush = new SolidColorBrush(Colors.Blue);
             }
             else
             {
                 if (clickedPieceView == null)
                 {
-                    selectedSquare.BorderThickness = new Thickness(0);
-                    selectedSquare.PieceView = null;
-                    view.PieceView = selectedPiece;
-                    selectedSquare = null;
+                    previousSquare.BorderThickness = new Thickness(0);
+                    RealPlayer.DoMove(selectedPiece.Piece, clickedSquare.Square);
+                    previousSquare = null;
                     selectedPiece = null;
                 }
                 else
                 {
-                    view.PieceView = null;
-                    selectedSquare.BorderThickness = new Thickness(0);
-                    selectedSquare.PieceView = null;
-                    view.PieceView = selectedPiece;
-                    selectedSquare = null;
+                    clickedSquare.PieceView = null;
+                    previousSquare.BorderThickness = new Thickness(0);
+                    RealPlayer.DoMove(selectedPiece.Piece, clickedSquare.Square);
+                    previousSquare = null;
                     selectedPiece = null;
                 }
             }

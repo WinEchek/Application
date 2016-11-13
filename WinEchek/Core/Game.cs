@@ -18,7 +18,7 @@ namespace WinEchek
 
         public void DoMove(Piece piece, Square square)
         {
-            moteur.DoMove(piece, square);
+            Moteur.DoMove(piece, square);
         }
     }
 }

@@ -6,10 +6,8 @@ using System;
 
 namespace WinEchek.Model.Piece
 {
-    public class Piece : INotifyPropertyChanged
     [Serializable]
-    public class Piece
-    {
+    public class Piece {
         public Type Type { get; }
         public Color Color { get; }
         public Square Square { get; set; }
@@ -19,14 +17,6 @@ namespace WinEchek.Model.Piece
             this.Type = type;
             Color = color;
             Square = square;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
     public enum Type {

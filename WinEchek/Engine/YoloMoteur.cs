@@ -23,12 +23,14 @@ namespace WinEchek.Engine
             {
                 piece.Square.Piece = null;
                 piece.Square = square;
+                square.Piece = piece;
             }
             else
             {
                 square.Piece = null;
                 piece.Square.Piece = null;
                 piece.Square = square;
+                square.Piece = piece;
             }
             return true;
         }

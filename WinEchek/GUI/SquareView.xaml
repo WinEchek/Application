@@ -8,6 +8,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid Name="Grid">
-           <UserControl Content="{Binding PieceView}"></UserControl> 
+           <UserControl Name="UcPieceView"/> 
     </Grid>
 </UserControl>
