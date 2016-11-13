@@ -11,6 +11,7 @@
         mc:Ignorable="d"
         Icon="GUI/Ressources/Logo/Icon.png"
         Title="WinEchek"
+
         ShowIconOnTitleBar="True"
         TitleCharacterCasing="Normal"
                       >
