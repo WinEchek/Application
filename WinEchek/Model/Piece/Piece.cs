@@ -19,6 +19,7 @@ namespace WinEchek.Model.Piece
             Square = square;
         }
     }
+    [Serializable]
     public enum Type {
         Bishop,
         King,
@@ -27,7 +28,7 @@ namespace WinEchek.Model.Piece
         Knight,
         Rook
     }
-
+    [Serializable]
     public enum Color
     {
         White,

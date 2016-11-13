@@ -1,10 +1,12 @@
-﻿using WinEchek.Engine;
+﻿using System;
+using WinEchek.Engine;
 using WinEchek.GUI;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
 namespace WinEchek
 {
+    [Serializable]
     public class Game
     {
         public YoloMoteur Moteur { get; set; }
@@ -14,6 +16,12 @@ namespace WinEchek
         {
             Moteur = new YoloMoteur(new Board());
             BoardView = new BoardView(Moteur.Board, new RealPlayer(this, Color.White));
+        }
+
+        public Game(YoloMoteur moteur, BoardView boardView)
+        {
+            Moteur = moteur;
+            BoardView = boardView;
         }
 
         public void DoMove(Piece piece, Square square)

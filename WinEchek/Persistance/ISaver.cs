@@ -8,6 +8,6 @@ namespace WinEchek.Persistance
 {
     interface ISaver
     {
-        void Save(Game game);
+        void Save(Game game, string path);
     }
 }
