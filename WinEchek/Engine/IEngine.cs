@@ -8,7 +8,7 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine
 {
-    interface IEngine
+    public interface IEngine
     {
         bool DoMove(Piece piece, Square square);
     }

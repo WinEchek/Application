@@ -13,7 +13,6 @@ namespace WinEchek
         {
             InitializeComponent();
             MainControl.Content = new GUI.Core.Home(this);
-            
 	    }
     }
 }

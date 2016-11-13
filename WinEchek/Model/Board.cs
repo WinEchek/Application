@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using WinEchek.Annotations;
 using WinEchek.Model.Piece;
@@ -6,6 +7,7 @@ using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Model
 {
+    [Serializable]
     public class Board
     {
         public const int Size = 8;
@@ -18,7 +20,7 @@ namespace WinEchek.Model
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    Squares[i, j] = new Square(((i+j) % 2 == 0) ? Color.White : Color.Black, i, j);
+                    Squares[i, j] = new Square(i, j);
                 }
             }
             //TODO Move piece placement logic appart from the board

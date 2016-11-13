@@ -1,5 +1,8 @@
-﻿namespace WinEchek.Model.Piece
+﻿using System;
+
+namespace WinEchek.Model.Piece
 {
+    [Serializable]
     public class Piece
     {
         public Type Type { get; }
