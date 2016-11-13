@@ -17,7 +17,7 @@
             <GroupBox Header="Options de la partie">
                 <StackPanel>
                     <Button Name="Save" Click="Save_OnClick">Sauvegarder</Button>
-                    <Button Name="Cast">Caster</Button>
+                    <Button Name="Load" Click="Load_OnClick">Charger</Button>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

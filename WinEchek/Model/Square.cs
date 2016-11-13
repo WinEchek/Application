@@ -29,6 +29,7 @@ namespace WinEchek.Model
             Y = y;
         }
 
+        [field: NonSerialized()]
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

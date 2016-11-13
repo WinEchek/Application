@@ -1,5 +1,8 @@
-﻿namespace WinEchek.Model.Piece
+﻿using System;
+
+namespace WinEchek.Model.Piece
 {
+    [Serializable]
     class Knight : Piece
     {
         public Knight(Color color, Square square) : base(Type.Knight, color, square)

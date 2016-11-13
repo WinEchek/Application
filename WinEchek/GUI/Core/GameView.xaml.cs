@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls.Dialogs;
+using WinEchek.Persistance;
 
 namespace WinEchek.GUI.Core {
     /// <summary>
@@ -36,7 +37,16 @@ namespace WinEchek.GUI.Core {
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            BinarySaver saver = new BinarySaver();
+            saver.Save(_mainWindow.WinEchek.Game, "Game.bin");
+        }
+
+        private void Load_OnClick(object sender, RoutedEventArgs e)
+        {
+            BinaryLoader loader = new BinaryLoader();
+            Game game = loader.Load("Game.bin");
+            _mainWindow.WinEchek.Game = game;
+            UcBoardView.Content = game.BoardView;
         }
     }
 }

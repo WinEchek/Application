@@ -8,6 +8,7 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine
 {
+    [Serializable]
     public class YoloMoteur : IEngine
     {
         public Board Board { get; set; }
