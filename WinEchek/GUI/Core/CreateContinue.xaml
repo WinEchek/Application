@@ -45,6 +45,8 @@
                                              Kind="New" />
         </controls:Tile>
         <controls:Tile Title="Reprendre une partie"
+                       Name="TileLoadGame"
+                       Click="TileLoadGame_OnClick"
                                Margin="3"
                                Style="{StaticResource LargeTileStyle}"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinEchek.Persistance;
 
 namespace WinEchek.GUI.Core {
     /// <summary>
@@ -31,6 +32,13 @@ namespace WinEchek.GUI.Core {
         {
             _mainWindow.WinEchek.CreateGame();
             _mainWindow.MainControl.Content = new GameView(_mainWindow);
+        }
+
+        private void TileLoadGame_OnClick(object sender, RoutedEventArgs e)
+        {
+            //TODO: déplacer la logique des sauvegarde dans WinEchek et retourner les éventuels affichages à la graphique (msgb)
+            ILoader loader = new BinaryLoader();
+            _mainWindow.WinEchek.Game = loader.Load("Game.bin");
         }
     }
 }
