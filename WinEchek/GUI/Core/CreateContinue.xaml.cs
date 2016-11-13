@@ -29,6 +29,7 @@ namespace WinEchek.GUI.Core {
 
         private void CreateNewGameTile_OnClick(object sender, RoutedEventArgs e)
         {
+            _mainWindow.WinEchek.CreateGame();
             _mainWindow.MainControl.Content = new GameView(_mainWindow);
         }
     }

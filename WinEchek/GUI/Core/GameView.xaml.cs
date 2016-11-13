@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace WinEchek.GUI.Core {
     /// <summary>
@@ -23,8 +24,15 @@ namespace WinEchek.GUI.Core {
         public GameView(MainWindow mw) {
             InitializeComponent();
             _mainWindow = mw;
-            Game game = new Game();
-            Grid.Children.Add(game.BoardView);
+            try
+            {
+                UcBoardView.Content = _mainWindow.WinEchek.Game.BoardView;
+            }
+            catch (Exception)
+            {
+
+                _mainWindow.ShowMessageAsync("Erreur", "Impossible d'afficher une partie non créée");
+            }    
         }
     }
 }

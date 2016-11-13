@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:WinEchek.GUI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
     <Grid Name="Grid">
-            
+           <UserControl Content="{Binding PieceView}"></UserControl> 
     </Grid>
 </UserControl>

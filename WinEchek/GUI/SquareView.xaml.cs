@@ -10,24 +10,12 @@ namespace WinEchek.GUI
     /// </summary>
     public partial class SquareView : UserControl
     {
-        private PieceView _pieceView;
-        public PieceView PieceView
-        {
-            get { return _pieceView; }
-            set
-            {
-                if(_pieceView != null)
-                    Grid.Children.Remove(_pieceView);
-                if (value != null)
-                    Grid.Children.Add(value);
-                _pieceView = value;
-            } 
-        }
+        public PieceView PieceView { get; set; }
 
         public SquareView(Square square)
         {
             InitializeComponent();
-            PieceView = new PieceView(square.Piece);
+            DataContext = this;
             //TODO add color theme support
             Background = new SolidColorBrush(square.Color == Color.Black ? Colors.Gray : Colors.DodgerBlue); 
             Grid.SetColumn(this, square.X);

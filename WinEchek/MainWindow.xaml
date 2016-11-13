@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:WinEchek"
         xmlns:core="clr-namespace:WinEchek.GUI.Core"
         xmlns:gui="clr-namespace:WinEchek.GUI"
-
+        ResizeMode="CanResizeWithGrip"
         mc:Ignorable="d"
         Icon="GUI/Ressources/Logo/Icon.png"
         Title="WinEchek (0.0.1116b - dev)" 
@@ -32,6 +32,7 @@
         </Menu>
         <controls:TransitioningContentControl Grid.Row="1" x:Name="MainControl" Transition="Left" />
     </Grid>
+    
 </controls:MetroWindow>
 
 

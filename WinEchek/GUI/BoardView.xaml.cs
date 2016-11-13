@@ -20,19 +20,11 @@ namespace WinEchek.GUI
             InitializeComponent();
             RealPlayer = player;
             Board = board;
-
-            Refresh();
-        }
-
-        public void Refresh()
-        {
-            for (int i = 0; i < Board.Size; i++)
-            {
+            for (int i = 0; i < Board.Size; i++) {
                 Grid.RowDefinitions.Add(new RowDefinition());
                 Grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
-            foreach (Square square in Board.Squares)
-            {
+            foreach (Square square in Board.Squares) {
                 SquareView squareView = new SquareView(square);
                 if (square?.Piece.Color == RealPlayer.Color) //TODO Check the boardview add the player to the pieceview
                     squareView.PieceView.Player = RealPlayer;

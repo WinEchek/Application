@@ -7,5 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Name="Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <UserControl Name="UcBoardView" Grid.Column="1"/>
+        <StackPanel Grid.Column="2">
+            <GroupBox Header="Options de la partie">
+                <StackPanel>
+                    <Button Name="Save">Sauvegarder</Button>
+                    <Button Name="Cast">Caster</Button>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </UserControl>

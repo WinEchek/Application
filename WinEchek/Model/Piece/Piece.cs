@@ -1,6 +1,10 @@
-﻿namespace WinEchek.Model.Piece
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using WinEchek.Annotations;
+
+namespace WinEchek.Model.Piece
 {
-    public class Piece
+    public class Piece : INotifyPropertyChanged
     {
         public Type Type { get; }
         public Color Color { get; }
@@ -13,6 +17,13 @@
             Square = square;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
     public enum Type {
         Bishop,

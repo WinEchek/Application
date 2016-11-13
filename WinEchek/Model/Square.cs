@@ -1,4 +1,7 @@
-﻿using Color = WinEchek.Model.Piece.Color;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using WinEchek.Annotations;
+using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.Model
 {
