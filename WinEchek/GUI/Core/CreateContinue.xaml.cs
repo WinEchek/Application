@@ -31,7 +31,7 @@ namespace WinEchek.GUI.Core {
         private void CreateNewGameTile_OnClick(object sender, RoutedEventArgs e)
         {
             _mainWindow.WinEchek.CreateGame();
-            _mainWindow.MainControl.Content = new GameView(_mainWindow);
+            _mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
         }
 
         private void TileLoadGame_OnClick(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace WinEchek.GUI.Core {
             //TODO: déplacer la logique des sauvegarde dans WinEchek et retourner les éventuels affichages à la graphique (msgb)
             ILoader loader = new BinaryLoader();
             _mainWindow.WinEchek.Game = loader.Load("Game.bin");
-            _mainWindow.MainControl.Content = new GameView(_mainWindow);
+            _mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
         }
     }
 }

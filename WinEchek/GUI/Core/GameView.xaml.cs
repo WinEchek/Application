@@ -20,13 +20,19 @@ namespace WinEchek.GUI.Core {
     /// </summary>
     public partial class GameView : UserControl
     {
+        public Game Game { get; set; }
+        /// <summary>
+        /// Liens vers la fenêtre principale pour effectuer les interactions avec celle-ci (Dialog, ...)
+        /// </summary>
         private MainWindow _mainWindow;
-        public GameView(MainWindow mw) {
+
+        public GameView(MainWindow mw, Game game) {
             InitializeComponent();
             _mainWindow = mw;
+            Game = game;
             try
             {
-                UcBoardView.Content = _mainWindow.WinEchek.Game.BoardView;
+                UcBoardView.Content = Game.BoardView;
             }
             catch (Exception)
             {
