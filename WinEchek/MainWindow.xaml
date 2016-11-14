@@ -11,7 +11,6 @@
         mc:Ignorable="d"
         Icon="GUI/Ressources/Logo/Icon.png"
         Title="WinEchek"
-
         ShowIconOnTitleBar="True"
         TitleCharacterCasing="Normal"
                       >
@@ -19,7 +18,6 @@
     <Window.Resources>
         <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
     </Window.Resources>
-
 
     <Grid>
         <Grid.RowDefinitions>

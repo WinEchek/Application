@@ -39,6 +39,7 @@ namespace WinEchek.GUI.Core {
             //TODO: déplacer la logique des sauvegarde dans WinEchek et retourner les éventuels affichages à la graphique (msgb)
             ILoader loader = new BinaryLoader();
             _mainWindow.WinEchek.Game = loader.Load("Game.bin");
+            _mainWindow.MainControl.Content = new GameView(_mainWindow);
         }
     }
 }
