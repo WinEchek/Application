@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using WinEchek.Persistance;
 
 namespace WinEchek.GUI.Core {
@@ -36,10 +38,23 @@ namespace WinEchek.GUI.Core {
 
         private void TileLoadGame_OnClick(object sender, RoutedEventArgs e)
         {
-            //TODO: déplacer la logique des sauvegarde dans WinEchek et retourner les éventuels affichages à la graphique (msgb)
             ILoader loader = new BinaryLoader();
-            _mainWindow.WinEchek.Game = loader.Load("Game.bin");
-            _mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
+
+            String directorySaveName = "Save";
+            String fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
+            Console.WriteLine(fullSavePath);
+            if (Directory.Exists(fullSavePath) == false) {
+                Directory.CreateDirectory(fullSavePath);
+            }
+            OpenFileDialog openFileDialog = new OpenFileDialog() {
+                Filter = "WinEchek Save Files (*.we)|*.we",
+                InitialDirectory = fullSavePath
+            };
+            if (openFileDialog.ShowDialog() == true) {
+                _mainWindow.WinEchek.Game = loader.Load(openFileDialog.FileName);
+                _mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
+            }
+
         }
     }
 }

@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinEchek.GUI.Core"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignData }">
+    
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -14,12 +17,29 @@
         </Grid.ColumnDefinitions>
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <StackPanel Grid.Column="2">
-            <GroupBox Header="Options de la partie">
-                <StackPanel>
-                    <Button Name="Save" Click="Save_OnClick">Sauvegarder</Button>
-                    <Button Name="Load" Click="Load_OnClick">Charger</Button>
+            <iconPacks:PackIconMaterial Kind="Menu" />
+            <!--
+            <UserControl Width="0" Visibility="Collapsed"></UserControl>
+            <UserControl Name="PLS" Visibility="Visible">
+                <GroupBox Header="Persistence">
+                <Button Name="Save" Click="Save_OnClick">Sauvegarder</Button>
+                </GroupBox>
+            </UserControl>-->
+            <controls:Flyout Grid.Column="2" Visibility="Collapsed" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:FlyoutsControl}, Path=ActualWidth, Mode=OneWay}"
+                                    AnimateOpacity="True"
+                                    CloseButtonIsCancel="True"
+                                    Name="Flyout"
+                                    Header="Options"
+                                    Position="Right">
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <GroupBox Header="Options de la partie">
+                        <StackPanel>
+                        </StackPanel>
+                    </GroupBox>
                 </StackPanel>
-            </GroupBox>
+            </controls:Flyout>
+            
         </StackPanel>
+        
     </Grid>
 </UserControl>

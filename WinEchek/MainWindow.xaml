@@ -19,6 +19,29 @@
         <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
     </Window.Resources>
 
+
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl x:Name="flyoutsControl">
+            <controls:Flyout Grid.Column="3" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:FlyoutsControl}, Path=ActualWidth, Mode=OneWay}"
+                                    AnimateOpacity="True"
+                                    CloseButtonIsCancel="True"
+                                    Name="Flyout"
+                                    Header="Options"
+                                    Position="Right">
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <GroupBox Header="Options de la partie">
+                        <StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+
+
+
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -29,6 +52,7 @@
                 <MenuItem Header="_Quitter"></MenuItem>
             </MenuItem>
         </Menu>
+        
         <controls:TransitioningContentControl Grid.Row="1" x:Name="MainControl" Transition="Left" />
     </Grid>
     
