@@ -17,27 +17,14 @@
         </Grid.ColumnDefinitions>
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <StackPanel Grid.Column="2">
-            <iconPacks:PackIconMaterial Kind="Menu" />
-            <!--
-            <UserControl Width="0" Visibility="Collapsed"></UserControl>
-            <UserControl Name="PLS" Visibility="Visible">
-                <GroupBox Header="Persistence">
-                <Button Name="Save" Click="Save_OnClick">Sauvegarder</Button>
-                </GroupBox>
-            </UserControl>-->
-            <controls:Flyout Grid.Column="2" Visibility="Collapsed" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:FlyoutsControl}, Path=ActualWidth, Mode=OneWay}"
-                                    AnimateOpacity="True"
-                                    CloseButtonIsCancel="True"
-                                    Name="Flyout"
-                                    Header="Options"
-                                    Position="Right">
-                <StackPanel Margin="10" Orientation="Vertical">
-                    <GroupBox Header="Options de la partie">
-                        <StackPanel>
-                        </StackPanel>
-                    </GroupBox>
+            <Button Foreground="{StaticResource BlackBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Foreground="{StaticResource AccentBaseColorBrush}" Kind="Menu" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Label Foreground="{StaticResource AccentBaseColorBrush}" VerticalAlignment="Center" HorizontalAlignment="Center">Menu</Label>
                 </StackPanel>
-            </controls:Flyout>
+                
+            </Button>
+           
             
         </StackPanel>
         

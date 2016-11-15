@@ -19,14 +19,22 @@
         <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
     </Window.Resources>
 
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <StackPanel Orientation="Horizontal" Name="StackPanelTitle"></StackPanel>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
 
     <controls:MetroWindow.Flyouts>
+        <!-- Renommer FlyoutsControl quand tout sera fonctionnel -->
         <controls:FlyoutsControl x:Name="flyoutsControl">
-            <controls:Flyout Grid.Column="3" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:FlyoutsControl}, Path=ActualWidth, Mode=OneWay}"
+            <controls:Flyout Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:FlyoutsControl}, Path=ActualWidth, Mode=OneWay}"
                                     AnimateOpacity="True"
                                     CloseButtonIsCancel="True"
                                     Name="Flyout"
                                     Header="Options"
+                                    MaxWidth="200"
                                     Position="Right">
                 <StackPanel Margin="10" Orientation="Vertical">
                     <GroupBox Header="Options de la partie">
@@ -39,8 +47,7 @@
     </controls:MetroWindow.Flyouts>
 
 
-
-
+ 
 
     <Grid>
         <Grid.RowDefinitions>

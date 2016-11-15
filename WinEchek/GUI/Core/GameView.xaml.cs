@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Policy;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
+using WinEchek.GUI.Core.FlyoutContent;
 using WinEchek.Persistance;
 
 namespace WinEchek.GUI.Core {
@@ -29,16 +31,18 @@ namespace WinEchek.GUI.Core {
         /// </summary>
         private MainWindow _mainWindow;
 
+        private GameViewFlyout _gameViewFlyout;
+
         public GameView(MainWindow mw, Game game) {
             InitializeComponent();
             _mainWindow = mw;
             Game = game;
-            //_mainWindow.Flyout.Content = PLS.Content;
-            //_mainWindow.Flyout.IsOpen = true;
-            Flyout.IsOpen = true;
-            Flyout.Visibility = Visibility.Visible;
-            RoutedEvent eEvent =  Flyout.ClosingFinishedEvent;
+            _gameViewFlyout = new GameViewFlyout(this);
+            _mainWindow.Flyout.Content = _gameViewFlyout.Content;
+            Button menu = new Button();
+            menu.Content = "Menu";
             
+            _mainWindow.StackPanelTitle.Children.Add(menu);
 
             try
             {
@@ -51,25 +55,16 @@ namespace WinEchek.GUI.Core {
             }    
         }
 
+        
+
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
-            BinarySaver saver = new BinarySaver();
-            String directorySaveName = "Save";
-            String fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
-            Console.WriteLine(fullSavePath);
-            if (Directory.Exists(fullSavePath) == false)
-            {
-                Directory.CreateDirectory(fullSavePath);
-            }
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                Filter = "WinEchek Save Files (*.we)|*.we",
-                InitialDirectory = fullSavePath
-            };
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                saver.Save(_mainWindow.WinEchek.Game, saveFileDialog.FileName);
-            }
+            
+        }
+
+        private void ButtonMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.Flyout.IsOpen = !_mainWindow.Flyout.IsOpen;
         }
     }
 }

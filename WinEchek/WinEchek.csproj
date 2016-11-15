@@ -86,6 +86,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Game.cs" />
+    <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
+      <DependentUpon>GameViewFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\BinaryLoader.cs" />
     <Compile Include="Persistance\BinarySaver.cs" />
     <Compile Include="Persistance\ILoader.cs" />
@@ -96,6 +99,10 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Core\RealPlayer.cs" />
     <Page Include="GUI\Core\CreateContinue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
