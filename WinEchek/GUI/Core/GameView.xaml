@@ -17,10 +17,18 @@
         </Grid.ColumnDefinitions>
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <StackPanel Grid.Column="2">
-            <Button Foreground="{StaticResource BlackBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick">
+            <Button Foreground="Aquamarine" Background="{StaticResource AccentBaseColorBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick" >
+                <Button.LayoutTransform>
+                    <RotateTransform Angle="-90"></RotateTransform>
+                </Button.LayoutTransform>
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconMaterial Foreground="{StaticResource AccentBaseColorBrush}" Kind="Menu" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <Label Foreground="{StaticResource AccentBaseColorBrush}" VerticalAlignment="Center" HorizontalAlignment="Center">Menu</Label>
+                    <iconPacks:PackIconMaterial Foreground="{StaticResource BlackBrush}" Kind="Menu" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <iconPacks:PackIconMaterial.LayoutTransform>
+                            <RotateTransform Angle="90"></RotateTransform>
+                        </iconPacks:PackIconMaterial.LayoutTransform>
+                    </iconPacks:PackIconMaterial>
+                    <Label Foreground="{StaticResource BlackBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Menu"/>
+
                 </StackPanel>
                 
             </Button>

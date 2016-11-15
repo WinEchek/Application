@@ -37,12 +37,12 @@ namespace WinEchek.GUI.Core {
             InitializeComponent();
             _mainWindow = mw;
             Game = game;
+
+            /**
+             * Création et ajout du contenu du PLS pour cette vue
+             */
             _gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = _gameViewFlyout.Content;
-            Button menu = new Button();
-            menu.Content = "Menu";
-            
-            _mainWindow.StackPanelTitle.Children.Add(menu);
 
             try
             {

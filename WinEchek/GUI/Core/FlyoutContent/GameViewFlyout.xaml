@@ -4,13 +4,43 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinEchek.GUI.Core.FlyoutContent"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
-    <Grid>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LargeTileStyle" TargetType="controls:Tile">
+                <Setter Property="Height" Value="125" />
+                <Setter Property="TitleFontSize" Value="14" />
+                <Setter Property="Width" Value="Auto" />
+            </Style>
+
+            <Style x:Key="SmallTileStyle" TargetType="controls:Tile">
+                <Setter Property="Height" Value="125" />
+                <Setter Property="TitleFontSize" Value="10" />
+                <Setter Property="Width" Value="Auto" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical">
+      <!-- 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0" Header="Persistence">
-                <Button Name="ButtonSave" Click="ButtonSave_OnClick">Sauvegarder</Button>
-            </GroupBox>
-    </Grid>
+        </Grid.RowDefinitions>-->
+
+        <controls:Tile Title="Sauvegarder la partie"
+                               Margin="3"
+                       Name="TileSave"
+                       Background="{StaticResource AccentColorBrush}"
+                               Style="{StaticResource LargeTileStyle}"
+                               controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                               HorizontalTitleAlignment="Center"
+                       Click="TileSave_OnClick"
+                       >
+            <iconPacks:PackIconEntypo Width="40"
+                                                  Height="40"
+                                                  Kind="Save" />
+        </controls:Tile>
+    </StackPanel>
 </UserControl>

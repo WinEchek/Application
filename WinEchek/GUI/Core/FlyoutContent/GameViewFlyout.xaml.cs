@@ -29,24 +29,25 @@ namespace WinEchek.GUI.Core.FlyoutContent
             InitializeComponent();
             _gameView = gameView;
         }
-
-        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Action effectuée lors d'un click sur la tile sauvegarder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TileSave_OnClick(object sender, RoutedEventArgs e)
         {
             BinarySaver saver = new BinarySaver();
             String directorySaveName = "Save";
             String fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
             Console.WriteLine(fullSavePath);
-            if (Directory.Exists(fullSavePath) == false)
-            {
+            if (Directory.Exists(fullSavePath) == false) {
                 Directory.CreateDirectory(fullSavePath);
             }
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
+            SaveFileDialog saveFileDialog = new SaveFileDialog {
                 Filter = "WinEchek Save Files (*.we)|*.we",
                 InitialDirectory = fullSavePath
             };
-            if (saveFileDialog.ShowDialog() == true)
-            {
+            if (saveFileDialog.ShowDialog() == true) {
                 saver.Save(_gameView.Game, saveFileDialog.FileName);
             }
         }
