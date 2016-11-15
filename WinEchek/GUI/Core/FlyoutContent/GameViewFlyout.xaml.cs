@@ -36,7 +36,7 @@ namespace WinEchek.GUI.Core.FlyoutContent
         /// <param name="e"></param>
         private void TileSave_OnClick(object sender, RoutedEventArgs e)
         {
-            BinarySaver saver = new BinarySaver();
+            ISaver saver = new BinarySaver();
             String directorySaveName = "Save";
             String fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
             Console.WriteLine(fullSavePath);
@@ -44,7 +44,7 @@ namespace WinEchek.GUI.Core.FlyoutContent
                 Directory.CreateDirectory(fullSavePath);
             }
             SaveFileDialog saveFileDialog = new SaveFileDialog {
-                Filter = "WinEchek Save Files (*.we)|*.we",
+                Filter = saver.Filter(),
                 InitialDirectory = fullSavePath
             };
             if (saveFileDialog.ShowDialog() == true) {

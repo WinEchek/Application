@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <StackPanel Grid.Column="2">
-            <Button Foreground="Aquamarine" Background="{StaticResource AccentBaseColorBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick" >
+            <Button Background="{DynamicResource AccentBaseColorBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick" >
                 <Button.LayoutTransform>
                     <RotateTransform Angle="-90"></RotateTransform>
                 </Button.LayoutTransform>

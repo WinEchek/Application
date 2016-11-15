@@ -16,7 +16,52 @@
                       >
 
     <Window.Resources>
-        <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"></ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="GUI/Ressources/Sprites/Pieces.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="MetroMenuItem" TargetType="{x:Type MenuItem}">
+                <Setter Property="Background" Value="{DynamicResource MenuItemBackgroundBrush}" />
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+                <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+                <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+                <Style.Triggers>
+                    <Trigger Property="Role" Value="TopLevelHeader">
+                        <Setter Property="Padding" Value="7 5 8 6" />
+                        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+                    </Trigger>
+                    <Trigger Property="Role" Value="TopLevelItem">
+                        <Setter Property="Padding" Value="7 5 8 6" />
+                        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+                    </Trigger>
+                    <Trigger Property="Role" Value="SubmenuHeader">
+                        <Setter Property="Padding" Value="2 6 2 6" />
+                        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SubmenuHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+                    </Trigger>
+                    <Trigger Property="Role" Value="SubmenuItem">
+                        <Setter Property="Padding" Value="2 6 2 6" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Ellipse x:Key="AccentMenuIcon"
+                     Width="16"
+                     Height="16"
+                     Fill="{Binding ColorBrush, Mode=OneWay}"
+                     x:Shared="False" />
+
+            <Style x:Key="AccentColorMenuItemStyle"
+                   BasedOn="{StaticResource MetroMenuItem}"
+                   TargetType="{x:Type MenuItem}">
+                <Setter Property="Command" Value="{Binding ChangeAccentCommand}" />
+                <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+                <Setter Property="Icon" Value="{StaticResource AccentMenuIcon}" />
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
 
     <controls:MetroWindow.RightWindowCommands>
@@ -46,9 +91,6 @@
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
 
-
- 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -58,8 +100,13 @@
             <MenuItem Header="_Fichier">
                 <MenuItem Header="_Quitter"></MenuItem>
             </MenuItem>
+            <MenuItem Header="_Options">
+                <MenuItem Header="_Thème">
+                    <MenuItem Header="_Couleurs" ItemsSource="{Binding ItemSource, Mode=OneWay}" ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}"/>
+                </MenuItem>
+
+            </MenuItem>
         </Menu>
-        
         <controls:TransitioningContentControl Grid.Row="1" x:Name="MainControl" Transition="Left" />
     </Grid>
     

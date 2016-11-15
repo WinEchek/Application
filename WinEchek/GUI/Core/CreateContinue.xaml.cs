@@ -47,7 +47,7 @@ namespace WinEchek.GUI.Core {
                 Directory.CreateDirectory(fullSavePath);
             }
             OpenFileDialog openFileDialog = new OpenFileDialog() {
-                Filter = "WinEchek Save Files (*.we)|*.we",
+                Filter = loader.Filter(),
                 InitialDirectory = fullSavePath
             };
             if (openFileDialog.ShowDialog() == true) {

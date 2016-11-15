@@ -13,5 +13,10 @@ namespace WinEchek.Persistance
             serializer.Serialize(writer, game);
             writer.Close();
         }
+
+        public string Filter()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

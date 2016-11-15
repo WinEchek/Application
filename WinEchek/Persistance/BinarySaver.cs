@@ -22,5 +22,10 @@ namespace WinEchek.Persistance
             //TODO should serialize command for the motor and reconstruct it with the command too
             stream.Close();
         }
+
+        public string Filter()
+        {
+            return "WinEchek Binary Save Files (*.we)|*.we";
+        }
     }
 }

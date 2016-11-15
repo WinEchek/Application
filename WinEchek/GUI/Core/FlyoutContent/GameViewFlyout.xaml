@@ -23,7 +23,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" Margin="5 0 5 0">
       <!-- 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,7 +32,6 @@
         <controls:Tile Title="Sauvegarder la partie"
                                Margin="3"
                        Name="TileSave"
-                       Background="{StaticResource AccentColorBrush}"
                                Style="{StaticResource LargeTileStyle}"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
                                HorizontalTitleAlignment="Center"

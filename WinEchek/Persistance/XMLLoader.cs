@@ -17,5 +17,10 @@ namespace WinEchek.Persistance
             Game game = serializer.Deserialize(reader) as Game;
             return game;
         }
+
+        public string Filter()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

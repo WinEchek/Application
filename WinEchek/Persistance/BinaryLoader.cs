@@ -31,5 +31,10 @@ namespace WinEchek.Persistance
             stream.Close();
             return game;
         }
+
+        public string Filter()
+        {
+            return "WinEchek Binary Save Files (*.we)|*.we";
+        }
     }
 }

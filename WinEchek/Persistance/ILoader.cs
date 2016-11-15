@@ -8,6 +8,7 @@ namespace WinEchek.Persistance
 {
     interface ILoader
     {
-        Game Load(string path); 
+        Game Load(string path);
+        String Filter();
     }
 }
