@@ -41,5 +41,17 @@
                                                   Height="40"
                                                   Kind="Save" />
         </controls:Tile>
+        <controls:Tile Title="Quitter la partie"
+                               Margin="3"
+                       Name="TileQuit"
+                               Style="{StaticResource LargeTileStyle}"
+                               controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                               HorizontalTitleAlignment="Center"
+                       Click="TileQuit_OnClick"
+                       >
+            <iconPacks:PackIconMaterial Width="40"
+                                                  Height="40"
+                                                  Kind="ExitToApp" />
+        </controls:Tile>
     </StackPanel>
 </UserControl>

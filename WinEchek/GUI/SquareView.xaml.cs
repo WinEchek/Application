@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WinEchek.Model;
@@ -25,8 +26,17 @@ namespace WinEchek.GUI
             if (square.Piece != null)
                 PieceView = new PieceView(square.Piece);
 
+
             //TODO add color theme support
-            Background = new SolidColorBrush((square.X+square.Y)%2 == 0 ? Colors.Gray : Colors.DodgerBlue); 
+            if ((square.X + square.Y)%2 == 0)
+            {
+                SetResourceReference(Control.BackgroundProperty, "AccentColorBrush4");
+            }
+            else
+            {
+                SetResourceReference(Control.BackgroundProperty, "AccentColorBrush");
+            }
+            //Background = new SolidColorBrush((square.X+square.Y)%2 == 0 ? Colors.Gray : Colors.Blue); 
             Grid.SetColumn(this, square.X);
             Grid.SetRow(this, square.Y);
             UcPieceView.Content = PieceView;

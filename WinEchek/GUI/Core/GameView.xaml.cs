@@ -1,23 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Microsoft.Win32;
 using WinEchek.GUI.Core.FlyoutContent;
-using WinEchek.Persistance;
 
 namespace WinEchek.GUI.Core {
     /// <summary>
@@ -65,6 +51,21 @@ namespace WinEchek.GUI.Core {
         private void ButtonMenu_OnClick(object sender, RoutedEventArgs e)
         {
             _mainWindow.Flyout.IsOpen = !_mainWindow.Flyout.IsOpen;
+        }
+
+        public async Task Quit() 
+        { 
+
+            _mainWindow.Flyout.IsOpen = false;
+
+            var result = await _mainWindow.ShowMessageAsync("Quitter la partie", "Voulez-vous vraiment quitter la partie ? Si votre partie n'est pas sauvegardée, elle sera perdue...", MessageDialogStyle.AffirmativeAndNegative);
+            if (result == MessageDialogResult.Affirmative)
+            {
+                _mainWindow.Flyout.Content = null;
+                _mainWindow.WinEchek.Game = null;
+                _mainWindow.MainControl.Content = new Home(_mainWindow);
+            }
+            
         }
     }
 }

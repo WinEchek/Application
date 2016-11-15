@@ -89,6 +89,9 @@
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
+      <DependentUpon>HistoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\BinaryLoader.cs" />
     <Compile Include="Persistance\BinarySaver.cs" />
     <Compile Include="Persistance\ILoader.cs" />
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Core\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Widgets\HistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
