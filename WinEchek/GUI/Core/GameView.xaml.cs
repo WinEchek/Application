@@ -30,7 +30,6 @@ namespace WinEchek.GUI.Core {
              */
             _gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = _gameViewFlyout.Content;
-            _mainWindow.Flyout.MouseLeave += Flyout_MouseLeave;
 
             try
             {
@@ -43,18 +42,6 @@ namespace WinEchek.GUI.Core {
             }    
         }
 
-        private void Flyout_MouseLeave(object sender, MouseEventArgs e)
-        {
-            //TODO check if it is fully open
-            if (!_mainWindow.Flyout.IsOpen) return;
-            _mainWindow.Flyout.IsOpen = false;
-        }
-
-        private void ButtonMenu_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            if (_mainWindow.Flyout.IsOpen) return;
-            _mainWindow.Flyout.IsOpen = true;
-        }
 
         public async Task Quit() 
         { 
@@ -69,6 +56,18 @@ namespace WinEchek.GUI.Core {
                 _mainWindow.MainControl.Content = new Home(_mainWindow);
             }
             
+        }
+
+        private void Grid_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!_mainWindow.Flyout.IsOpen) return;
+            _mainWindow.Flyout.IsOpen = false;
+        }
+
+        private void ButtonMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_mainWindow.Flyout.IsOpen) return;
+            _mainWindow.Flyout.IsOpen = true;
         }
     }
 }

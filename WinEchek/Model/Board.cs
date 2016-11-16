@@ -24,14 +24,6 @@ namespace WinEchek.Model
                 }
             }
             //TODO Move piece placement logic appart from the board
-            /*for (int i = 0; i < Size; i++)
-            {
-                for (int j = 0; j < Size; j++)
-                {
-                    Squares[i, j].Piece = ((i+j) %2 ==0) ? new Rook(Color.Black, Squares[i,j]) : new Rook(Color.White, Squares[i, j]);
-                } 
-            }*/
-
 
             //Pions noirs
             for (int i = 0; i < Size; i++)

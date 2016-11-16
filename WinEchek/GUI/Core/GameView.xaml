@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignData }">
     
-    <Grid Name="Grid">
+    <Grid Name="Grid" IsHitTestVisible="True" Background="#00000000" MouseDown="Grid_OnMouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition />
@@ -20,7 +20,7 @@
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <widgets:HistoryView Grid.Column="2"/>
         <StackPanel Grid.Column="3">
-            <Button Background="{DynamicResource AccentColorBrush}" Name="ButtonMenu" MouseEnter="ButtonMenu_OnMouseEnter" >
+            <Button Background="{DynamicResource AccentColorBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick" >
                 <Button.LayoutTransform>
                     <RotateTransform Angle="-90"></RotateTransform>
                 </Button.LayoutTransform>
