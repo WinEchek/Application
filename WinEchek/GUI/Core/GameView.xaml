@@ -20,7 +20,7 @@
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <widgets:HistoryView Grid.Column="2"/>
         <StackPanel Grid.Column="3">
-            <Button Background="{DynamicResource AccentColorBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick" >
+            <Button Background="{DynamicResource AccentColorBrush}" Name="ButtonMenu" MouseEnter="ButtonMenu_OnMouseEnter" >
                 <Button.LayoutTransform>
                     <RotateTransform Angle="-90"></RotateTransform>
                 </Button.LayoutTransform>

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
 using WinEchek.GUI.Core.FlyoutContent;
 
@@ -29,6 +30,7 @@ namespace WinEchek.GUI.Core {
              */
             _gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = _gameViewFlyout.Content;
+            _mainWindow.Flyout.MouseLeave += Flyout_MouseLeave;
 
             try
             {
@@ -41,16 +43,16 @@ namespace WinEchek.GUI.Core {
             }    
         }
 
-        
-
-        private void Save_OnClick(object sender, RoutedEventArgs e)
+        private void Flyout_MouseLeave(object sender, MouseEventArgs e)
         {
-            
+            if (!_mainWindow.Flyout.IsOpen) return;
+            _mainWindow.Flyout.IsOpen = false;
         }
 
-        private void ButtonMenu_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonMenu_OnMouseEnter(object sender, MouseEventArgs e)
         {
-            _mainWindow.Flyout.IsOpen = !_mainWindow.Flyout.IsOpen;
+            if (_mainWindow.Flyout.IsOpen) return;
+            _mainWindow.Flyout.IsOpen = true;
         }
 
         public async Task Quit() 
