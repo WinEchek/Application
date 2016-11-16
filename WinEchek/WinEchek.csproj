@@ -85,7 +85,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\CompensableConversation.cs" />
+    <Compile Include="Command\ICompensableCommand.cs" />
+    <Compile Include="Command\Move.cs" />
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Engine\RealEngine.cs" />
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
@@ -148,7 +152,7 @@
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Engine\IEngine.cs" />
-    <Compile Include="Engine\YoloMoteur.cs" />
+    <Compile Include="Engine\TrivialEngine.cs" />
     <Compile Include="GUI\Core\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -208,9 +212,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Command\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="GUI\Ressources\Sprites\queenBlack.png" />
     <Resource Include="GUI\Ressources\Sprites\rookBlack.png" />

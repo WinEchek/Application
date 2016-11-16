@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignData }">
     
-    <Grid Name="Grid" IsHitTestVisible="True" Background="#00000000" MouseDown="Grid_OnMouseDown">
+    <Grid Name="Grid" IsHitTestVisible="True" Background="#00000000" MouseDown="Grid_OnMouseDown" MouseRightButtonDown="Grid_OnMouseRightButtonDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition />

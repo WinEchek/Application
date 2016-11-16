@@ -9,16 +9,16 @@ namespace WinEchek
     [Serializable]
     public class Game
     {
-        public YoloMoteur Moteur { get; set; }
+        public IEngine Moteur { get; set; }
         public BoardView BoardView { get; set; }
 
         public Game()
         {
-            Moteur = new YoloMoteur(new Board());
+            Moteur = new RealEngine(new Board());
             BoardView = new BoardView(Moteur.Board, new RealPlayer(this, Color.White));
         }
 
-        public Game(YoloMoteur moteur, BoardView boardView)
+        public Game(IEngine moteur, BoardView boardView)
         {
             Moteur = moteur;
             BoardView = boardView;
@@ -27,6 +27,11 @@ namespace WinEchek
         public void DoMove(Piece piece, Square square)
         {
             Moteur.DoMove(piece, square);
+        }
+
+        public void Undo()
+        {
+            Moteur.Undo();
         }
     }
 }

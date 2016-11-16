@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using WinEchek.Engine;
 using WinEchek.GUI;
 using WinEchek.Model;
@@ -22,7 +17,8 @@ namespace WinEchek.Persistance
             Board board = formatter.Deserialize(stream) as Board;
             if(board == null)
                 throw new SerializationException("Cast exception");
-            YoloMoteur moteur = new YoloMoteur(board);
+            //TODO the loader should either be independant of the engine or know which one it is using
+            TrivialEngine moteur = new TrivialEngine(board);
             RealPlayer player = new RealPlayer(null, Color.White);
             BoardView boardView = new BoardView(moteur.Board, player);
             Game game = new Game(moteur, boardView);

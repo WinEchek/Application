@@ -9,11 +9,11 @@ using WinEchek.Model.Piece;
 namespace WinEchek.Engine
 {
     [Serializable]
-    public class YoloMoteur : IEngine
+    public class TrivialEngine : IEngine
     {
         public Board Board { get; set; }
 
-        public YoloMoteur(Board board)
+        public TrivialEngine(Board board)
         {
             Board = board;
         }
@@ -34,6 +34,16 @@ namespace WinEchek.Engine
                 square.Piece = piece;
             }
             return true;
+        }
+
+        public void Undo()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Redo()
+        {
+            throw new NotImplementedException();
         }
     }
 }

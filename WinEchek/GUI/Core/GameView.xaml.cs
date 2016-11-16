@@ -18,18 +18,14 @@ namespace WinEchek.GUI.Core {
         /// </summary>
         private MainWindow _mainWindow;
 
-        private GameViewFlyout _gameViewFlyout;
-
         public GameView(MainWindow mw, Game game) {
             InitializeComponent();
             _mainWindow = mw;
             Game = game;
 
-            /**
-             * Création et ajout du contenu du PLS pour cette vue
-             */
-            _gameViewFlyout = new GameViewFlyout(this);
-            _mainWindow.Flyout.Content = _gameViewFlyout.Content;
+            //Création et ajout du contenu du PLS pour cette vue
+            GameViewFlyout gameViewFlyout = new GameViewFlyout(this);
+            _mainWindow.Flyout.Content = gameViewFlyout.Content;
 
             try
             {
@@ -37,7 +33,7 @@ namespace WinEchek.GUI.Core {
             }
             catch (Exception)
             {
-
+                //TODO could be another exception
                 _mainWindow.ShowMessageAsync("Erreur", "Impossible d'afficher une partie non créée");
             }    
         }
@@ -45,7 +41,6 @@ namespace WinEchek.GUI.Core {
 
         public async Task Quit() 
         { 
-
             _mainWindow.Flyout.IsOpen = false;
 
             var result = await _mainWindow.ShowMessageAsync("Quitter la partie", "Voulez-vous vraiment quitter la partie ? Si votre partie n'est pas sauvegardée, elle sera perdue...", MessageDialogStyle.AffirmativeAndNegative);
@@ -68,6 +63,11 @@ namespace WinEchek.GUI.Core {
         {
             if (_mainWindow.Flyout.IsOpen) return;
             _mainWindow.Flyout.IsOpen = true;
+        }
+
+        private void Grid_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Game.Undo();
         }
     }
 }
