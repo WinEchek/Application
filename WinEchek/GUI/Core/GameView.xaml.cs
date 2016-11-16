@@ -45,6 +45,7 @@ namespace WinEchek.GUI.Core {
 
         private void Flyout_MouseLeave(object sender, MouseEventArgs e)
         {
+            //TODO check if it is fully open
             if (!_mainWindow.Flyout.IsOpen) return;
             _mainWindow.Flyout.IsOpen = false;
         }

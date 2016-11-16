@@ -27,16 +27,9 @@ namespace WinEchek.GUI
                 PieceView = new PieceView(square.Piece);
 
 
-            //TODO add color theme support
-            if ((square.X + square.Y)%2 == 0)
-            {
-                SetResourceReference(Control.BackgroundProperty, "AccentColorBrush4");
-            }
-            else
-            {
-                SetResourceReference(Control.BackgroundProperty, "AccentColorBrush");
-            }
-            //Background = new SolidColorBrush((square.X+square.Y)%2 == 0 ? Colors.Gray : Colors.Blue); 
+            SetResourceReference(Control.BackgroundProperty,
+                (square.X + square.Y)%2 == 0 ? "AccentColorBrush4" : "AccentColorBrush");
+
             Grid.SetColumn(this, square.X);
             Grid.SetRow(this, square.Y);
             UcPieceView.Content = PieceView;
@@ -44,10 +37,7 @@ namespace WinEchek.GUI
 
         private void SquarePropertyChangeHandler(object sender, PropertyChangedEventArgs e)
         {
-            if (Square.Piece != null)
-                PieceView = new PieceView(Square.Piece);
-            else
-                PieceView = null;
+            PieceView = Square.Piece != null ? new PieceView(Square.Piece) : null;
             UcPieceView.Content = PieceView;
         }
     }

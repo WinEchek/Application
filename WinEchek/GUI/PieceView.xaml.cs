@@ -17,7 +17,6 @@ namespace WinEchek.GUI {
     /// Logique d'interaction pour PieceView.xaml
     /// </summary>
     public partial class PieceView : UserControl {
-        //TODO : ça va Binder un jour ou l'autre, mais pour le moment les rageux bavent
         public Piece Piece { get; set; }
         public RealPlayer Player { get; set; }
 

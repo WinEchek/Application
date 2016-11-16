@@ -36,8 +36,6 @@ namespace WinEchek.GUI
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
         }
-
-        //TODO check if this resizing policy isn't problematic
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
