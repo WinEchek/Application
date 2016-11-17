@@ -14,20 +14,22 @@ namespace WinEchek.Command
             _redoCommands.Clear();
         }
 
-        public void Undo()
+        public ICompensableCommand Undo()
         {
-            if (_undoCommands.Count == 0) return;
+            if (_undoCommands.Count == 0) return null;
             ICompensableCommand command = _undoCommands.Pop();
             command.Compensate();
             _redoCommands.Push(command);
+            return command;
         }
 
-        public void Redo()
+        public ICompensableCommand Redo()
         {
-            if (_redoCommands.Count == 0) return;
+            if (_redoCommands.Count == 0) return null;
             ICompensableCommand command = _redoCommands.Pop();
             command.Execute();
             _undoCommands.Push(command);
+            return command;
         }
     }
 }

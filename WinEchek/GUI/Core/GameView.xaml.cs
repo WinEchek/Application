@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
+using WinEchek.Command;
+using WinEchek.Engine;
 using WinEchek.GUI.Core.FlyoutContent;
 
 namespace WinEchek.GUI.Core {
@@ -13,9 +16,6 @@ namespace WinEchek.GUI.Core {
     public partial class GameView : UserControl
     {
         public Game Game { get; set; }
-        /// <summary>
-        /// Liens vers la fenêtre principale pour effectuer les interactions avec celle-ci (Dialog, ...)
-        /// </summary>
         private MainWindow _mainWindow;
 
         public GameView(MainWindow mw, Game game) {
@@ -23,10 +23,13 @@ namespace WinEchek.GUI.Core {
             _mainWindow = mw;
             Game = game;
 
+            //Event handler when a move is done
+            game.Engine.MoveDone += MoveDone;
+
             //Création et ajout du contenu du PLS pour cette vue
             GameViewFlyout gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = gameViewFlyout.Content;
-
+            
             try
             {
                 UcBoardView.Content = Game.BoardView;
@@ -53,6 +56,13 @@ namespace WinEchek.GUI.Core {
             
         }
 
+        private void MoveDone(object sender, MoveEventArgs eventArgs)
+        {
+            HistoryView.Add(eventArgs.Piece, eventArgs.StartSquare, eventArgs.TargetSquare);
+        }
+
+        #region Flyout
+
         private void Grid_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!_mainWindow.Flyout.IsOpen) return;
@@ -64,14 +74,23 @@ namespace WinEchek.GUI.Core {
             if (_mainWindow.Flyout.IsOpen) return;
             _mainWindow.Flyout.IsOpen = true;
         }
+
+        #endregion
+
+        #region Undo Redo
+
         private void ButtonUndo_OnClick(object sender, RoutedEventArgs e)
         {
             Game.Undo();
+            HistoryView.Remove();
         }
 
         private void ButtonRedo_OnClick(object sender, RoutedEventArgs e)
         {
             Game.Redo();
         }
+
+        #endregion
+        
     }
 }

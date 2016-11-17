@@ -90,6 +90,7 @@
     <Compile Include="Command\Move.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Engine\RealEngine.cs" />
+    <Compile Include="Engine\Rule.cs" />
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
@@ -151,8 +152,7 @@
     <Compile Include="GUI\Core\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Engine\IEngine.cs" />
-    <Compile Include="Engine\TrivialEngine.cs" />
+    <Compile Include="Engine\Engine.cs" />
     <Compile Include="GUI\Core\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>

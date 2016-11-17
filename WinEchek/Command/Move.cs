@@ -5,42 +5,42 @@ namespace WinEchek.Command
 {
     public class Move : ICompensableCommand
     {
-        private Piece _piece;
-        private Piece _removedPiece = null;
-        private Square _previousSquare;
+        public Piece Piece { get; internal set; }
+        private Piece _removedPiece;
+        public Square Square { get; internal set; }
         private Square _targetSquare;
 
         public Move(Piece piece, Square targetSquare)
         {
-            _piece = piece;
+            Piece = piece;
             _targetSquare = targetSquare;
         }
 
         public void Execute()
         {
-            _previousSquare = _piece.Square;
+            Square = Piece.Square;
 
             if (_targetSquare.Piece == null)//Si case vide
             {
-                _previousSquare.Piece = null;
-                _piece.Square = _targetSquare;
-                _targetSquare.Piece = _piece;
+                Square.Piece = null;
+                Piece.Square = _targetSquare;
+                _targetSquare.Piece = Piece;
             }
             else
             {
                 _removedPiece = _targetSquare.Piece;
                 _targetSquare.Piece = null;
-                _piece.Square.Piece = null;
-                _piece.Square = _targetSquare;
-                _targetSquare.Piece = _piece;
+                Piece.Square.Piece = null;
+                Piece.Square = _targetSquare;
+                _targetSquare.Piece = Piece;
             }
         }
 
         public void Compensate()
         {
             _targetSquare.Piece = _removedPiece;
-            _previousSquare.Piece = _piece;
-            _piece.Square = _previousSquare;
+            Square.Piece = Piece;
+            Piece.Square = Square;
         }
     }
 }

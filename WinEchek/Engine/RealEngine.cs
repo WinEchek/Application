@@ -6,9 +6,9 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine
 {
-    public class RealEngine : IEngine
+    public class RealEngine : Engine
     {
-        public Board Board { get; }
+        public override Board Board { get; }
         private CompensableConversation _conversation = new CompensableConversation();
 
         public RealEngine(Board board)
@@ -16,21 +16,27 @@ namespace WinEchek.Engine
             Board = board;
         }
 
-        public bool DoMove(Piece piece, Square square)
+        public override bool DoMove(Piece piece, Square square)
         {
             //TODO check rules here
+            Square startSquare = piece.Square;
             _conversation.Execute(new Move(piece, square));
+            MoveDone?.Invoke(this, new MoveEventArgs(piece, startSquare, square));
             return true;
         }
 
-        public void Undo()
+        public override void Undo()
         {
             _conversation.Undo();
         }
 
-        public void Redo()
+        public override void Redo()
         {
-            _conversation.Redo();
+            Move move = _conversation.Redo() as Move;
+            if(move!=null)
+                MoveDone?.Invoke(this, new MoveEventArgs(move.Piece, move.Square, move.Piece.Square));
         }
+
+        public override event MoveHandler MoveDone;
     }
 }

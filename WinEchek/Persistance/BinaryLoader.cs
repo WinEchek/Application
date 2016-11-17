@@ -18,7 +18,7 @@ namespace WinEchek.Persistance
             if(board == null)
                 throw new SerializationException("Cast exception");
             //TODO the loader should either be independant of the engine or know which one it is using
-            TrivialEngine moteur = new TrivialEngine(board);
+            RealEngine moteur = new RealEngine(board);
             RealPlayer player = new RealPlayer(null, Color.White);
             BoardView boardView = new BoardView(moteur.Board, player);
             Game game = new Game(moteur, boardView);

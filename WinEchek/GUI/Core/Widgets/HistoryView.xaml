@@ -9,10 +9,9 @@
         <ListView Name="ListViewHistory">
             <ListView.View>
                 <GridView>
-                      <GridViewColumn Header="Numéro"/>
-                      <GridViewColumn Header="Déplacement"/>
-                      <GridViewColumn Header="Joueur"/>
-                  </GridView>
+                    <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Number}"/>
+                    <GridViewColumn Header="Déplacement" DisplayMemberBinding="{Binding Move}"/>
+                </GridView>
               </ListView.View>
           </ListView>
     </Grid>

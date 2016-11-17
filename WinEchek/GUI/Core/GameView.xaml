@@ -28,7 +28,7 @@
 
 
         <UserControl Name="UcBoardView" Grid.Column="1"/>
-        <widgets:HistoryView Grid.Column="2"/>
+        <widgets:HistoryView Grid.Column="2" x:Name="HistoryView"/>
         <StackPanel Grid.Column="3">
             <Button Background="{DynamicResource AccentColorBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick" >
                 <Button.LayoutTransform>

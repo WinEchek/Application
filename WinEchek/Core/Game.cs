@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
+using WinEchek.Command;
 using WinEchek.Engine;
 using WinEchek.GUI;
 using WinEchek.Model;
@@ -9,34 +11,37 @@ namespace WinEchek
     [Serializable]
     public class Game
     {
-        public IEngine Moteur { get; set; }
+        public Engine.Engine Engine { get; set; }
         public BoardView BoardView { get; set; }
 
         public Game()
         {
-            Moteur = new RealEngine(new Board());
-            BoardView = new BoardView(Moteur.Board, new RealPlayer(this, Color.White));
+            Engine = new RealEngine(new Board());
+            BoardView = new BoardView(Engine.Board, new RealPlayer(this, Color.White));
         }
 
-        public Game(IEngine moteur, BoardView boardView)
+        public Game(Engine.Engine engine, BoardView boardView)
         {
-            Moteur = moteur;
+            Engine = engine;
             BoardView = boardView;
         }
 
         public void DoMove(Piece piece, Square square)
         {
-            Moteur.DoMove(piece, square);
+            Square oldSquare = piece.Square;
+            if (!Engine.DoMove(piece, square)) return;
         }
 
         public void Undo()
         {
-            Moteur.Undo();
+            Engine.Undo();
         }
 
         public void Redo()
         {
-            Moteur.Redo();
+            Engine.Redo();
         }
+
+        
     }
 }
