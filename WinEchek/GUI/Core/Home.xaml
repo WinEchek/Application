@@ -93,7 +93,7 @@
                 </controls:Tile>
                 <controls:Tile Title="Contribuer"
                                Style="{StaticResource SmallTileStyle}"
-                               
+                               Click="ContributeButton_OnClick"
                                Background="#1E90FF"
                                HorizontalTitleAlignment="Center"
                                >

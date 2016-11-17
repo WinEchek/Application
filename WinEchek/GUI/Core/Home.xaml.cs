@@ -17,5 +17,10 @@ namespace WinEchek.GUI.Core {
         {
             _mainWindow.MainControl.Content = new CreateContinue(_mainWindow);
         }
+
+        private void ContributeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/WinEchek/Application");
+        }
     }
 }
