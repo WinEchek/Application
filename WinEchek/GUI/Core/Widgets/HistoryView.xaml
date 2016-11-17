@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WinEchek.GUI.Core.Widgets"
              mc:Ignorable="d">
     <Grid>
-        <ListView Name="ListViewHistory">
+        <ListView Name="ListViewHistory" MouseMove="ListViewHistory_OnMouseMove">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Number}"/>

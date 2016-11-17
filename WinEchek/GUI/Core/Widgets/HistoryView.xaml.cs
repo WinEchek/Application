@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,34 +26,66 @@ namespace WinEchek.GUI.Core.Widgets
     /// </summary>
     public partial class HistoryView : UserControl
     {
-        ObservableCollection<MoveInfo> moves = new ObservableCollection<MoveInfo>();
+        private ObservableCollection<MoveInfo> _moves = new ObservableCollection<MoveInfo>();
+        private int lastIndex = -1;
         public HistoryView()
         {
             InitializeComponent();
-            ListViewHistory.ItemsSource = moves;
+            ListViewHistory.ItemsSource = _moves;
         }
 
         public void Add(Piece piece, Square startSquare, Square targetSquare)
         {
-            moves.Add(new MoveInfo(moves.Count+1, piece, startSquare, targetSquare));
+            _moves.Add(new MoveInfo(_moves.Count+1, piece, startSquare, targetSquare));
         }
 
         public void Remove()
         {
-            if(moves.Count == 0) return;
-            moves.RemoveAt(moves.Count-1);
+            if(_moves.Count == 0) return;
+            _moves.RemoveAt(_moves.Count-1);
         }
-    }
 
-    class MoveInfo
-    {
-        public int Number { get; set; }
-        public string Move { get; set; }
+        public delegate void ListItemNumber(int i);
 
-        public MoveInfo(int number, Piece piece, Square startSquare, Square targetSquare)
+        public event ListItemNumber ListItemOvered;
+
+        private void ListViewHistory_OnMouseMove(object sender, MouseEventArgs e)
         {
-            Number = number;
-            Move = piece.Type() + " " + startSquare.X + "," + startSquare.Y + " vers " + targetSquare.X + "," + targetSquare.Y;
+            int index = -1;
+            for (int i = 0; i < _moves.Count; i++)
+            {
+                var lbi = ListViewHistory.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
+                if (lbi == null) continue;
+                if (IsMouseOverTarget(lbi, e.GetPosition((IInputElement) lbi)))
+                {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != -1 && index != lastIndex)
+            {
+                lastIndex = index;
+                ListItemOvered?.Invoke(_moves.Count - index);
+            }
+        }
+
+        private static bool IsMouseOverTarget(Visual target, Point point)
+        {
+            var bounds = VisualTreeHelper.GetDescendantBounds(target);
+            return bounds.Contains(point);
+        }
+
+        class MoveInfo
+        {
+            public int Number { get; set; }
+            public string Move { get; set; }
+
+            public MoveInfo(int number, Piece piece, Square startSquare, Square targetSquare)
+            {
+                Number = number;
+                Move = piece.Type() + " " + startSquare.X + "," + startSquare.Y + " vers " + targetSquare.X + "," +
+                       targetSquare.Y;
+            }
         }
     }
 }

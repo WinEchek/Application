@@ -42,6 +42,5 @@ namespace WinEchek
             Engine.Redo();
         }
 
-        
     }
 }

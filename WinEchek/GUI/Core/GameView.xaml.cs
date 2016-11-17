@@ -17,6 +17,7 @@ namespace WinEchek.GUI.Core {
     {
         public Game Game { get; set; }
         private MainWindow _mainWindow;
+        private int _lastStateDisplayed = 0;
 
         public GameView(MainWindow mw, Game game) {
             InitializeComponent();
@@ -25,6 +26,8 @@ namespace WinEchek.GUI.Core {
 
             //Event handler when a move is done
             game.Engine.MoveDone += MoveDone;
+            HistoryView.ListItemOvered += DrawOldBoard;
+            HistoryView.MouseLeave += RefreshBoard;
 
             //Création et ajout du contenu du PLS pour cette vue
             GameViewFlyout gameViewFlyout = new GameViewFlyout(this);
@@ -39,6 +42,36 @@ namespace WinEchek.GUI.Core {
                 //TODO could be another exception
                 _mainWindow.ShowMessageAsync("Erreur", "Impossible d'afficher une partie non créée");
             }    
+        }
+
+        private void RefreshBoard(object sender, MouseEventArgs e)
+        {
+            if (_lastStateDisplayed == 0) return;
+            for (int i = 0; i < _lastStateDisplayed; i++)
+            {
+                Game.Redo();
+            }
+            _lastStateDisplayed = 0;
+        }
+
+        private void DrawOldBoard(int index)
+        {
+            if (_lastStateDisplayed > index)
+            {
+                for (int i = 0; i < _lastStateDisplayed - index; i++)
+                {
+                    Game.Redo();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < index-_lastStateDisplayed; i++)
+                {
+                    Game.Undo();
+                }
+            }
+            Console.WriteLine(index);
+            _lastStateDisplayed = index;
         }
 
 
@@ -58,7 +91,8 @@ namespace WinEchek.GUI.Core {
 
         private void MoveDone(object sender, MoveEventArgs eventArgs)
         {
-            HistoryView.Add(eventArgs.Piece, eventArgs.StartSquare, eventArgs.TargetSquare);
+            if(_lastStateDisplayed == 0)
+                HistoryView.Add(eventArgs.Piece, eventArgs.StartSquare, eventArgs.TargetSquare);
         }
 
         #region Flyout
