@@ -33,5 +33,10 @@ namespace WinEchek
         {
             Moteur.Undo();
         }
+
+        public void Redo()
+        {
+            Moteur.Redo();
+        }
     }
 }

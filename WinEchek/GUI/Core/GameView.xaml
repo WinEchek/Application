@@ -10,13 +10,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignData }">
     
-    <Grid Name="Grid" IsHitTestVisible="True" Background="#00000000" MouseDown="Grid_OnMouseDown" MouseRightButtonDown="Grid_OnMouseRightButtonDown">
+    <Grid Name="Grid" IsHitTestVisible="True" Background="#00000000" MouseDown="Grid_OnMouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition />
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+            <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                <Button Name="ButtonUndo" Click="ButtonUndo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}" Width="48" Height="48" Margin="4" ToolTip="Annuler le dernier coup" >
+                    <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Undo" />
+                </Button>
+                <Button Name="ButtonRedo" Click="ButtonRedo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}" Width="48" Height="48" Margin="4" ToolTip="Refaire le dernier coup annulé">
+                    <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Redo" />
+                </Button>
+            </StackPanel>
+
+
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <widgets:HistoryView Grid.Column="2"/>
         <StackPanel Grid.Column="3">

@@ -64,10 +64,14 @@ namespace WinEchek.GUI.Core {
             if (_mainWindow.Flyout.IsOpen) return;
             _mainWindow.Flyout.IsOpen = true;
         }
-
-        private void Grid_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void ButtonUndo_OnClick(object sender, RoutedEventArgs e)
         {
             Game.Undo();
+        }
+
+        private void ButtonRedo_OnClick(object sender, RoutedEventArgs e)
+        {
+            Game.Redo();
         }
     }
 }

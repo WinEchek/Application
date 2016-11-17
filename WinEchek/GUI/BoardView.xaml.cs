@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MahApps.Metro.Controls;
 using WinEchek.Model;
 
 namespace WinEchek.GUI
@@ -19,9 +20,14 @@ namespace WinEchek.GUI
         public RealPlayer RealPlayer { get; set; }
         public Board Board { get; set; }
 
+        public static readonly DependencyProperty SetTextProperty =
+         DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(SquareView));
         public BoardView(Board board, RealPlayer player)
         {
             InitializeComponent();
+
+
+
             RealPlayer = player;
             Board = board;
             for (int i = 0; i < Board.Size; i++) {
@@ -86,6 +92,7 @@ namespace WinEchek.GUI
                 previousSquare = clickedSquare;
                 selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
+                //SetResourceReference(BorderBrushProperty, "BlackColorBrush");
                 clickedSquare.BorderBrush = new SolidColorBrush(Colors.Blue);
             }
             else
