@@ -19,6 +19,11 @@ namespace WinEchek.Engine
         {
             Board = board;
             _rules = new PawnRule();
+            _rules.Add(new BishopRule());
+            _rules.Add(new KingRule());
+            _rules.Add(new KnightRule());
+            _rules.Add(new QueenRule());
+            _rules.Add(new RookRule());
         }
 
         public override bool DoMove(Piece piece, Square square)
