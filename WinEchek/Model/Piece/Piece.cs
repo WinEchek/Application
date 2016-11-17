@@ -11,13 +11,13 @@ namespace WinEchek.Model.Piece
         public Color Color { get; }
         public Square Square { get; set; }
 
-        public Piece(Color color, Square square)
+        protected Piece(Color color, Square square)
         {
             Color = color;
             Square = square;
         }
 
-        public abstract Type Type ();
+        public abstract Type Type { get; }
     }
     [Serializable]
     public enum Type {

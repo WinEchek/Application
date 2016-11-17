@@ -24,7 +24,7 @@ namespace WinEchek.GUI {
         {
             InitializeComponent();
             this.Piece = piece;
-            switch (Piece.Type())
+            switch (Piece.Type)
             {
                 case Type.Bishop:
                     Image.Source = (Piece.Color == Color.Black ? FindResource("BlackBishop") : FindResource("WhiteBishop")) as ImageSource;

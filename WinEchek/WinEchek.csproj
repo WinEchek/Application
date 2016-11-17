@@ -90,7 +90,13 @@
     <Compile Include="Command\Move.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Engine\RealEngine.cs" />
-    <Compile Include="Engine\Rule.cs" />
+    <Compile Include="Engine\Rules\BishopRule.cs" />
+    <Compile Include="Engine\Rules\KingRule.cs" />
+    <Compile Include="Engine\Rules\KnightRule.cs" />
+    <Compile Include="Engine\Rules\PawnRule.cs" />
+    <Compile Include="Engine\Rules\PieceRule.cs" />
+    <Compile Include="Engine\Rules\QueenRule.cs" />
+    <Compile Include="Engine\Rules\RookRule.cs" />
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>

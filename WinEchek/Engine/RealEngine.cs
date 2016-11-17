@@ -1,8 +1,11 @@
-﻿using System.CodeDom;
+﻿using System;
+using System.CodeDom;
 using System.Windows.Controls;
 using WinEchek.Command;
+using WinEchek.Engine.Rules;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
+using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine
 {
@@ -10,19 +13,26 @@ namespace WinEchek.Engine
     {
         public override Board Board { get; }
         private CompensableConversation _conversation = new CompensableConversation();
+        private PieceRule _rules;
 
         public RealEngine(Board board)
         {
             Board = board;
+            _rules = new PawnRule();
         }
 
         public override bool DoMove(Piece piece, Square square)
         {
-            //TODO check rules here
             Square startSquare = piece.Square;
-            _conversation.Execute(new Move(piece, square));
-            MoveDone?.Invoke(this, new MoveEventArgs(piece, startSquare, square));
-            return true;
+            //TODO gérer exception
+            if (_rules.Handle(piece, square))
+            {
+                _conversation.Execute(new Move(piece, square));
+                MoveDone?.Invoke(this, new MoveEventArgs(piece, startSquare, square));
+                return true;
+            }
+
+            return false;
         }
 
         public override void Undo()

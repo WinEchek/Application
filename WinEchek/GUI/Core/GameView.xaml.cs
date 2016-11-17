@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
-using WinEchek.Command;
 using WinEchek.Engine;
 using WinEchek.GUI.Core.FlyoutContent;
 
@@ -70,7 +68,6 @@ namespace WinEchek.GUI.Core {
                     Game.Undo();
                 }
             }
-            Console.WriteLine(index);
             _lastStateDisplayed = index;
         }
 

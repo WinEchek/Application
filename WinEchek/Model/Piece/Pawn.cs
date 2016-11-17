@@ -9,9 +9,6 @@ namespace WinEchek.Model.Piece
         {
         }
 
-        public override Type Type()
-        {
-            return Model.Piece.Type.Pawn;
-        }
+        public override Type Type => Type.Pawn;
     }
 }

@@ -9,9 +9,6 @@ namespace WinEchek.Model.Piece
         {
         }
 
-        public override Type Type()
-        {
-            return Model.Piece.Type.Bishop;
-        }
+        public override Type Type => Type.Bishop;
     }
 }

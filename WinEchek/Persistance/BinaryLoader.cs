@@ -10,6 +10,7 @@ namespace WinEchek.Persistance
 {
     class BinaryLoader : ILoader
     {
+        //TODO should reload the history as well
         public Game Load(string path)
         {
             IFormatter formatter = new BinaryFormatter();
