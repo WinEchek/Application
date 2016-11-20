@@ -5,11 +5,11 @@ using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.Rules
 {
-    public class QueenRule : PieceRule
+    public class KingRuleGroup : RuleGroup
     {
         public override bool Handle(Piece piece, Square square)
         {
-            if (piece.Type != Type.Queen)
+            if (piece.Type != Type.King)
             {
                 if (Next != null)
                 {

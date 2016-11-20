@@ -13,26 +13,26 @@ namespace WinEchek.Engine
     {
         public override Board Board { get; }
         private CompensableConversation _conversation = new CompensableConversation();
-        private PieceRule _rules;
+        private RuleGroup _ruleGroups;
 
         public RealEngine(Board board)
         {
             Board = board;
-            _rules = new PawnRule();
-            _rules.Add(new BishopRule());
-            _rules.Add(new KingRule());
-            _rules.Add(new KnightRule());
-            _rules.Add(new QueenRule());
-            _rules.Add(new RookRule());
+            _ruleGroups = new PawnRuleGroup();
+            _ruleGroups.Add(new BishopRuleGroup());
+            _ruleGroups.Add(new KingRuleGroup());
+            _ruleGroups.Add(new KnightRuleGroup());
+            _ruleGroups.Add(new QueenRuleGroup());
+            _ruleGroups.Add(new RookRuleGroup());
         }
 
         public override bool DoMove(Piece piece, Square square)
         {
             Square startSquare = piece.Square;
             //TODO gérer exception
-            if (_rules.Handle(piece, square))
+            if (_ruleGroups.Handle(piece, square))
             {
-                _conversation.Execute(new Move(piece, square));
+                _conversation.Execute(new MoveCommand(piece, square));
                 MoveDone?.Invoke(this, new MoveEventArgs(piece, startSquare, square));
                 return true;
             }
@@ -47,9 +47,9 @@ namespace WinEchek.Engine
 
         public override void Redo()
         {
-            Move move = _conversation.Redo() as Move;
-            if(move!=null)
-                MoveDone?.Invoke(this, new MoveEventArgs(move.Piece, move.Square, move.Piece.Square));
+            MoveCommand moveCommand = _conversation.Redo() as MoveCommand;
+            if(moveCommand!=null)
+                MoveDone?.Invoke(this, new MoveEventArgs(moveCommand.Piece, moveCommand.Square, moveCommand.Piece.Square));
         }
 
         public override event MoveHandler MoveDone;

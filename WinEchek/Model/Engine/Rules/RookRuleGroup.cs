@@ -5,7 +5,7 @@ using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.Rules
 {
-    public class RookRule : PieceRule
+    public class RookRuleGroup : RuleGroup
     {
         public override bool Handle(Piece piece, Square square)
         {

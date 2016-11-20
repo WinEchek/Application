@@ -20,7 +20,7 @@ namespace WinEchek.Model
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    Squares[i, j] = new Square(i, j);
+                    Squares[i, j] = new Square(this, i, j);
                 }
             }
             //TODO Move piece placement logic appart from the board

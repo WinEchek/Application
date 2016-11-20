@@ -3,16 +3,16 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine.Rules
 {
-    public abstract class PieceRule 
+    public abstract class RuleGroup 
     {
-        public PieceRule Next { get; internal set; }
+        public RuleGroup Next { get; internal set; }
 
-        public void Add(PieceRule pieceRule)
+        public void Add(RuleGroup ruleGroup)
         {
             if (Next == null)
-                Next = pieceRule;
+                Next = ruleGroup;
             else
-                Next.Add(pieceRule);
+                Next.Add(ruleGroup);
         }
         public abstract bool Handle(Piece piece, Square square);
     }

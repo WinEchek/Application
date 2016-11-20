@@ -3,14 +3,14 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek.Command
 {
-    public class Move : ICompensableCommand
+    public class MoveCommand : ICompensableCommand
     {
         public Piece Piece { get; internal set; }
         private Piece _removedPiece;
         public Square Square { get; internal set; }
         private Square _targetSquare;
 
-        public Move(Piece piece, Square targetSquare)
+        public MoveCommand(Piece piece, Square targetSquare)
         {
             Piece = piece;
             _targetSquare = targetSquare;

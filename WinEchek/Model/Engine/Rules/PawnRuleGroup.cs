@@ -6,7 +6,7 @@ using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.Rules
 {
-    public class PawnRule : PieceRule
+    public class PawnRuleGroup : RuleGroup
     {
         //TODO gérer les couleurs de pièces.
         public override bool Handle(Piece piece, Square square)

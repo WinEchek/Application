@@ -1,10 +1,8 @@
-﻿namespace WinEchek.Model.Command
+﻿namespace WinEchek.Command
 {
-    /// <summary>
-    /// Defines a command that can be undone
-    /// </summary>
-    public interface ICompensableCommand : ICommand
+    public interface ICompensableCommand
     {
+        void Execute();
         void Compensate();
     }
 }
