@@ -28,6 +28,9 @@ namespace WinEchek.Engine
 
         public override bool DoMove(Move move)
         {
+            //No reason to move if it's the same square
+            if (move.Square == move.Piece.Square) return false;
+
             Square startSquare = move.Piece.Square;
             //TODO gérer exception
             if (_ruleGroups.Handle(move))

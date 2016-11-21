@@ -1,7 +1,6 @@
 ﻿using System;
-using WinEchek.GUI.Core.FlyoutContent;
+using System.Linq;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.Rules
@@ -11,6 +10,7 @@ namespace WinEchek.Engine.Rules
         public PawnRuleGroup()
         {
             Rules.Add(new PawnMovementRule());
+            Rules.Add(new CanOnlyTakeEnnemyRule());
         }
         //TODO gérer les couleurs de pièces.
         public override bool Handle(Move move)
@@ -23,12 +23,8 @@ namespace WinEchek.Engine.Rules
                 }
                 throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.Piece);
             }
-            bool result = true;
-            foreach (IRule rule in Rules)
-            {
-                result = rule.IsMoveValid(move); //TODO WIP
-            }
-            return result;
+
+            return Rules.All(rule => rule.IsMoveValid(move));
         }
     }
 }

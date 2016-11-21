@@ -21,10 +21,6 @@ namespace WinEchek.Engine.Rules
             }
             else // si la case d'arriver n'est pas vide
             {
-                if (square.Piece.Color == piece.Color)
-                {
-                    return false;
-                }
                 if (piece.Square.X == square.X - 1 || piece.Square.X == square.X + 1) // on se déplace sur les côté.
                 {
                     if (piece.Square.Y - square.Y == 1) // on se déplace que vers le haut

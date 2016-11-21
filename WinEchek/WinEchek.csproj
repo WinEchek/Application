@@ -91,12 +91,17 @@
     <Compile Include="Model\Command\MoveCommand.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Model\Engine\RealEngine.cs" />
+    <Compile Include="Model\Engine\Rules\BishopMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\BishopRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
+    <Compile Include="Model\Engine\Rules\KingMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\KingRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\KnightMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\KnightRuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\PawnMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\PawnRuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\IRule.cs" />
+    <Compile Include="Model\Engine\Rules\RookMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\RuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\QueenRuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\RookRuleGroup.cs" />
