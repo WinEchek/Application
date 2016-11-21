@@ -94,6 +94,7 @@
     <Compile Include="Model\Engine\Rules\BishopRuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\KingRuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\KnightRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\PawnMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\PawnRuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\IRule.cs" />
     <Compile Include="Model\Engine\Rules\RuleGroup.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Move.cs" />
     <Compile Include="Model\Persistance\BinaryLoader.cs" />
     <Compile Include="Model\Persistance\BinarySaver.cs" />
     <Compile Include="Model\Persistance\ILoader.cs" />

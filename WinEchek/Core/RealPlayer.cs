@@ -20,9 +20,9 @@ namespace WinEchek
             Game = game;
             Color = color;
         }
-        public void DoMove(Piece piece, Square square)
+        public void DoMove(Move move)
         {
-            Game.DoMove(piece, square);
+            Game.DoMove(move);
         }
     }
 }

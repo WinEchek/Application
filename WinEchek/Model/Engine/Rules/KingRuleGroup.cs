@@ -7,15 +7,15 @@ namespace WinEchek.Engine.Rules
 {
     public class KingRuleGroup : RuleGroup
     {
-        public override bool Handle(Piece piece, Square square)
+        public override bool Handle(Move move)
         {
-            if (piece.Type != Type.King)
+            if (move.Piece.Type != Type.King)
             {
                 if (Next != null)
                 {
-                    return Next.Handle(piece, square);
+                    return Next.Handle(move);
                 }
-                throw new Exception("NOBODY TREATS THIS PIECE !!! " + piece);
+                throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.Piece);
             }
             return true;
         }

@@ -19,21 +19,21 @@ namespace WinEchek.Engine
         {
             Board = board;
             _ruleGroups = new PawnRuleGroup();
-            _ruleGroups.Add(new BishopRuleGroup());
-            _ruleGroups.Add(new KingRuleGroup());
-            _ruleGroups.Add(new KnightRuleGroup());
-            _ruleGroups.Add(new QueenRuleGroup());
-            _ruleGroups.Add(new RookRuleGroup());
+            _ruleGroups.AddGroup(new BishopRuleGroup());
+            _ruleGroups.AddGroup(new KingRuleGroup());
+            _ruleGroups.AddGroup(new KnightRuleGroup());
+            _ruleGroups.AddGroup(new QueenRuleGroup());
+            _ruleGroups.AddGroup(new RookRuleGroup());
         }
 
-        public override bool DoMove(Piece piece, Square square)
+        public override bool DoMove(Move move)
         {
-            Square startSquare = piece.Square;
+            Square startSquare = move.Piece.Square;
             //TODO gérer exception
-            if (_ruleGroups.Handle(piece, square))
+            if (_ruleGroups.Handle(move))
             {
-                _conversation.Execute(new MoveCommand(piece, square));
-                MoveDone?.Invoke(this, new MoveEventArgs(piece, startSquare, square));
+                _conversation.Execute(new MoveCommand(move));
+                MoveDone?.Invoke(this, new MoveEventArgs(move.Piece, startSquare, move.Square));
                 return true;
             }
 

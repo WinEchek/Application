@@ -8,41 +8,27 @@ namespace WinEchek.Engine.Rules
 {
     public class PawnRuleGroup : RuleGroup
     {
-        //TODO gérer les couleurs de pièces.
-        public override bool Handle(Piece piece, Square square)
+        public PawnRuleGroup()
         {
-            if (piece.Type != Type.Pawn)
+            Rules.Add(new PawnMovementRule());
+        }
+        //TODO gérer les couleurs de pièces.
+        public override bool Handle(Move move)
+        {
+            if (move.Piece.Type != Type.Pawn)
             {
                 if (Next != null)
                 {
-                    return Next.Handle(piece, square);
+                    return Next.Handle(move);
                 }
-                throw new Exception("NOBODY TREATS THIS PIECE !!! " + piece);
+                throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.Piece);
             }
-            bool res = false;
-
-            if (square.Piece == null) // Si la case d'arriver est vide
+            bool result = true;
+            foreach (IRule rule in Rules)
             {
-                if (piece.Square.X == square.X) // on ne peut pas aller sur les côtés
-                {
-                    if (piece.Square.Y - square.Y == 1) // on ne se déplace que vers le haut
-                        res = true;
-                }
+                result = rule.IsMoveValid(move); //TODO WIP
             }
-            else // si la case d'arriver n'est pas vide
-            {
-                if (square.Piece.Color == piece.Color)
-                {
-                    return false;
-                }
-                if (piece.Square.X == square.X - 1 || piece.Square.X == square.X + 1) // on se déplace sur les côté.
-                {
-                    if (piece.Square.Y - square.Y == 1) // on se déplace que vers le haut
-                        res = true;
-                }
-            }
-
-            return res;
+            return result;
         }
     }
 }

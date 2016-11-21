@@ -14,9 +14,8 @@ namespace WinEchek.GUI
     /// </summary>
     public partial class BoardView : UserControl
     {
-        private PieceView selectedPiece;
-
-        private SquareView previousSquare;
+        private PieceView _selectedPiece;
+        private SquareView _previousSquare;
         public RealPlayer RealPlayer { get; set; }
         public Board Board { get; set; }
 
@@ -85,33 +84,21 @@ namespace WinEchek.GUI
 
             var clickedPieceView = clickedSquare.PieceView;
 
-            if (previousSquare == null)
+            if (_previousSquare == null)
             {
-                if (clickedPieceView == null) return;
-                if (clickedPieceView.Piece.Color != RealPlayer.Color) return;
-                previousSquare = clickedSquare;
-                selectedPiece = clickedSquare.PieceView;
+                if (clickedPieceView?.Piece.Color != RealPlayer.Color) return;
+                _previousSquare = clickedSquare;
+                _selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
-                //SetResourceReference(BorderBrushProperty, "BlackColorBrush");
                 clickedSquare.BorderBrush = new SolidColorBrush(Colors.Blue);
             }
             else
             {
-                if (clickedPieceView == null)
-                {
-                    previousSquare.BorderThickness = new Thickness(0);
-                    RealPlayer.DoMove(selectedPiece.Piece, clickedSquare.Square);
-                    previousSquare = null;
-                    selectedPiece = null;
-                }
-                else
-                {
-                    clickedSquare.PieceView = null;
-                    previousSquare.BorderThickness = new Thickness(0);
-                    RealPlayer.DoMove(selectedPiece.Piece, clickedSquare.Square);
-                    previousSquare = null;
-                    selectedPiece = null;
-                }
+                if (clickedPieceView != null) clickedPieceView = null;
+                _previousSquare.BorderThickness = new Thickness(0);
+                RealPlayer.DoMove(new Move(_selectedPiece.Piece, clickedSquare.Square));
+                _previousSquare = null;
+                _selectedPiece = null;
             }
         }
     }

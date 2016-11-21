@@ -12,7 +12,7 @@ namespace WinEchek.Engine
     public abstract class Engine
     {
         public abstract Board Board { get; }
-        public abstract bool DoMove(Piece piece, Square square);
+        public abstract bool DoMove(Move move);
         public abstract void Undo();
         public abstract void Redo();
 

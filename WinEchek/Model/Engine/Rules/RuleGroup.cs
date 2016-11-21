@@ -1,4 +1,5 @@
-﻿using WinEchek.Model;
+﻿using System.Collections.Generic;
+using WinEchek.Model;
 using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine.Rules
@@ -6,14 +7,16 @@ namespace WinEchek.Engine.Rules
     public abstract class RuleGroup 
     {
         public RuleGroup Next { get; internal set; }
+        protected List<IRule> Rules { get; set; } = new List<IRule>();
 
-        public void Add(RuleGroup ruleGroup)
+        public void AddGroup(RuleGroup ruleGroup)
         {
             if (Next == null)
                 Next = ruleGroup;
             else
-                Next.Add(ruleGroup);
+                Next.AddGroup(ruleGroup);
         }
-        public abstract bool Handle(Piece piece, Square square);
+        
+        public abstract bool Handle(Move move);
     }
 }

@@ -10,10 +10,10 @@ namespace WinEchek.Command
         public Square Square { get; internal set; }
         private Square _targetSquare;
 
-        public MoveCommand(Piece piece, Square targetSquare)
+        public MoveCommand(Move move)
         {
-            Piece = piece;
-            _targetSquare = targetSquare;
+            Piece = move.Piece;
+            _targetSquare = move.Square;
         }
 
         public void Execute()
