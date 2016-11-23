@@ -28,7 +28,7 @@ namespace WinEchek.GUI
 
 
             SetResourceReference(Control.BackgroundProperty,
-                (square.X + square.Y)%2 == 0 ? "AccentColorBrush4" : "AccentColorBrush");
+                (square.X + square.Y)%2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
 
             Grid.SetColumn(this, square.X);
             Grid.SetRow(this, square.Y);

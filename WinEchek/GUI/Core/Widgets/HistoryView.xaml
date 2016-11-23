@@ -6,9 +6,21 @@
              xmlns:local="clr-namespace:WinEchek.GUI.Core.Widgets"
              mc:Ignorable="d">
     <Grid>
-        <ListView Name="ListViewHistory" MouseMove="ListViewHistory_OnMouseMove">
-            <ListView.View>
-                <GridView>
+        <Grid.Resources>
+            <Style TargetType="ListViewItem">
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                        <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <ListView Name="ListViewHistory" MouseMove="ListViewHistory_OnMouseMove" AlternationCount="2">
+            <ListView.View >
+                <GridView AllowsColumnReorder="False" >
                     <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Number}"/>
                     <GridViewColumn Header="Déplacement" DisplayMemberBinding="{Binding Move}"/>
                 </GridView>

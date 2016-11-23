@@ -4,8 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinEchek.GUI"
-             mc:Ignorable="d" >
+             mc:Ignorable="d"  >
+    <UserControl.LayoutTransform>
+        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="0"/>
+    </UserControl.LayoutTransform>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UserControl.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="Width" From="0" To="1000" Duration="0:0:5" />
+                    <DoubleAnimation
+            Storyboard.TargetProperty="(LayoutTransform).(RotateTransform.Angle)"
+            From="0" To="360" Duration="0:0:6" RepeatBehavior="Forever" AutoReverse="True" IsCumulative="True"/>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5" RepeatBehavior="Forever"/>
+                    
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid Name="Grid">
-            
+        
+
     </Grid>
 </UserControl>

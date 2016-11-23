@@ -17,15 +17,17 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-            <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-                <Button Name="ButtonUndo" Click="ButtonUndo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}" Width="48" Height="48" Margin="4" ToolTip="Annuler le dernier coup" >
-                    <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Undo" />
-                </Button>
-                <Button Name="ButtonRedo" Click="ButtonRedo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}" Width="48" Height="48" Margin="4" ToolTip="Refaire le dernier coup annulé">
-                    <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Redo" />
-                </Button>
+            <StackPanel>
+                <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                    <Button Name="ButtonUndo" Click="ButtonUndo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}" Width="48" Height="48" Margin="4" ToolTip="Annuler le dernier coup" >
+                        <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Undo" />
+                    </Button>
+                    <Button Name="ButtonRedo" Click="ButtonRedo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}" Width="48" Height="48" Margin="4" ToolTip="Refaire le dernier coup annulé">
+                        <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Redo" />
+                    </Button>
+                </StackPanel>
+                <Button Content="SuperMode" Margin="8" Click="ButtonBase_OnClick"/>
             </StackPanel>
-
 
         <UserControl Name="UcBoardView" Grid.Column="1"/>
         <widgets:HistoryView Grid.Column="2" x:Name="HistoryView"/>

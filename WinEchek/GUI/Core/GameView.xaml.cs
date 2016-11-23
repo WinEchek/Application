@@ -122,6 +122,10 @@ namespace WinEchek.GUI.Core {
         }
 
         #endregion
-        
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

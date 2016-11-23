@@ -26,11 +26,7 @@ namespace WinEchek
             BoardView = boardView;
         }
 
-        public void DoMove(Move move)
-        {
-            Square oldSquare = move.Piece.Square;
-            if (!Engine.DoMove(move)) return;
-        }
+        public bool DoMove(Move move) => Engine.DoMove(move);
 
         public void Undo()
         {

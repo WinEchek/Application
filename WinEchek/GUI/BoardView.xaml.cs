@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro.Controls;
 using WinEchek.Model;
+using static WinEchek.Model.Piece.Color;
 
 namespace WinEchek.GUI
 {
@@ -25,8 +26,6 @@ namespace WinEchek.GUI
         {
             InitializeComponent();
 
-
-
             RealPlayer = player;
             Board = board;
             for (int i = 0; i < Board.Size; i++) {
@@ -38,6 +37,10 @@ namespace WinEchek.GUI
                 var squareView = new SquareView(square);
                 if (square.Piece != null && square.Piece.Color == RealPlayer.Color)
                     squareView.PieceView.Player = RealPlayer;
+                //squareView.RenderTransformOrigin = new Point(0.5, 0.5);
+                //squareView.RenderTransform = new RotateTransform(180);
+                squareView.UcPieceView.LayoutTransform = LayoutTransform;
+                squareView.LayoutTransform = LayoutTransform;
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
         }
@@ -96,7 +99,8 @@ namespace WinEchek.GUI
             {
                 if (clickedPieceView != null) clickedPieceView = null;
                 _previousSquare.BorderThickness = new Thickness(0);
-                RealPlayer.DoMove(new Move(_selectedPiece.Piece, clickedSquare.Square));
+                if (RealPlayer.DoMove(new Move(_selectedPiece.Piece, clickedSquare.Square)))
+                    RealPlayer.Color = RealPlayer.Color == Black ? White : Black;
                 _previousSquare = null;
                 _selectedPiece = null;
             }

@@ -73,7 +73,7 @@ namespace WinEchek.GUI.Core.Widgets
             public MoveInfo(int number, Piece piece, Square startSquare, Square targetSquare)
             {
                 Number = number;
-                Move = piece.Type + " " + startSquare.X + "," + startSquare.Y + " vers " + targetSquare.X + "," +
+                Move = piece + " " + startSquare.X + "," + startSquare.Y + " vers " + targetSquare.X + "," +
                        targetSquare.Y;
             }
         }

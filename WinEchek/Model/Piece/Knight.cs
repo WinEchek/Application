@@ -10,5 +10,6 @@ namespace WinEchek.Model.Piece
         }
 
         public override Type Type => Type.Knight;
+        public override string ToString() => "Cavalier";
     }
 }
