@@ -101,6 +101,7 @@
     <Compile Include="Model\Engine\Rules\PawnMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\PawnRuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\IRule.cs" />
+    <Compile Include="Model\Engine\Rules\QueenMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\RookMovementRule.cs" />
     <Compile Include="Model\Engine\Rules\RuleGroup.cs" />
     <Compile Include="Model\Engine\Rules\QueenRuleGroup.cs" />
