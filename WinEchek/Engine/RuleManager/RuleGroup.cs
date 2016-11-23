@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using WinEchek.Engine.Rules;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
 
-namespace WinEchek.Engine.Rules
+namespace WinEchek.Engine.RuleManager
 {
     public abstract class RuleGroup 
     {

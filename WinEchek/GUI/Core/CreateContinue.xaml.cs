@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
-using WinEchek.Persistance;
+using WinEchek.Core.Persistance;
 
 namespace WinEchek.GUI.Core {
     /// <summary>

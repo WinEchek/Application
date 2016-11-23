@@ -86,26 +86,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\WinEchek.cs" />
-    <Compile Include="Model\Command\CompensableConversation.cs" />
-    <Compile Include="Model\Command\ICompensableCommand.cs" />
-    <Compile Include="Model\Command\MoveCommand.cs" />
+    <Compile Include="Engine\Command\CompensableConversation.cs" />
+    <Compile Include="Engine\Command\ICompensableCommand.cs" />
+    <Compile Include="Engine\Command\MoveCommand.cs" />
     <Compile Include="Core\Game.cs" />
-    <Compile Include="Model\Engine\RealEngine.cs" />
-    <Compile Include="Model\Engine\Rules\BishopMovementRule.cs" />
-    <Compile Include="Model\Engine\Rules\BishopRuleGroup.cs" />
-    <Compile Include="Model\Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
-    <Compile Include="Model\Engine\Rules\KingMovementRule.cs" />
-    <Compile Include="Model\Engine\Rules\KingRuleGroup.cs" />
-    <Compile Include="Model\Engine\Rules\KnightMovementRule.cs" />
-    <Compile Include="Model\Engine\Rules\KnightRuleGroup.cs" />
-    <Compile Include="Model\Engine\Rules\PawnMovementRule.cs" />
-    <Compile Include="Model\Engine\Rules\PawnRuleGroup.cs" />
-    <Compile Include="Model\Engine\Rules\IRule.cs" />
-    <Compile Include="Model\Engine\Rules\QueenMovementRule.cs" />
-    <Compile Include="Model\Engine\Rules\RookMovementRule.cs" />
-    <Compile Include="Model\Engine\Rules\RuleGroup.cs" />
-    <Compile Include="Model\Engine\Rules\QueenRuleGroup.cs" />
-    <Compile Include="Model\Engine\Rules\RookRuleGroup.cs" />
+    <Compile Include="Engine\RealEngine.cs" />
+    <Compile Include="Engine\Rules\BishopMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
+    <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
+    <Compile Include="Engine\Rules\KingMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\KingRuleGroup.cs" />
+    <Compile Include="Engine\Rules\KnightMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\KnightRuleGroup.cs" />
+    <Compile Include="Engine\Rules\PawnMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\PawnRuleGroup.cs" />
+    <Compile Include="Engine\Rules\IRule.cs" />
+    <Compile Include="Engine\Rules\QueenMovementRule.cs" />
+    <Compile Include="Engine\Rules\RookMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\RuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\QueenRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\RookRuleGroup.cs" />
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
@@ -113,12 +113,12 @@
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Move.cs" />
-    <Compile Include="Model\Persistance\BinaryLoader.cs" />
-    <Compile Include="Model\Persistance\BinarySaver.cs" />
-    <Compile Include="Model\Persistance\ILoader.cs" />
-    <Compile Include="Model\Persistance\ISaver.cs" />
-    <Compile Include="Model\Persistance\XMLLoader.cs" />
-    <Compile Include="Model\Persistance\XMLSaver.cs" />
+    <Compile Include="Core\Persistance\BinaryLoader.cs" />
+    <Compile Include="Core\Persistance\BinarySaver.cs" />
+    <Compile Include="Core\Persistance\ILoader.cs" />
+    <Compile Include="Core\Persistance\ISaver.cs" />
+    <Compile Include="Core\Persistance\XMLLoader.cs" />
+    <Compile Include="Core\Persistance\XMLSaver.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Core\RealPlayer.cs" />
     <Page Include="GUI\Core\CreateContinue.xaml">
@@ -167,7 +167,7 @@
     <Compile Include="GUI\Core\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Engine\Engine.cs" />
+    <Compile Include="Engine\Engine.cs" />
     <Compile Include="GUI\Core\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -227,9 +227,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\RuleManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="GUI\Ressources\Sprites\queenBlack.png" />
     <Resource Include="GUI\Ressources\Sprites\rookBlack.png" />

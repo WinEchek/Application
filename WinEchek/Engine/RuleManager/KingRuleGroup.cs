@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Linq;
+using WinEchek.Engine.Rules;
 using WinEchek.Model;
 using Type = WinEchek.Model.Piece.Type;
 
-namespace WinEchek.Engine.Rules
+namespace WinEchek.Engine.RuleManager
 {
-    public class PawnRuleGroup : RuleGroup
+    public class KingRuleGroup : RuleGroup
     {
-        public PawnRuleGroup()
+        public KingRuleGroup()
         {
-            Rules.Add(new PawnMovementRule());
+            Rules.Add(new KingMovementRule());
             Rules.Add(new CanOnlyTakeEnnemyRule());
         }
-        //TODO gérer les couleurs de pièces.
         public override bool Handle(Move move)
         {
-            if (move.Piece.Type != Type.Pawn)
+            //TODO could be refactored
+            if (move.Piece.Type != Type.King)
             {
                 if (Next != null)
                 {
@@ -23,7 +24,6 @@ namespace WinEchek.Engine.Rules
                 }
                 throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.Piece);
             }
-
             return Rules.All(rule => rule.IsMoveValid(move));
         }
     }

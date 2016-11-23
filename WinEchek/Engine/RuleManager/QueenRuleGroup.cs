@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Linq;
+using WinEchek.Engine.Rules;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
-namespace WinEchek.Engine.Rules
+namespace WinEchek.Engine.RuleManager
 {
-    public class RookRuleGroup : RuleGroup
+    public class QueenRuleGroup : RuleGroup
     {
-        public RookRuleGroup()
+        public QueenRuleGroup()
         {
-            Rules.Add(new RookMovementRule());
+            Rules.Add(new QueenMovementRule());
             Rules.Add(new CanOnlyTakeEnnemyRule());
         }
+
         public override bool Handle(Move move)
         {
-            if (move.Piece.Type != Type.Rook)
+            if (move.Piece.Type != Type.Queen)
             {
                 if (Next != null)
                 {

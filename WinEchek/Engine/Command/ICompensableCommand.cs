@@ -1,4 +1,4 @@
-﻿namespace WinEchek.Command
+﻿namespace WinEchek.Engine.Command
 {
     public interface ICompensableCommand
     {

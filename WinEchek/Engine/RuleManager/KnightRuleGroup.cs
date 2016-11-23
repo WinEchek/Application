@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using WinEchek.Engine.Rules;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
-namespace WinEchek.Engine.Rules
+namespace WinEchek.Engine.RuleManager
 {
     public class KnightRuleGroup : RuleGroup
     {

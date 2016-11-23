@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WinEchek.Command
+namespace WinEchek.Engine.Command
 {
     public class CompensableConversation
     {

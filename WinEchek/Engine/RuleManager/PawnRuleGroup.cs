@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Linq;
+using WinEchek.Engine.Rules;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
-namespace WinEchek.Engine.Rules
+namespace WinEchek.Engine.RuleManager
 {
-    public class BishopRuleGroup : RuleGroup
+    public class PawnRuleGroup : RuleGroup
     {
-        public BishopRuleGroup()
+        public PawnRuleGroup()
         {
+            Rules.Add(new PawnMovementRule());
             Rules.Add(new CanOnlyTakeEnnemyRule());
-            Rules.Add(new BishopMovementRule());
         }
+        //TODO gérer les couleurs de pièces.
         public override bool Handle(Move move)
         {
-            if (move.Piece.Type != Type.Bishop)
+            if (move.Piece.Type != Type.Pawn)
             {
                 if (Next != null)
                 {

@@ -6,7 +6,7 @@ using WinEchek.GUI;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
-namespace WinEchek.Persistance
+namespace WinEchek.Core.Persistance
 {
     class BinaryLoader : ILoader
     {

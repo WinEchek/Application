@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using WinEchek.GUI;
 using WinEchek.Model;
 
-namespace WinEchek.Persistance
+namespace WinEchek.Core.Persistance
 {
     class BinarySaver : ISaver
     {

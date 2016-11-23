@@ -1,7 +1,8 @@
 ﻿using System;
 using System.CodeDom;
 using System.Windows.Controls;
-using WinEchek.Command;
+using WinEchek.Engine.Command;
+using WinEchek.Engine.RuleManager;
 using WinEchek.Engine.Rules;
 using WinEchek.Model;
 using WinEchek.Model.Piece;

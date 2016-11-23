@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace WinEchek.Persistance
+namespace WinEchek.Core.Persistance
 {
     class XMLSaver : ISaver
     {

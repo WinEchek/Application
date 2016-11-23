@@ -1,7 +1,7 @@
 ﻿using WinEchek.Model;
 using WinEchek.Model.Piece;
 
-namespace WinEchek.Command
+namespace WinEchek.Engine.Command
 {
     public class MoveCommand : ICompensableCommand
     {

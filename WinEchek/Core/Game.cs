@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.Eventing.Reader;
-using WinEchek.Command;
 using WinEchek.Engine;
 using WinEchek.GUI;
 using WinEchek.Model;

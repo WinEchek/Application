@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Linq;
+using WinEchek.Engine.Rules;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
-namespace WinEchek.Engine.Rules
+namespace WinEchek.Engine.RuleManager
 {
-    public class QueenRuleGroup : RuleGroup
+    public class BishopRuleGroup : RuleGroup
     {
-        public QueenRuleGroup()
+        public BishopRuleGroup()
         {
-            Rules.Add(new QueenMovementRule());
             Rules.Add(new CanOnlyTakeEnnemyRule());
+            Rules.Add(new BishopMovementRule());
         }
-
         public override bool Handle(Move move)
         {
-            if (move.Piece.Type != Type.Queen)
+            if (move.Piece.Type != Type.Bishop)
             {
                 if (Next != null)
                 {
@@ -24,6 +23,7 @@ namespace WinEchek.Engine.Rules
                 }
                 throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.Piece);
             }
+
             return Rules.All(rule => rule.IsMoveValid(move));
         }
     }
