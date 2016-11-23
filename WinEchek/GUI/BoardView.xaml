@@ -12,7 +12,6 @@
         <EventTrigger RoutedEvent="UserControl.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetProperty="Width" From="0" To="1000" Duration="0:0:5" />
                     <DoubleAnimation
             Storyboard.TargetProperty="(LayoutTransform).(RotateTransform.Angle)"
             From="0" To="360" Duration="0:0:6" RepeatBehavior="Forever" AutoReverse="True" IsCumulative="True"/>
