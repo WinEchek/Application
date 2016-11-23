@@ -9,6 +9,7 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek.GUI.Core.Widgets
 {
+    //TODO the historyview as a widget should'nt interfer in anyway with the gameview, we should just 'add' it to the gameview
     /// <summary>
     /// Logique d'interaction pour HistoryView.xaml
     /// </summary>

@@ -85,34 +85,40 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command\CompensableConversation.cs" />
-    <Compile Include="Command\ICompensableCommand.cs" />
-    <Compile Include="Command\Move.cs" />
+    <Compile Include="Core\WinEchek.cs" />
+    <Compile Include="Model\Command\CompensableConversation.cs" />
+    <Compile Include="Model\Command\ICompensableCommand.cs" />
+    <Compile Include="Model\Command\MoveCommand.cs" />
     <Compile Include="Core\Game.cs" />
-    <Compile Include="Engine\RealEngine.cs" />
-    <Compile Include="Engine\Rules\BishopRule.cs" />
-    <Compile Include="Engine\Rules\IRule.cs" />
-    <Compile Include="Engine\Rules\KingRule.cs" />
-    <Compile Include="Engine\Rules\KnightRule.cs" />
-    <Compile Include="Engine\Rules\PawnEatMoveRule.cs" />
-    <Compile Include="Engine\Rules\PawnNormalMoveRule.cs" />
-    <Compile Include="Engine\Rules\PawnRule.cs" />
-    <Compile Include="Engine\Rules\PieceRule.cs" />
-    <Compile Include="Engine\Rules\QueenRule.cs" />
-    <Compile Include="Engine\Rules\RookRule.cs" />
+    <Compile Include="Model\Engine\RealEngine.cs" />
+    <Compile Include="Model\Engine\Rules\BishopMovementRule.cs" />
+    <Compile Include="Model\Engine\Rules\BishopRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
+    <Compile Include="Model\Engine\Rules\KingMovementRule.cs" />
+    <Compile Include="Model\Engine\Rules\KingRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\KnightMovementRule.cs" />
+    <Compile Include="Model\Engine\Rules\KnightRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\PawnMovementRule.cs" />
+    <Compile Include="Model\Engine\Rules\PawnRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\IRule.cs" />
+    <Compile Include="Model\Engine\Rules\QueenMovementRule.cs" />
+    <Compile Include="Model\Engine\Rules\RookMovementRule.cs" />
+    <Compile Include="Model\Engine\Rules\RuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\QueenRuleGroup.cs" />
+    <Compile Include="Model\Engine\Rules\RookRuleGroup.cs" />
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Persistance\BinaryLoader.cs" />
-    <Compile Include="Persistance\BinarySaver.cs" />
-    <Compile Include="Persistance\ILoader.cs" />
-    <Compile Include="Persistance\ISaver.cs" />
-    <Compile Include="Persistance\XMLLoader.cs" />
-    <Compile Include="Persistance\XMLSaver.cs" />
-    <Compile Include="Core\WinEchek.cs" />
+    <Compile Include="Model\Move.cs" />
+    <Compile Include="Model\Persistance\BinaryLoader.cs" />
+    <Compile Include="Model\Persistance\BinarySaver.cs" />
+    <Compile Include="Model\Persistance\ILoader.cs" />
+    <Compile Include="Model\Persistance\ISaver.cs" />
+    <Compile Include="Model\Persistance\XMLLoader.cs" />
+    <Compile Include="Model\Persistance\XMLSaver.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Core\RealPlayer.cs" />
     <Page Include="GUI\Core\CreateContinue.xaml">
@@ -161,7 +167,7 @@
     <Compile Include="GUI\Core\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Engine\Engine.cs" />
+    <Compile Include="Model\Engine\Engine.cs" />
     <Compile Include="GUI\Core\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>

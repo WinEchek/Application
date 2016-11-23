@@ -9,6 +9,7 @@ namespace WinEchek.Model
     [Serializable]
     public class Square : INotifyPropertyChanged
     {
+        public Board Board { get; set; }
         private Piece.Piece _piece;
         public Piece.Piece Piece
         {
@@ -23,8 +24,9 @@ namespace WinEchek.Model
         public int X { get; }
         public int Y { get; }
 
-        public Square(int x, int y)
+        public Square(Board parent,int x, int y)
         {
+            Board = parent;
             X = x;
             Y = y;
         }

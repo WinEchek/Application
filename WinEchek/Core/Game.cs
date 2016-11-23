@@ -8,6 +8,7 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek
 {
+    //TODO the game should implement a mode, two players and make them play together
     [Serializable]
     public class Game
     {
@@ -26,10 +27,10 @@ namespace WinEchek
             BoardView = boardView;
         }
 
-        public void DoMove(Piece piece, Square square)
+        public void DoMove(Move move)
         {
-            Square oldSquare = piece.Square;
-            if (!Engine.DoMove(piece, square)) return;
+            Square oldSquare = move.Piece.Square;
+            if (!Engine.DoMove(move)) return;
         }
 
         public void Undo()

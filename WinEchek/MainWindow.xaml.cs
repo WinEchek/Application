@@ -9,6 +9,10 @@ using MahApps.Metro;
 using WinEchek.GUI;
 using WinEchek.Model;
 
+//TODO: TOUT REMETTRE DANS LES BON NAMESPACE APRÈS LES CHANGEMENTS DANS LE MODEL (PAR RAPPORT À L'ENGINE) VINZOU
+
+
+
 
 namespace WinEchek
 {
