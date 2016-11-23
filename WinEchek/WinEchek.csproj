@@ -91,8 +91,11 @@
     <Compile Include="Core\Game.cs" />
     <Compile Include="Engine\RealEngine.cs" />
     <Compile Include="Engine\Rules\BishopRule.cs" />
+    <Compile Include="Engine\Rules\IRule.cs" />
     <Compile Include="Engine\Rules\KingRule.cs" />
     <Compile Include="Engine\Rules\KnightRule.cs" />
+    <Compile Include="Engine\Rules\PawnEatMoveRule.cs" />
+    <Compile Include="Engine\Rules\PawnNormalMoveRule.cs" />
     <Compile Include="Engine\Rules\PawnRule.cs" />
     <Compile Include="Engine\Rules\PieceRule.cs" />
     <Compile Include="Engine\Rules\QueenRule.cs" />
@@ -218,7 +221,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Engine\RuleManager\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="GUI\Ressources\Sprites\queenBlack.png" />
     <Resource Include="GUI\Ressources\Sprites\rookBlack.png" />
