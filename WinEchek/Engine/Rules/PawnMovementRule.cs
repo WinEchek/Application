@@ -4,34 +4,28 @@ using WinEchek.Model.Piece;
 namespace WinEchek.Engine.Rules
 {
     public class PawnMovementRule : IRule
-
     {
-        //TODO le pion peut se déplacer de deux au premier déplacements
         public bool IsMoveValid(Move move)
         {
-            bool res = false;
             Square square = move.Square;
             Piece piece = move.Piece;
-            bool white = piece.Color == Color.White;
+            bool isWhite = piece.Color == Color.White;
+            bool isStartPosition = piece.Square.Y == 1 && !isWhite || piece.Square.Y == 6 && isWhite;
 
-            if (square.Piece == null) // Si la case d'arriver est vide
-            {
-                if (piece.Square.X == square.X) // on ne peut pas aller sur les côtés
-                {
-                    if (piece.Square.Y - square.Y == (white ? 1 : -1)) // on ne se déplace que vers le haut
-                        res = true;
-                }
-            }
-            else // si la case d'arriver n'est pas vide
-            {
-                if (piece.Square.X == square.X - 1 || piece.Square.X == square.X + 1) // on se déplace sur les côté.
-                {
-                    if (piece.Square.Y - square.Y == (white ? 1 : -1)) // on se déplace que vers le haut
-                        res = true;
-                }
-            }
-
-            return res;
+            return (square.Piece == null) ?
+                //Case d'arrivée vide
+                    //Sur la même colonne
+                    piece.Square.X == square.X &&
+                    //Déplacement d'une case en avant
+                    piece.Square.Y - square.Y == (isWhite ? 1 : -1) ||
+                    //Premier déplacement de deux cases
+                    isStartPosition && piece.Square.Y - square.Y == (isWhite ? 2 : -2)
+                :
+                //Case d'arrivée occupée
+                    //Seulement les deux cases diagonal
+                    piece.Square.X == square.X - 1 || piece.Square.X == square.X + 1 &&
+                    //D'une case en avant
+                    piece.Square.Y - square.Y == (isWhite ? 1 : -1);
         }
     }
 }
