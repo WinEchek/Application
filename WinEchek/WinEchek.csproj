@@ -178,7 +178,7 @@
     <Compile Include="GUI\PieceView.xaml.cs">
       <DependentUpon>PieceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\IPlayer.cs" />
+    <Compile Include="Core\Player.cs" />
     <Compile Include="Model\Piece\Bishop.cs" />
     <Compile Include="GUI\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>

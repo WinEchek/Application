@@ -20,10 +20,9 @@ namespace WinEchek.Core.Persistance
                 throw new SerializationException("Cast exception");
             //TODO the loader should either be independant of the engine or know which one it is using
             RealEngine moteur = new RealEngine(board);
-            RealPlayer player = new RealPlayer(null, Color.White);
+            RealPlayer player = new RealPlayer(Color.White);
             BoardView boardView = new BoardView(moteur.Board, player);
             Game game = new Game(moteur, boardView);
-            player.Game = game;
             //TODO should move the player logic appart (can't while the mode logic isn"t implemented
             stream.Close();
             return game;

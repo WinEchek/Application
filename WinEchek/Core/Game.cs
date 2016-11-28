@@ -13,20 +13,21 @@ namespace WinEchek
     [Serializable]
     public class Game
     {
-        public IPlayer WhitePlayer { get; set; }
-        public IPlayer BlackPlayer { get; set; }
-        public Engine.Engine Engine { get; set; }
-        public BoardView BoardView { get; set; }
+        private Player _currentPlayer;
 
-        private bool _end = false;
+        public Player WhitePlayer { get; set; }
+        public Player BlackPlayer { get; set; }
+        public Engine.Engine Engine { get; internal set; }
+        public BoardView BoardView { get; set; }
 
         public Game()
         {
             Engine = new RealEngine(new Board());
-            WhitePlayer = new RealPlayer(this, Color.White);
-            BlackPlayer = new RealPlayer(this, Color.Black);
+            WhitePlayer = new RealPlayer(Color.White);
+            BlackPlayer = new RealPlayer(Color.Black);
             BoardView = new BoardView(Engine.Board, (RealPlayer) WhitePlayer);
-            Start();
+            WhitePlayer.MoveDone += MoveHandler;
+            _currentPlayer = WhitePlayer;
         }
 
         public Game(Engine.Engine engine, BoardView boardView)
@@ -35,6 +36,12 @@ namespace WinEchek
             BoardView = boardView;
         }
 
+        private void MoveHandler(Player sender, Move move)
+        {
+            if (sender != _currentPlayer) return; //Should tell the player it isn't his turn
+            if (!Engine.DoMove(move)) _currentPlayer.Play();
+            else _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+        }
         public bool DoMove(Move move) => Engine.DoMove(move);
 
         public void Undo()
@@ -45,30 +52,6 @@ namespace WinEchek
         public void Redo()
         {
             Engine.Redo();
-        }
-
-        public void Start()
-        {
-            Task.Run(() => StartTask());
-        }
-
-        private void StartTask() {
-            IPlayer currentPlayer = WhitePlayer;
-            while (!_end)
-            {
-                Move currentMove = currentPlayer.Play();
-
-                /**
-                bool res = DoMove(currentMove);
-                while (DoMove(currentMove) != true)
-                    currentMove = currentPlayer.Play();
-    */
-                // Ou récupérer le mouvement d'une autre manière (event par exemple)
-                if (currentPlayer == WhitePlayer)
-                    currentPlayer = BlackPlayer;
-                else
-                    currentPlayer = WhitePlayer;
-            }
         }
     }
 

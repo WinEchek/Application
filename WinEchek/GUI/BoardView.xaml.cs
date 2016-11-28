@@ -4,9 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using MahApps.Metro.Controls;
 using WinEchek.Model;
-using static WinEchek.Model.Piece.Color;
+using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.GUI
 {
@@ -17,6 +16,7 @@ namespace WinEchek.GUI
     {
         private PieceView _selectedPiece;
         private SquareView _previousSquare;
+        //TODO move the player logic away
         public RealPlayer RealPlayer { get; set; }
         public Board Board { get; set; }
 
@@ -93,14 +93,12 @@ namespace WinEchek.GUI
                 _previousSquare = clickedSquare;
                 _selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
-                clickedSquare.BorderBrush = new SolidColorBrush(Colors.Blue);
             }
             else
             {
-                if (clickedPieceView != null) clickedPieceView = null;
                 _previousSquare.BorderThickness = new Thickness(0);
-                RealPlayer.MoveToMake = new Move(_selectedPiece.Piece, clickedSquare.Square);
-                //RealPlayer.MakeMoveCompletionSource.SetResult(new Move(_selectedPiece.Piece, clickedSquare.Square));
+                RealPlayer.Move(new Move(_selectedPiece.Piece, clickedSquare.Square));
+                RealPlayer.Color = RealPlayer.Color == Color.Black ? Color.White : Color.Black;
                 _previousSquare = null;
                 _selectedPiece = null;
             }
