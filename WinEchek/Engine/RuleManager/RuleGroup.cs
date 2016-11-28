@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using WinEchek.Engine.Rules;
 using WinEchek.Model;
+using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.RuleManager
 {
@@ -8,6 +11,7 @@ namespace WinEchek.Engine.RuleManager
     {
         public RuleGroup Next { get; internal set; }
         protected List<IRule> Rules { get; set; } = new List<IRule>();
+        protected abstract Type Type { get; }
 
         public void AddGroup(RuleGroup ruleGroup)
         {
@@ -17,6 +21,11 @@ namespace WinEchek.Engine.RuleManager
                 Next.AddGroup(ruleGroup);
         }
         
-        public abstract bool Handle(Move move);
+        public bool Handle(Move move)
+        {
+            if (move.Piece.Type == Type) return Rules.All(rule => rule.IsMoveValid(move));
+            if (Next != null) return Next.Handle(move);
+            throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.Piece);
+        }
     }
 }

@@ -8,9 +8,5 @@
     <UserControl.LayoutTransform>
         <RotateTransform CenterX="0.5" CenterY="0.5" Angle="0"/>
     </UserControl.LayoutTransform>
-
-    <Grid Name="Grid">
-        
-
-    </Grid>
+    <Grid Name="Grid"/>
 </UserControl>
