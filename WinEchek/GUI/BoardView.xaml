@@ -8,19 +8,7 @@
     <UserControl.LayoutTransform>
         <RotateTransform CenterX="0.5" CenterY="0.5" Angle="0"/>
     </UserControl.LayoutTransform>
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="UserControl.Loaded">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation
-            Storyboard.TargetProperty="(LayoutTransform).(RotateTransform.Angle)"
-            From="0" To="360" Duration="0:0:6" RepeatBehavior="Forever" AutoReverse="True" IsCumulative="True"/>
-                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5" RepeatBehavior="Forever"/>
-                    
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </UserControl.Triggers>
+
     <Grid Name="Grid">
         
 

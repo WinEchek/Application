@@ -99,8 +99,8 @@ namespace WinEchek.GUI
             {
                 if (clickedPieceView != null) clickedPieceView = null;
                 _previousSquare.BorderThickness = new Thickness(0);
-                if (RealPlayer.DoMove(new Move(_selectedPiece.Piece, clickedSquare.Square)))
-                    RealPlayer.Color = RealPlayer.Color == Black ? White : Black;
+                RealPlayer.MoveToMake = new Move(_selectedPiece.Piece, clickedSquare.Square);
+                //RealPlayer.MakeMoveCompletionSource.SetResult(new Move(_selectedPiece.Piece, clickedSquare.Square));
                 _previousSquare = null;
                 _selectedPiece = null;
             }

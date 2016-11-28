@@ -85,6 +85,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\GameCreator.cs" />
+    <Compile Include="Core\GameFactory.cs" />
+    <Compile Include="Core\LocalGame.cs" />
+    <Compile Include="Core\LocalGameCreator.cs" />
     <Compile Include="Core\WinEchek.cs" />
     <Compile Include="Engine\Command\CompensableConversation.cs" />
     <Compile Include="Engine\Command\ICompensableCommand.cs" />
