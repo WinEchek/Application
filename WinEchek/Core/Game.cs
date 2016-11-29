@@ -23,11 +23,15 @@ namespace WinEchek
         public Game()
         {
             Engine = new RealEngine(new Board());
-            WhitePlayer = new RealPlayer(Color.White);
-            BlackPlayer = new RealPlayer(Color.Black);
-            BoardView = new BoardView(Engine.Board, (RealPlayer) WhitePlayer);
+            //TODO should be done in the local game
+            BoardView = new BoardView(Engine.Board, true);
+            WhitePlayer = new RealPlayer(Color.White, BoardView);
+            BlackPlayer = new RealPlayer(Color.Black, BoardView);
+
             WhitePlayer.MoveDone += MoveHandler;
+            BlackPlayer.MoveDone += MoveHandler;
             _currentPlayer = WhitePlayer;
+            _currentPlayer.Play();
         }
 
         public Game(Engine.Engine engine, BoardView boardView)
@@ -39,8 +43,9 @@ namespace WinEchek
         private void MoveHandler(Player sender, Move move)
         {
             if (sender != _currentPlayer) return; //Should tell the player it isn't his turn
-            if (!Engine.DoMove(move)) _currentPlayer.Play();
-            else _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+            if (Engine.DoMove(move)) _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+            _currentPlayer.Play();
+            Console.WriteLine("Told " + _currentPlayer.Color + " player to play");
         }
         public bool DoMove(Move move) => Engine.DoMove(move);
 

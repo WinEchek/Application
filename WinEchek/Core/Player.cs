@@ -19,9 +19,12 @@ namespace WinEchek.Core
         /// </summary>
         public abstract void Play();
 
-        public abstract void Move(Move move);
+        public void Move(Move move)
+        {
+            MoveDone?.Invoke(this, move);
+        }
 
         public delegate void MoveHandler(Player sender, Move move);
-        public abstract event MoveHandler MoveDone;
+        public event MoveHandler MoveDone;
     }
 }

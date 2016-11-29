@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WinEchek.Core;
 using WinEchek.Engine;
+using WinEchek.GUI;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
@@ -15,15 +16,19 @@ namespace WinEchek
 {
     public class RealPlayer : Player
     {
-        public RealPlayer(Color color) : base(color) {}
+        private BoardView _boardView;
+
+        public RealPlayer(Color color, BoardView boardView) : base(color)
+        {
+            _boardView = boardView;
+            boardView.BoardMove += BoardViewOnBoardMove;
+        }
+
+        private void BoardViewOnBoardMove(Move move) => Move(move);
 
         public override void Play()
         {
-            //Dire au médiateur joueur / IHM que c'est la vie
+            _boardView.Color = Color;
         }
-
-        public override void Move(Move move) => MoveDone?.Invoke(this, move);
-
-        public override event MoveHandler MoveDone;
     }
 }

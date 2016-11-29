@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using WinEchek.Core;
 using WinEchek.Model;
 using Color = WinEchek.Model.Piece.Color;
 
@@ -16,31 +17,30 @@ namespace WinEchek.GUI
     {
         private PieceView _selectedPiece;
         private SquareView _previousSquare;
-        //TODO move the player logic away
-        public RealPlayer RealPlayer { get; set; }
+        private bool _isPlayBoard;
+        public Color Color { get; set; } = Color.White;
         public Board Board { get; set; }
 
         public static readonly DependencyProperty SetTextProperty =
          DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(SquareView));
-        public BoardView(Board board, RealPlayer player)
+        public BoardView(Board board, bool isPlayBoard = false)
         {
             InitializeComponent();
-
-            RealPlayer = player;
             Board = board;
+            _isPlayBoard = isPlayBoard;
+
             for (int i = 0; i < Board.Size; i++) {
                 Grid.RowDefinitions.Add(new RowDefinition());
                 Grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
+
             foreach (var square in Board.Squares)
             {
-                var squareView = new SquareView(square);
-                if (square.Piece != null && square.Piece.Color == RealPlayer.Color)
-                    squareView.PieceView.Player = RealPlayer;
-                //squareView.RenderTransformOrigin = new Point(0.5, 0.5);
-                //squareView.RenderTransform = new RotateTransform(180);
-                squareView.UcPieceView.LayoutTransform = LayoutTransform;
-                squareView.LayoutTransform = LayoutTransform;
+                var squareView = new SquareView(square)
+                {
+                    UcPieceView = {LayoutTransform = LayoutTransform},
+                    LayoutTransform = LayoutTransform
+                };
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
         }
@@ -55,6 +55,9 @@ namespace WinEchek.GUI
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
+            //Only treats events if this boardview is intended to be played on
+            if (!_isPlayBoard) return;
+
             var point = Mouse.GetPosition(Grid);
 
             var row = 0;
@@ -89,7 +92,7 @@ namespace WinEchek.GUI
 
             if (_previousSquare == null)
             {
-                if (clickedPieceView?.Piece.Color != RealPlayer.Color) return;
+                if (clickedPieceView?.Piece.Color != Color) return;
                 _previousSquare = clickedSquare;
                 _selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
@@ -97,11 +100,13 @@ namespace WinEchek.GUI
             else
             {
                 _previousSquare.BorderThickness = new Thickness(0);
-                RealPlayer.Move(new Move(_selectedPiece.Piece, clickedSquare.Square));
-                RealPlayer.Color = RealPlayer.Color == Color.Black ? Color.White : Color.Black;
+                BoardMove?.Invoke(new Move(_selectedPiece.Piece, clickedSquare.Square));
                 _previousSquare = null;
                 _selectedPiece = null;
             }
         }
+
+        public delegate void MoveHandler(Move move);
+        public event MoveHandler BoardMove;
     }
 }

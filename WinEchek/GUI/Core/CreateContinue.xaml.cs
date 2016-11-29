@@ -29,8 +29,8 @@ namespace WinEchek.GUI.Core {
         {
             ILoader loader = new BinaryLoader();
 
-            String directorySaveName = "Save";
-            String fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
+            string directorySaveName = "Save";
+            string fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
             Console.WriteLine(fullSavePath);
             if (Directory.Exists(fullSavePath) == false) {
                 Directory.CreateDirectory(fullSavePath);
