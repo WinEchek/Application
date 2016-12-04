@@ -44,6 +44,16 @@ namespace WinEchek.Engine
             return false;
         }
 
+        public override bool PossibleMove(Move move)
+        {
+            //No reason to move if it's the same square
+            if (move.Square == move.Piece.Square) return false;
+            //TODO gérer exception
+            if (_ruleGroups.Handle(move))
+                return true;
+            return false;
+        }
+
         public override void Undo()
         {
             _conversation.Undo();

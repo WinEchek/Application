@@ -12,6 +12,12 @@ namespace WinEchek.Engine
     {
         public abstract Board Board { get; }
         public abstract bool DoMove(Move move);
+        /// <summary>
+        /// Implémentation à revoir : la méthode devra renvoyer une liste de case.
+        /// </summary>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public abstract bool PossibleMove(Move move);
         public abstract void Undo();
         public abstract void Redo();
 
