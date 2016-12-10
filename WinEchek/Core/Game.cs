@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Threading.Tasks;
 using WinEchek.Core;
 using WinEchek.Engine;
 using WinEchek.GUI;
@@ -9,7 +7,6 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek
 {
-    //TODO the game should implement a mode, two players and make them play together
     [Serializable]
     public class Game
     {
@@ -30,6 +27,7 @@ namespace WinEchek
 
             WhitePlayer.MoveDone += MoveHandler;
             BlackPlayer.MoveDone += MoveHandler;
+
             _currentPlayer = WhitePlayer;
             _currentPlayer.Play();
         }
@@ -42,24 +40,16 @@ namespace WinEchek
 
         private void MoveHandler(Player sender, Move move)
         {
-            if (sender != _currentPlayer) return; //Should tell the player it isn't his turn
+            if (sender != _currentPlayer) return; //Tell the player it isn't his turn ?
+
             if (Engine.DoMove(move)) _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
             _currentPlayer.Play();
-            Console.WriteLine("Told " + _currentPlayer.Color + " player to play");
-        }
-        public bool DoMove(Move move) => Engine.DoMove(move);
-
-        public void Undo()
-        {
-            Engine.Undo();
         }
 
-        public void Redo()
-        {
-            Engine.Redo();
-        }
+        public void Undo() => Engine.Undo();
+
+        public void Redo() => Engine.Redo();
     }
-
 
     public enum Mode
     {

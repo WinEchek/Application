@@ -1,5 +1,4 @@
-﻿using WinEchek.Engine;
-using WinEchek.GUI;
+﻿using WinEchek.GUI;
 
 namespace WinEchek.Core
 {

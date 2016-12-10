@@ -1,5 +1,4 @@
-﻿using WinEchek.Engine;
-using WinEchek.Model;
+﻿using WinEchek.Model;
 using WinEchek.Model.Piece;
 
 namespace WinEchek.Core

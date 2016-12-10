@@ -15,14 +15,13 @@ namespace WinEchek.GUI.Core {
     {
         public Game Game { get; set; }
         private MainWindow _mainWindow;
-        private int _lastStateDisplayed = 0;
 
-        public GameView(MainWindow mw, Game game) {
+        public GameView(MainWindow mainWindow, Game game) {
             InitializeComponent();
-            _mainWindow = mw;
+            _mainWindow = mainWindow;
             Game = game;
 
-            //Event handler when a move is done
+            //HistoryView events handlers invert dependency
             game.Engine.MoveDone += MoveDone;
             HistoryView.ListItemOvered += DrawOldBoard;
             HistoryView.MouseLeave += RefreshBoard;
@@ -41,6 +40,11 @@ namespace WinEchek.GUI.Core {
                 _mainWindow.ShowMessageAsync("Erreur", "Impossible d'afficher une partie non créée");
             }    
         }
+
+        #region HistoryView
+
+        //TODO Invert the dependency
+        private int _lastStateDisplayed;
 
         private void RefreshBoard(object sender, MouseEventArgs e)
         {
@@ -63,7 +67,7 @@ namespace WinEchek.GUI.Core {
             }
             else
             {
-                for (int i = 0; i < index-_lastStateDisplayed; i++)
+                for (int i = 0; i < index - _lastStateDisplayed; i++)
                 {
                     Game.Undo();
                 }
@@ -71,26 +75,13 @@ namespace WinEchek.GUI.Core {
             _lastStateDisplayed = index;
         }
 
-
-        public async Task Quit() 
-        { 
-            _mainWindow.Flyout.IsOpen = false;
-
-            var result = await _mainWindow.ShowMessageAsync("Quitter la partie", "Voulez-vous vraiment quitter la partie ? Si votre partie n'est pas sauvegardée, elle sera perdue...", MessageDialogStyle.AffirmativeAndNegative);
-            if (result == MessageDialogResult.Affirmative)
-            {
-                _mainWindow.Flyout.Content = null;
-                _mainWindow.WinEchek.Game = null;
-                _mainWindow.MainControl.Content = new Home(_mainWindow);
-            }
-            
-        }
-
         private void MoveDone(object sender, MoveEventArgs eventArgs)
         {
-            if(_lastStateDisplayed == 0)
+            if (_lastStateDisplayed == 0)
                 HistoryView.Add(eventArgs.Piece, eventArgs.StartSquare, eventArgs.TargetSquare);
         }
+
+        #endregion
 
         #region Flyout
 
@@ -104,6 +95,19 @@ namespace WinEchek.GUI.Core {
         {
             if (_mainWindow.Flyout.IsOpen) return;
             _mainWindow.Flyout.IsOpen = true;
+        }
+        public async Task Quit()
+        {
+            _mainWindow.Flyout.IsOpen = false;
+
+            var result = await _mainWindow.ShowMessageAsync("Quitter la partie", "Voulez-vous vraiment quitter la partie ? Si votre partie n'est pas sauvegardée, elle sera perdue...", MessageDialogStyle.AffirmativeAndNegative);
+            if (result == MessageDialogResult.Affirmative)
+            {
+                _mainWindow.Flyout.Content = null;
+                _mainWindow.WinEchek.Game = null;
+                _mainWindow.MainControl.Content = new Home(_mainWindow);
+            }
+
         }
 
         #endregion
@@ -122,10 +126,5 @@ namespace WinEchek.GUI.Core {
         }
 
         #endregion
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

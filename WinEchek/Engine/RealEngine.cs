@@ -1,12 +1,6 @@
-﻿using System;
-using System.CodeDom;
-using System.Windows.Controls;
-using WinEchek.Engine.Command;
+﻿using WinEchek.Engine.Command;
 using WinEchek.Engine.RuleManager;
-using WinEchek.Engine.Rules;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
-using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine
 {
@@ -44,26 +38,23 @@ namespace WinEchek.Engine
             return false;
         }
 
-        public override bool PossibleMove(Move move)
-        {
-            //No reason to move if it's the same square
-            if (move.Square == move.Piece.Square) return false;
-            //TODO gérer exception
-            if (_ruleGroups.Handle(move))
-                return true;
-            return false;
-        }
+        //TODO gérer les exceptions
+        public override bool PossibleMove(Move move) =>
+            (move.Square != move.Piece.Square) && 
+            _ruleGroups.Handle(move);
 
-        public override void Undo()
-        {
-            _conversation.Undo();
-        }
+        public override bool Undo() => (_conversation.Undo() != null);
+        
 
-        public override void Redo()
+        public override bool Redo()
         {
+            //TODO remove the cast
             MoveCommand moveCommand = _conversation.Redo() as MoveCommand;
-            if(moveCommand!=null)
-                MoveDone?.Invoke(this, new MoveEventArgs(moveCommand.Piece, moveCommand.Square, moveCommand.Piece.Square));
+            if (moveCommand == null) return false;
+
+            MoveDone?.Invoke(this, new MoveEventArgs(moveCommand.Piece, moveCommand.Square, moveCommand.Piece.Square));
+
+            return true;
         }
 
         public override event MoveHandler MoveDone;

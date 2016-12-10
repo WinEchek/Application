@@ -18,8 +18,8 @@ namespace WinEchek.Engine
         /// <param name="move"></param>
         /// <returns></returns>
         public abstract bool PossibleMove(Move move);
-        public abstract void Undo();
-        public abstract void Redo();
+        public abstract bool Undo();
+        public abstract bool Redo();
 
         public delegate void MoveHandler(object sender, MoveEventArgs eventArgs);
 
