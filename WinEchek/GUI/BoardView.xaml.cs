@@ -14,7 +14,7 @@ namespace WinEchek.GUI
     /// <summary>
     ///     Interaction logic for BoardView.xaml
     /// </summary>
-    public partial class BoardView : UserControl
+    public partial class BoardView
     {
         private PieceView _selectedPiece;
         private SquareView _previousSquare;
@@ -91,9 +91,10 @@ namespace WinEchek.GUI
 
             var clickedPieceView = clickedSquare.PieceView;
 
+            if (clickedPieceView?.Piece.Color != Color) return;
+
             if (_previousSquare == null)
             {
-                if (clickedPieceView?.Piece.Color != Color) return;
                 _previousSquare = clickedSquare;
                 _selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
@@ -114,12 +115,8 @@ namespace WinEchek.GUI
                         }
                     }
                 }
-
-
-
-
-
-            } else
+            }
+            else
             {
                 foreach (SquareView lol in Grid.Children.Cast<SquareView>().ToList())
                 {

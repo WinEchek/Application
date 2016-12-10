@@ -22,10 +22,9 @@ namespace WinEchek.Core.Persistance
             RealEngine moteur = new RealEngine(board);
             BoardView boardView = new BoardView(moteur.Board);
             RealPlayer player = new RealPlayer(Color.White, boardView);
-            Game game = new Game(moteur, boardView);
             //TODO should move the player logic appart (can't while the mode logic isn"t implemented
             stream.Close();
-            return game;
+            return null;
         }
 
         public string Filter()

@@ -11,7 +11,7 @@ namespace WinEchek.GUI.Core {
     /// <summary>
     /// Logique d'interaction pour GameView.xaml
     /// </summary>
-    public partial class GameView : UserControl
+    public partial class GameView
     {
         public Game Game { get; set; }
         private MainWindow _mainWindow;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WinEchek.Core;
 using WinEchek.Engine;
 using WinEchek.GUI;
@@ -7,7 +8,6 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek
 {
-    [Serializable]
     public class Game
     {
         private Player _currentPlayer;
@@ -20,22 +20,15 @@ namespace WinEchek
         public Game()
         {
             Engine = new RealEngine(new Board());
-            //TODO should be done in the local game
+
             BoardView = new BoardView(Engine.Board, true);
-            WhitePlayer = new RealPlayer(Color.White, BoardView);
-            BlackPlayer = new RealPlayer(Color.Black, BoardView);
+
 
             WhitePlayer.MoveDone += MoveHandler;
             BlackPlayer.MoveDone += MoveHandler;
 
             _currentPlayer = WhitePlayer;
             _currentPlayer.Play();
-        }
-
-        public Game(Engine.Engine engine, BoardView boardView)
-        {
-            Engine = engine;
-            BoardView = boardView;
         }
 
         private void MoveHandler(Player sender, Move move)
@@ -49,6 +42,11 @@ namespace WinEchek
         public void Undo() => Engine.Undo();
 
         public void Redo() => Engine.Redo();
+
+        public List<Square> PossibleMoves(Piece piece)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum Mode

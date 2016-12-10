@@ -86,9 +86,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\GameCreator.cs" />
-    <Compile Include="Core\GameFactory.cs" />
-    <Compile Include="Core\LocalGame.cs" />
-    <Compile Include="Core\LocalGameCreator.cs" />
+    <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Core\WinEchek.cs" />
     <Compile Include="Engine\Command\CompensableConversation.cs" />
     <Compile Include="Engine\Command\ICompensableCommand.cs" />
@@ -110,6 +108,7 @@
     <Compile Include="Engine\RuleManager\RuleGroup.cs" />
     <Compile Include="Engine\RuleManager\QueenRuleGroup.cs" />
     <Compile Include="Engine\RuleManager\RookRuleGroup.cs" />
+    <Compile Include="GUI\BoardViewPlayerController.cs" />
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
@@ -124,7 +123,6 @@
     <Compile Include="Core\Persistance\XMLLoader.cs" />
     <Compile Include="Core\Persistance\XMLSaver.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Core\RealPlayer.cs" />
     <Page Include="GUI\Core\CreateContinue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
