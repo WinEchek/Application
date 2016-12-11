@@ -16,7 +16,7 @@ namespace WinEchek.GUI.Core {
         public Game Game { get; set; }
         private MainWindow _mainWindow;
 
-        public GameView(MainWindow mainWindow, Game game) {
+        public GameView(MainWindow mainWindow, Game game, BoardView boardView) {
             InitializeComponent();
             _mainWindow = mainWindow;
             Game = game;
@@ -29,16 +29,8 @@ namespace WinEchek.GUI.Core {
             //Création et ajout du contenu du PLS pour cette vue
             GameViewFlyout gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = gameViewFlyout.Content;
-            
-            try
-            {
-                UcBoardView.Content = Game.BoardView;
-            }
-            catch (Exception)
-            {
-                //TODO could be another exception
-                _mainWindow.ShowMessageAsync("Erreur", "Impossible d'afficher une partie non créée");
-            }    
+            UcBoardView.Content = boardView;
+
         }
 
         #region HistoryView

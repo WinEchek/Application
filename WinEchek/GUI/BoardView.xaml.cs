@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,17 +19,15 @@ namespace WinEchek.GUI
     {
         private PieceView _selectedPiece;
         private SquareView _previousSquare;
-        private bool _isPlayBoard;
-        public Color Color { get; set; } = Color.White;
         public Board Board { get; set; }
-
+        public List<BoardViewPlayerController> BoardViewPlayerControllers { get; set; } = new List<BoardViewPlayerController>();
         public static readonly DependencyProperty SetTextProperty =
          DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(SquareView));
-        public BoardView(Board board, bool isPlayBoard = false)
+        public BoardView(Board board)
         {
             InitializeComponent();
             Board = board;
-            _isPlayBoard = isPlayBoard;
+            
 
             for (int i = 0; i < Board.Size; i++) {
                 Grid.RowDefinitions.Add(new RowDefinition());
@@ -56,8 +55,9 @@ namespace WinEchek.GUI
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
-            //Only treats events if this boardview is intended to be played on
-            if (!_isPlayBoard) return;
+
+            // Si le plateau ne contrôle aucun joueur
+            if(BoardViewPlayerControllers.Count == 0) return;
 
             var point = Mouse.GetPosition(Grid);
 
@@ -84,14 +84,16 @@ namespace WinEchek.GUI
                 col++;
             }
 
-            //TODO Move the event logic appart from this class
             var clickedSquare = Grid.Children
                 .Cast<SquareView>() //Wonderful cast right here
                 .First(x => Grid.GetRow(x) == row && Grid.GetColumn(x) == col);
 
             var clickedPieceView = clickedSquare.PieceView;
 
-            if (clickedPieceView?.Piece.Color != Color) return;
+            List<BoardViewPlayerController> concernedControllers =
+                BoardViewPlayerControllers.FindAll(x => (x.Player.Color == ((_selectedPiece == null) ? clickedPieceView?.Piece.Color : _selectedPiece?.Piece.Color) && x.IsPlayable));
+            if (concernedControllers.Count == 0) return;
+            
 
             if (_previousSquare == null)
             {
@@ -124,13 +126,13 @@ namespace WinEchek.GUI
                 }
                 
                 _previousSquare.BorderThickness = new Thickness(0);
-                BoardMove?.Invoke(new Move(_selectedPiece.Piece, clickedSquare.Square));
+                
+                Move move = new Move(_selectedPiece.Piece, clickedSquare.Square);
+                concernedControllers.ForEach(x => x.Move(move));
                 _previousSquare = null;
                 _selectedPiece = null;
             }
         }
 
-        public delegate void MoveHandler(Move move);
-        public event MoveHandler BoardMove;
     }
 }

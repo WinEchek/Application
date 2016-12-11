@@ -8,20 +8,33 @@ namespace WinEchek.GUI
     public class BoardViewPlayerController : PlayerControler
     {
         private BoardView _boardView;
+        public bool IsPlayable { get; set; } = false;
 
-        public BoardViewPlayerController(Player player, BoardView boardView) : base(player)
+        public BoardViewPlayerController(BoardView boardView)
         {
             _boardView = boardView;
         }
 
         public override void Play()
         {
-            _boardView
+            IsPlayable = true;
+        }
+
+        public override void Move(Move move)
+        {
+            IsPlayable = false;
+            Player.Move(move);
+        }
+
+        public override void InvalidMove(List<string> reasonsList)
+        {
+            IsPlayable = true;
+            //TODO Indiquer à l'IHM que le mouvement est invalide et pour quelles raisons
         }
 
         public override List<Square> PossibleMoves(Piece piece)
         {
-            throw new System.NotImplementedException();
+            return Player.PossibleMoves(piece);
         }
     }
 }

@@ -3,7 +3,9 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
+using WinEchek.Core;
 using WinEchek.Core.Persistance;
+using WinEchek.Model;
 
 namespace WinEchek.GUI.Core {
     /// <summary>
@@ -21,8 +23,11 @@ namespace WinEchek.GUI.Core {
 
         private void CreateNewGameTile_OnClick(object sender, RoutedEventArgs e)
         {
-            _mainWindow.WinEchek.CreateGame();
-            _mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
+            GameFactory gameFactory = new GameFactory();
+            Board board = new Board();
+            BoardView boardView = new BoardView(board);
+            Game game = gameFactory.CreateGame(Mode.Local, board, boardView);
+            _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }
 
         private void TileLoadGame_OnClick(object sender, RoutedEventArgs e)
@@ -41,7 +46,7 @@ namespace WinEchek.GUI.Core {
             };
             if (openFileDialog.ShowDialog() == true) {
                 _mainWindow.WinEchek.Game = loader.Load(openFileDialog.FileName);
-                _mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
+                //_mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
             }
 
         }

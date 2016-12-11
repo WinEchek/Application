@@ -8,10 +8,5 @@
         {
 
         }
-
-        public void CreateGame()
-        {
-            Game = new Game();
-        }
     }
 }

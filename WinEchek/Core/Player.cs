@@ -8,13 +8,12 @@ namespace WinEchek.Core
     {
         public Color Color { get; internal set; }
         private PlayerControler _playerControler;
-        private Game _game;
+        public Game Game { get; set; }
 
-        protected Player(Color color, PlayerControler playerControler, Game game)
+        public Player(Color color, PlayerControler playerControler)
         {
             Color = color;
             _playerControler = playerControler;
-            _game = game;
         }
 
         /// <summary>
@@ -23,7 +22,7 @@ namespace WinEchek.Core
         /// </summary>
         public void Play() => _playerControler.Play();
 
-        public List<Square> PossibleMoves(Piece piece) => _game.PossibleMoves(piece);
+        public List<Square> PossibleMoves(Piece piece) => Game.PossibleMoves(piece);
 
         public void Move(Move move)
         {

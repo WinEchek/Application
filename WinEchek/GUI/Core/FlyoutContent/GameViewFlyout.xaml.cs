@@ -23,6 +23,7 @@ namespace WinEchek.GUI.Core.FlyoutContent
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        //TODO A refaire
         private void TileSave_OnClick(object sender, RoutedEventArgs e)
         {
             ISaver saver = new BinarySaver();

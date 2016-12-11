@@ -86,6 +86,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\GameCreator.cs" />
+    <Compile Include="Core\GameFactory.cs" />
+    <Compile Include="Core\LocalGameCreator.cs" />
     <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Core\WinEchek.cs" />
     <Compile Include="Engine\Command\CompensableConversation.cs" />

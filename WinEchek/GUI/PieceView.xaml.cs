@@ -18,7 +18,6 @@ namespace WinEchek.GUI {
     /// </summary>
     public partial class PieceView : UserControl {
         public Piece Piece { get; set; }
-        public RealPlayer Player { get; set; }
 
         public PieceView(Piece piece)
         {

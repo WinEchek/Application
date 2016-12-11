@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using WinEchek.Core;
-using WinEchek.Engine;
 using WinEchek.GUI;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
+
 
 namespace WinEchek
 {
@@ -15,15 +15,19 @@ namespace WinEchek
         public Player WhitePlayer { get; set; }
         public Player BlackPlayer { get; set; }
         public Engine.Engine Engine { get; internal set; }
-        public BoardView BoardView { get; set; }
 
-        public Game()
+        /// <summary>
+        /// Construit une partie avec deux joueurs et un moteur
+        /// </summary>
+        /// <param name="engine">Moteur que la partie devra utilisée pour vérifier les coups</param>
+        /// <param name="whitePlayer">Joueur blanc</param>
+        /// <param name="blackPlayer">Joueur noir</param>
+        public Game(Engine.Engine engine, Player whitePlayer, Player blackPlayer)
         {
-            Engine = new RealEngine(new Board());
-
-            BoardView = new BoardView(Engine.Board, true);
-
-
+            WhitePlayer = whitePlayer;
+            BlackPlayer = blackPlayer;
+            Engine = engine;
+            
             WhitePlayer.MoveDone += MoveHandler;
             BlackPlayer.MoveDone += MoveHandler;
 
@@ -31,6 +35,16 @@ namespace WinEchek
             _currentPlayer.Play();
         }
 
+        /// <summary>
+        /// Délégué appelé quand un joueur réalise un coup.
+        /// </summary>
+        /// <remarks>
+        /// On vérifie si le coup est valide et si c'est le cas on demande à l'autre joueur de jouer.
+        /// Sinon on indique au joueur que le coup est invalide afin qu'il nous redonne un coup.
+        /// On réalise ces actions tant que la partie n'est pas echec et mat ou echec et pat.
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="move"></param>
         private void MoveHandler(Player sender, Move move)
         {
             if (sender != _currentPlayer) return; //Tell the player it isn't his turn ?
@@ -39,20 +53,24 @@ namespace WinEchek
             _currentPlayer.Play();
         }
 
+        /// <summary>
+        /// Demande au moteur d'annuler le dernier coup joué
+        /// </summary>
         public void Undo() => Engine.Undo();
-
+        
+        /// <summary>
+        /// Demande au moteur de refaire le dernier coup annulé
+        /// </summary>
         public void Redo() => Engine.Redo();
-
+        
+        /// <summary>
+        /// Liste les mouvements possibles pour une pièce.
+        /// </summary>
+        /// <param name="piece">Pièce a tester</param>
+        /// <returns>Liste des mouvements</returns>
         public List<Square> PossibleMoves(Piece piece)
         {
             throw new NotImplementedException();
         }
-    }
-
-    public enum Mode
-    {
-        Local,
-        Network,
-        AI
     }
 }

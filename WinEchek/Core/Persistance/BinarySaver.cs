@@ -11,8 +11,8 @@ namespace WinEchek.Core.Persistance
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-            Board board = game.BoardView.Board;
-            formatter.Serialize(stream, board);
+            //Board board = game.BoardView.Board;
+            //formatter.Serialize(stream, board);
             //TODO should serialize command for the motor and reconstruct it with the command too
             stream.Close();
         }

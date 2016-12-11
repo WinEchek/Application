@@ -21,7 +21,7 @@ namespace WinEchek.Core.Persistance
             //TODO the loader should either be independant of the engine or know which one it is using
             RealEngine moteur = new RealEngine(board);
             BoardView boardView = new BoardView(moteur.Board);
-            RealPlayer player = new RealPlayer(Color.White, boardView);
+            //RealPlayer player = new RealPlayer(Color.White, boardView);
             //TODO should move the player logic appart (can't while the mode logic isn"t implemented
             stream.Close();
             return null;

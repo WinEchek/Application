@@ -1,7 +1,12 @@
-﻿namespace WinEchek.Core
+﻿using WinEchek.GUI;
+using WinEchek.Model;
+
+namespace WinEchek.Core
 {
     public abstract class GameCreator
     {
-        public abstract Game CreateGame();
+        public abstract Mode Mode { get; }
+        public abstract Game CreateGame(Board board, BoardView boardView);
     }
+
 }
