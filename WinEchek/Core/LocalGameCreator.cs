@@ -8,15 +8,15 @@ namespace WinEchek.Core
     public class LocalGameCreator : GameCreator
     {
         public override Mode Mode => Mode.Local;
-        public override Game CreateGame(Board board, BoardView boardView)
+        public override Game CreateGame(Container container, BoardView boardView)
         {
-            Engine.Engine engine = new RealEngine(board);
+            Engine.Engine engine = new RealEngine(container);
             PlayerControler whitePlayerControler = new BoardViewPlayerController(boardView);
             PlayerControler blackPlayerControler = new BoardViewPlayerController(boardView);
             Player whitePlayer = new Player(Color.White, whitePlayerControler);
             Player blackPlayer = new Player(Color.Black, blackPlayerControler);
 
-            Game game = new Game(engine, whitePlayer, blackPlayer);
+            Game game = new Game(engine, whitePlayer, blackPlayer, container);
 
             whitePlayer.Game = game;
             blackPlayer.Game = game;

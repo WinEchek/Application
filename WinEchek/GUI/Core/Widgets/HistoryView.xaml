@@ -21,8 +21,7 @@
         <ListView Name="ListViewHistory" MouseMove="ListViewHistory_OnMouseMove" AlternationCount="2">
             <ListView.View >
                 <GridView AllowsColumnReorder="False" >
-                    <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Number}"/>
-                    <GridViewColumn Header="Déplacement" DisplayMemberBinding="{Binding Move}"/>
+                    <GridViewColumn Header="Déplacement"/>
                 </GridView>
               </ListView.View>
           </ListView>

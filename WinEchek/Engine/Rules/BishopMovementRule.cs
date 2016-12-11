@@ -19,8 +19,6 @@ namespace WinEchek.Engine.Rules
             bool diagonalDownLeftEnd = false;
             bool diagonalDownRightEnd = false;
 
-
-
             Board board = move.Piece.Square.Board;
 
             for (int i = 1; i < 8; i++)
@@ -91,7 +89,7 @@ namespace WinEchek.Engine.Rules
                                                          .Concat(diagonalDownLeft)
                                                          .Concat(diagonalDownRight)
                                                          .ToList();
-            return possibleSquares.Contains(move.Square);
+            return possibleSquares.Contains(move.TargetSquare);
         }
 
     }

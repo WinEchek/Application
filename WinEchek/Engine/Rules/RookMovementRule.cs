@@ -10,8 +10,8 @@ namespace WinEchek.Engine.Rules
     {
         public bool IsMoveValid(Move move)
         {
-            Board board = move.Square.Board;
-            Square targetSquare = move.Square;
+            Board board = move.TargetSquare.Board;
+            Square targetSquare = move.TargetSquare;
             Piece piece = move.Piece;
             //if the movement is not inline
             if (!(piece.Square.X == targetSquare.X ^ piece.Square.Y == targetSquare.Y)) return false;

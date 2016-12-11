@@ -1,9 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using WinEchek.Engine.Command;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
@@ -15,23 +17,17 @@ namespace WinEchek.GUI.Core.Widgets
     /// </summary>
     public partial class HistoryView : UserControl
     {
-        private ObservableCollection<MoveInfo> _moves = new ObservableCollection<MoveInfo>();
-        private int lastIndex = -1;
-        public HistoryView()
+        private ObservableCollection<ICompensableCommand> _moves;
+        private Game _game;
+        private int _lastIndex = -1;
+
+        public HistoryView(Game game)
         {
             InitializeComponent();
+
+            _game = game;
+            _moves = game.Container.Moves;
             ListViewHistory.ItemsSource = _moves;
-        }
-
-        public void Add(Piece piece, Square startSquare, Square targetSquare)
-        {
-            _moves.Add(new MoveInfo(_moves.Count+1, piece, startSquare, targetSquare));
-        }
-
-        public void Remove()
-        {
-            if(_moves.Count == 0) return;
-            _moves.RemoveAt(_moves.Count-1);
         }
 
         public delegate void ListItemNumber(int i);
@@ -52,9 +48,9 @@ namespace WinEchek.GUI.Core.Widgets
                     break;
                 }
             }
-            if (index != -1 && index != lastIndex)
+            if (index != -1 && index != _lastIndex)
             {
-                lastIndex = index;
+                _lastIndex = index;
                 ListItemOvered?.Invoke(_moves.Count - index);
             }
         }
@@ -63,19 +59,6 @@ namespace WinEchek.GUI.Core.Widgets
         {
             var bounds = VisualTreeHelper.GetDescendantBounds(target);
             return bounds.Contains(point);
-        }
-
-        class MoveInfo
-        {
-            public int Number { get; set; }
-            public string Move { get; set; }
-
-            public MoveInfo(int number, Piece piece, Square startSquare, Square targetSquare)
-            {
-                Number = number;
-                Move = piece + " " + startSquare.X + "," + startSquare.Y + " vers " + targetSquare.X + "," +
-                       targetSquare.Y;
-            }
         }
     }
 }

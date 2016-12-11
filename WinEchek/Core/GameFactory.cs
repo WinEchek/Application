@@ -19,9 +19,9 @@ namespace WinEchek.Core
         /// </summary>
         /// <param name="mode">Mode de jeu souhaité</param>
         /// <returns>Une partie dans le mode de jeu passé en paramètre</returns>
-        public Game CreateGame(Mode mode, Board board, BoardView boardView)
+        public Game CreateGame(Mode mode, Container container, BoardView boardView)
         {
-            return GameCreators.FindAll(x => x.Mode == mode).First().CreateGame(board, boardView);
+            return GameCreators.FindAll(x => x.Mode == mode).First().CreateGame(container, boardView);
         }
     }
 

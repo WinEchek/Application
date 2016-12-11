@@ -7,7 +7,7 @@ namespace WinEchek.Engine.Rules
     {
         public bool IsMoveValid(Move move)
         {
-            Square square = move.Square;
+            Square square = move.TargetSquare;
             Piece piece = move.Piece;
             bool isWhite = piece.Color == Color.White;
             bool isStartPosition = piece.Square.Y == 1 && !isWhite || piece.Square.Y == 6 && isWhite;

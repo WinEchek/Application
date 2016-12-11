@@ -100,23 +100,6 @@ namespace WinEchek.GUI
                 _previousSquare = clickedSquare;
                 _selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
-                /* 
-                 * ATTENTION ! CERTAINES PARTIQUES DE PROGRAMMATION UTILISÉES CI DESSOUS PEUVENT CHOQUER LA SENSIBILITÉ DE CERTAINS PROGRAMMEURS.
-                 */
-                 Engine.Engine lol = new RealEngine(Board);
-                for (int i = 0; i < 8; i++)
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        Move TestMove = new Move(_selectedPiece.Piece, Board.Squares[i, j]);
-                        if (lol.PossibleMove(TestMove))
-                        {
-                            Grid.Children.Cast<SquareView>()
-                                .First(x => Grid.GetRow(x) == j && Grid.GetColumn(x) == i)
-                                .SetResourceReference(Control.BackgroundProperty, (i + j) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
-                        }
-                    }
-                }
             }
             else
             {

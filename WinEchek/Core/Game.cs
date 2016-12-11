@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using WinEchek.Core;
-using WinEchek.GUI;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
@@ -15,6 +14,7 @@ namespace WinEchek
         public Player WhitePlayer { get; set; }
         public Player BlackPlayer { get; set; }
         public Engine.Engine Engine { get; internal set; }
+        public Container Container { get; set; }
 
         /// <summary>
         /// Construit une partie avec deux joueurs et un moteur
@@ -22,12 +22,13 @@ namespace WinEchek
         /// <param name="engine">Moteur que la partie devra utilisée pour vérifier les coups</param>
         /// <param name="whitePlayer">Joueur blanc</param>
         /// <param name="blackPlayer">Joueur noir</param>
-        public Game(Engine.Engine engine, Player whitePlayer, Player blackPlayer)
+        public Game(Engine.Engine engine, Player whitePlayer, Player blackPlayer, Container container)
         {
             WhitePlayer = whitePlayer;
             BlackPlayer = blackPlayer;
             Engine = engine;
-            
+            Container = container;
+
             WhitePlayer.MoveDone += MoveHandler;
             BlackPlayer.MoveDone += MoveHandler;
 

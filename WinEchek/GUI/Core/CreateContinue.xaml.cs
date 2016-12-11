@@ -24,9 +24,10 @@ namespace WinEchek.GUI.Core {
         private void CreateNewGameTile_OnClick(object sender, RoutedEventArgs e)
         {
             GameFactory gameFactory = new GameFactory();
-            Board board = new Board();
-            BoardView boardView = new BoardView(board);
-            Game game = gameFactory.CreateGame(Mode.Local, board, boardView);
+            Container container = new Container();
+            BoardView boardView = new BoardView(container.Board);
+            Game game = gameFactory.CreateGame(Mode.Local, container, boardView);
+
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }
 

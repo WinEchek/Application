@@ -117,6 +117,7 @@
     <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Move.cs" />
     <Compile Include="Core\Persistance\BinaryLoader.cs" />
     <Compile Include="Core\Persistance\BinarySaver.cs" />

@@ -6,13 +6,23 @@ namespace WinEchek.Engine
 {
     public class RealEngine : Engine
     {
-        public override Board Board { get; }
-        private CompensableConversation _conversation = new CompensableConversation();
+        private CompensableConversation _conversation;
         private RuleGroup _ruleGroups;
 
-        public RealEngine(Board board)
+        /// <summary>
+        /// The board the engine works with
+        /// </summary>
+        public override Board Board { get; }
+
+        /// <summary>
+        /// RealEngine constructor
+        /// </summary>
+        /// <param name="container">The model the engine will work with</param>
+        public RealEngine(Container container)
         {
-            Board = board;
+            Board = container.Board;
+            _conversation = new CompensableConversation(container.Moves);
+
             _ruleGroups = new PawnRuleGroup();
             _ruleGroups.AddGroup(new BishopRuleGroup());
             _ruleGroups.AddGroup(new KingRuleGroup());
@@ -21,42 +31,48 @@ namespace WinEchek.Engine
             _ruleGroups.AddGroup(new RookRuleGroup());
         }
 
+        /// <summary>
+        /// Ask the engine to do a move
+        /// </summary>
+        /// <param name="move">The move to do</param>
+        /// <returns>True if the move was valid and therefore has been done</returns>
         public override bool DoMove(Move move)
         {
             //No reason to move if it's the same square
-            if (move.Square == move.Piece.Square) return false;
+            if (move.TargetSquare == move.Piece.Square) return false;
 
             Square startSquare = move.Piece.Square;
+
             //TODO gérer exception
             if (_ruleGroups.Handle(move))
             {
                 _conversation.Execute(new MoveCommand(move));
-                MoveDone?.Invoke(this, new MoveEventArgs(move.Piece, startSquare, move.Square));
                 return true;
             }
 
             return false;
         }
 
-        //TODO gérer les exceptions
+        /// <summary>
+        /// Test if a given move can be done in the current board
+        /// </summary>
+        /// <param name="move">The move to test</param>
+        /// <returns>True if the move is valid</returns>
         public override bool PossibleMove(Move move) =>
-            (move.Square != move.Piece.Square) && 
+            (move.TargetSquare != move.Piece.Square) && 
             _ruleGroups.Handle(move);
 
-        public override bool Undo() => (_conversation.Undo() != null);
-        
+        /// <summary>
+        /// Undo the last command that has been done
+        /// </summary>
+        /// <returns>True if anything has been done</returns>
+        public override bool Undo() => _conversation.Undo() != null;
 
-        public override bool Redo()
-        {
-            //TODO remove the cast
-            MoveCommand moveCommand = _conversation.Redo() as MoveCommand;
-            if (moveCommand == null) return false;
+        /// <summary>
+        /// Redo the last command that has been undone
+        /// </summary>
+        /// <returns>True if anything has been done</returns>
+        public override bool Redo() => _conversation.Redo() != null;
 
-            MoveDone?.Invoke(this, new MoveEventArgs(moveCommand.Piece, moveCommand.Square, moveCommand.Piece.Square));
-
-            return true;
-        }
-
-        public override event MoveHandler MoveDone;
     }
 }

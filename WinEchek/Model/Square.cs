@@ -31,6 +31,8 @@ namespace WinEchek.Model
             Y = y;
         }
 
+        public override string ToString() => (char)('A' + X) + (8 - Y).ToString();
+
         [field: NonSerialized()]
         public event PropertyChangedEventHandler PropertyChanged;
 

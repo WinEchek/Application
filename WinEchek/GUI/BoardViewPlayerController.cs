@@ -8,7 +8,7 @@ namespace WinEchek.GUI
     public class BoardViewPlayerController : PlayerControler
     {
         private BoardView _boardView;
-        public bool IsPlayable { get; set; } = false;
+        public bool IsPlayable { get; set; }
 
         public BoardViewPlayerController(BoardView boardView)
         {

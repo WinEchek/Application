@@ -25,7 +25,7 @@ namespace WinEchek.Core
         /// Méthode appelée si le mouvement est invalide
         /// </summary>
         /// <param name="reasonsList">Liste des règles non vérifiées par le mouvement</param>
-        public abstract void InvalidMove(List<String> reasonsList);
+        public abstract void InvalidMove(List<string> reasonsList);
 
         /// <summary>
         /// Demande au joueur de retourner la liste des déplacements possibles pour une pièce donnée

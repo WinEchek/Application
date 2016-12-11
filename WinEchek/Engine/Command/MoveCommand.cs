@@ -3,44 +3,65 @@ using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine.Command
 {
+    /// <summary>
+    /// Represents a Move to execute on the model
+    /// </summary>
     public class MoveCommand : ICompensableCommand
     {
-        public Piece Piece { get; internal set; }
+        private Piece _piece;
         private Piece _removedPiece;
-        public Square Square { get; internal set; }
+        private Square _startSquare;
         private Square _targetSquare;
 
+        public Move Move { get; set; }
+
+        /// <summary>
+        /// MoveCommand constructor
+        /// </summary>
+        /// <param name="move">The move to do</param>
         public MoveCommand(Move move)
         {
-            Piece = move.Piece;
-            _targetSquare = move.Square;
+            Move = move;
+            _piece = move.Piece;
+            _startSquare = move.StartSquare;
+            _targetSquare = move.TargetSquare;
         }
 
+        /// <summary>
+        /// Execute the move on the model
+        /// </summary>
         public void Execute()
         {
-            Square = Piece.Square;
+            _startSquare = _piece.Square;
 
-            if (_targetSquare.Piece == null)//Si case vide
+            //Si case vide
+            if (_targetSquare.Piece == null)
             {
-                Square.Piece = null;
-                Piece.Square = _targetSquare;
-                _targetSquare.Piece = Piece;
+                _startSquare.Piece = null;
+                _piece.Square = _targetSquare;
+                _targetSquare.Piece = _piece;
             }
+            //Si il y à une pièce à prendre
             else
             {
                 _removedPiece = _targetSquare.Piece;
                 _targetSquare.Piece = null;
-                Piece.Square.Piece = null;
-                Piece.Square = _targetSquare;
-                _targetSquare.Piece = Piece;
+                _piece.Square.Piece = null;
+                _piece.Square = _targetSquare;
+                _targetSquare.Piece = _piece;
             }
         }
 
+        /// <summary>
+        /// Undo the move
+        /// </summary>
         public void Compensate()
         {
             _targetSquare.Piece = _removedPiece;
-            Square.Piece = Piece;
-            Piece.Square = Square;
+            _startSquare.Piece = _piece;
+            _piece.Square = _startSquare;
         }
+
+        public override string ToString() => _piece + " de " + _startSquare + " vers " + _targetSquare;
     }
 }

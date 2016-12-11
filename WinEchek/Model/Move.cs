@@ -2,13 +2,15 @@
 {
     public class Move
     {
-        public Piece.Piece Piece { get; set; }
-        public Square Square { get; set; }
+        public Piece.Piece Piece { get; }
+        public Square StartSquare { get; }
+        public Square TargetSquare { get; }
 
         public Move(Piece.Piece piece, Square square)
         {
             Piece = piece;
-            Square = square;
+            StartSquare = piece.Square;
+            TargetSquare = square;
         }
     }
 }
