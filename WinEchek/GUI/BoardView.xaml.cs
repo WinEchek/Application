@@ -100,29 +100,19 @@ namespace WinEchek.GUI
                 _previousSquare = clickedSquare;
                 _selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
-                /* 
-                 * ATTENTION ! CERTAINES PARTIQUES DE PROGRAMMATION UTILISÉES CI DESSOUS PEUVENT CHOQUER LA SENSIBILITÉ DE CERTAINS PROGRAMMEURS.
-                 */
-                 Engine.Engine lol = new RealEngine(Board);
-                for (int i = 0; i < 8; i++)
+
+                foreach (Square square in concernedControllers.First().PossibleMoves(_selectedPiece.Piece))
                 {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        Move TestMove = new Move(_selectedPiece.Piece, Board.Squares[i, j]);
-                        if (lol.PossibleMove(TestMove))
-                        {
-                            Grid.Children.Cast<SquareView>()
-                                .First(x => Grid.GetRow(x) == j && Grid.GetColumn(x) == i)
-                                .SetResourceReference(Control.BackgroundProperty, (i + j) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
-                        }
-                    }
+                    Grid.Children.Cast<SquareView>()
+                                .First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X)
+                                .SetResourceReference(Control.BackgroundProperty, (square.X + square.Y) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
                 }
             }
             else
             {
-                foreach (SquareView lol in Grid.Children.Cast<SquareView>().ToList())
+                foreach (SquareView squareView in Grid.Children.Cast<SquareView>().ToList())
                 {
-                    lol.SetResourceReference(Control.BackgroundProperty,(lol.Square.X + lol.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
+                    squareView.SetResourceReference(Control.BackgroundProperty,(squareView.Square.X + squareView.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
                 }
                 
                 _previousSquare.BorderThickness = new Thickness(0);

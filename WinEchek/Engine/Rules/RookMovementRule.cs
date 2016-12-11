@@ -24,6 +24,11 @@ namespace WinEchek.Engine.Rules
                 .All(betweenSquare => betweenSquare.Piece == null);
         }
 
+        public List<Square> PossibleMoves(Piece piece)
+        {
+            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x)));
+        }
+
         private static bool Between(int i, int j, int x) => (i > j) ? 
             i > x && j < x : 
             j > x && i < x;

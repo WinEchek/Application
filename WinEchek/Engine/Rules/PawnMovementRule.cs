@@ -1,4 +1,6 @@
-﻿using WinEchek.Model;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WinEchek.Model;
 using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine.Rules
@@ -30,6 +32,11 @@ namespace WinEchek.Engine.Rules
                 piece.Square.Y - square.Y == (isWhite ? 1 : -1);
             }
             
+        }
+
+        public List<Square> PossibleMoves(Piece piece)
+        {
+            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x)));
         }
     }
 }

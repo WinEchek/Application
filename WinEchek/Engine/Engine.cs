@@ -15,9 +15,9 @@ namespace WinEchek.Engine
         /// <summary>
         /// Implémentation à revoir : la méthode devra renvoyer une liste de case.
         /// </summary>
-        /// <param name="move"></param>
+        /// <param name="piece"></param>
         /// <returns></returns>
-        public abstract bool PossibleMove(Move move);
+        public abstract List<Square> PossibleMoves(Piece piece);
         public abstract bool Undo();
         public abstract bool Redo();
 

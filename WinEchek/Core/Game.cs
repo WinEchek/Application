@@ -70,7 +70,7 @@ namespace WinEchek
         /// <returns>Liste des mouvements</returns>
         public List<Square> PossibleMoves(Piece piece)
         {
-            throw new NotImplementedException();
+            return Engine.PossibleMoves(piece);
         }
     }
 }

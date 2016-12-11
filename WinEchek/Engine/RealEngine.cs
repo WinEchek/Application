@@ -1,6 +1,8 @@
-﻿using WinEchek.Engine.Command;
+﻿using System.Collections.Generic;
+using WinEchek.Engine.Command;
 using WinEchek.Engine.RuleManager;
 using WinEchek.Model;
+using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine
 {
@@ -38,11 +40,12 @@ namespace WinEchek.Engine
             return false;
         }
 
-        //TODO gérer les exceptions
-        public override bool PossibleMove(Move move) =>
-            (move.Square != move.Piece.Square) && 
-            _ruleGroups.Handle(move);
+        public override List<Square> PossibleMoves(Piece piece)
+        {
+            return _ruleGroups.PossibleMoves(piece);
+        }
 
+        //TODO gérer les exceptions
         public override bool Undo() => (_conversation.Undo() != null);
         
 
