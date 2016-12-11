@@ -1,4 +1,7 @@
-﻿using WinEchek.Model;
+﻿using System;
+using System.Collections.Generic;
+using WinEchek.Model;
+using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine
 {
@@ -32,23 +35,5 @@ namespace WinEchek.Engine
         /// </summary>
         /// <returns>True if anything was done</returns>
         public abstract bool Redo();
-
-        public delegate void MoveHandler(object sender, MoveEventArgs eventArgs);
-
-        public abstract event MoveHandler MoveDone;
-    }
-
-    public class MoveEventArgs : EventArgs
-    {
-        public Piece Piece { get; internal set; }
-        public Square StartSquare { get; internal set; }
-        public Square TargetSquare { get; internal set; }
-
-        public MoveEventArgs(Piece piece, Square startSquare, Square targetSquare)
-        {
-            Piece = piece;
-            StartSquare = startSquare;
-            TargetSquare = targetSquare;
-        }
     }
 }
