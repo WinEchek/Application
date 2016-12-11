@@ -22,14 +22,9 @@ namespace WinEchek.Engine
         /// <summary>
         /// Implémentation à revoir : la méthode devra renvoyer une liste de case.
         /// </summary>
-        /// <param name="move"></param>
+        /// <param name="piece"></param>
         /// <returns></returns>
-        public abstract bool PossibleMove(Move move);
-
-        /// <summary>
-        /// Undo the last move that has been done
-        /// </summary>
-        /// <returns>True if anything has been done</returns>
+        public abstract List<Square> PossibleMoves(Piece piece);
         public abstract bool Undo();
 
         /// <summary>
@@ -37,5 +32,23 @@ namespace WinEchek.Engine
         /// </summary>
         /// <returns>True if anything was done</returns>
         public abstract bool Redo();
+
+        public delegate void MoveHandler(object sender, MoveEventArgs eventArgs);
+
+        public abstract event MoveHandler MoveDone;
+    }
+
+    public class MoveEventArgs : EventArgs
+    {
+        public Piece Piece { get; internal set; }
+        public Square StartSquare { get; internal set; }
+        public Square TargetSquare { get; internal set; }
+
+        public MoveEventArgs(Piece piece, Square startSquare, Square targetSquare)
+        {
+            Piece = piece;
+            StartSquare = startSquare;
+            TargetSquare = targetSquare;
+        }
     }
 }

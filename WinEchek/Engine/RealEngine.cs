@@ -1,6 +1,8 @@
-﻿using WinEchek.Engine.Command;
+﻿using System.Collections.Generic;
+using WinEchek.Engine.Command;
 using WinEchek.Engine.RuleManager;
 using WinEchek.Model;
+using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine
 {
@@ -53,14 +55,10 @@ namespace WinEchek.Engine
             return false;
         }
 
-        /// <summary>
-        /// Test if a given move can be done in the current board
-        /// </summary>
-        /// <param name="move">The move to test</param>
-        /// <returns>True if the move is valid</returns>
-        public override bool PossibleMove(Move move) =>
-            (move.TargetSquare != move.Piece.Square) && 
-            _ruleGroups.Handle(move);
+        public override List<Square> PossibleMoves(Piece piece)
+        {
+            return _ruleGroups.PossibleMoves(piece);
+        }
 
         /// <summary>
         /// Undo the last command that has been done

@@ -100,12 +100,19 @@ namespace WinEchek.GUI
                 _previousSquare = clickedSquare;
                 _selectedPiece = clickedSquare.PieceView;
                 clickedSquare.BorderThickness = new Thickness(4);
+
+                foreach (Square square in concernedControllers.First().PossibleMoves(_selectedPiece.Piece))
+                {
+                    Grid.Children.Cast<SquareView>()
+                                .First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X)
+                                .SetResourceReference(Control.BackgroundProperty, (square.X + square.Y) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
+                }
             }
             else
             {
-                foreach (SquareView lol in Grid.Children.Cast<SquareView>().ToList())
+                foreach (SquareView squareView in Grid.Children.Cast<SquareView>().ToList())
                 {
-                    lol.SetResourceReference(Control.BackgroundProperty,(lol.Square.X + lol.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
+                    squareView.SetResourceReference(Control.BackgroundProperty,(squareView.Square.X + squareView.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
                 }
                 
                 _previousSquare.BorderThickness = new Thickness(0);
