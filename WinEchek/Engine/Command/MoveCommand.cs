@@ -1,4 +1,5 @@
-﻿using WinEchek.Model;
+﻿using System;
+using WinEchek.Model;
 using WinEchek.Model.Piece;
 
 namespace WinEchek.Engine.Command
@@ -6,6 +7,7 @@ namespace WinEchek.Engine.Command
     /// <summary>
     /// Represents a Move to execute on the model
     /// </summary>
+    [Serializable]
     public class MoveCommand : ICompensableCommand
     {
         private Piece _piece;

@@ -123,8 +123,7 @@
     <Compile Include="Core\Persistance\BinarySaver.cs" />
     <Compile Include="Core\Persistance\ILoader.cs" />
     <Compile Include="Core\Persistance\ISaver.cs" />
-    <Compile Include="Core\Persistance\XMLLoader.cs" />
-    <Compile Include="Core\Persistance\XMLSaver.cs" />
+    <Compile Include="Model\Square.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Page Include="GUI\Core\CreateContinue.xaml">
       <SubType>Designer</SubType>
@@ -203,7 +202,6 @@
     <Compile Include="Model\Piece\Piece.cs" />
     <Compile Include="Model\Piece\Queen.cs" />
     <Compile Include="Model\Piece\Rook.cs" />
-    <Compile Include="Model\Square.cs" />
     <Compile Include="Model\Piece\Knight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

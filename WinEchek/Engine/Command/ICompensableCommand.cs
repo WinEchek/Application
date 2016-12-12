@@ -1,4 +1,6 @@
-﻿namespace WinEchek.Engine.Command
+﻿using System;
+
+namespace WinEchek.Engine.Command
 {
     /// <summary>
     /// A command that can be done and undone

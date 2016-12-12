@@ -7,13 +7,11 @@ namespace WinEchek.Core.Persistance
 {
     class BinarySaver : ISaver
     {
-        public void Save(Game game, string path)
+        public void Save(Container container, string path)
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-            //Board board = game.BoardView.Board;
-            //formatter.Serialize(stream, board);
-            //TODO should serialize command for the motor and reconstruct it with the command too
+            formatter.Serialize(stream, container);
             stream.Close();
         }
 
