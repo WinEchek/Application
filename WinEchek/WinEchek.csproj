@@ -90,11 +90,16 @@
     <Compile Include="Core\LocalGameCreator.cs" />
     <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Core\WinEchek.cs" />
+    <Compile Include="Engine\Command\CastlingCommand.cs" />
     <Compile Include="Engine\Command\CompensableConversation.cs" />
+    <Compile Include="Engine\Command\HistoryViewConversation.cs" />
     <Compile Include="Engine\Command\ICompensableCommand.cs" />
+    <Compile Include="Engine\Command\ICompensableConversation.cs" />
     <Compile Include="Engine\Command\MoveCommand.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Engine\RealEngine.cs" />
+    <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRuleKing.cs" />
+    <Compile Include="Engine\Rules\Castling.cs" />
     <Compile Include="Engine\Rules\BishopMovementRule.cs" />
     <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
     <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
@@ -124,8 +129,7 @@
     <Compile Include="Core\Persistance\BinarySaver.cs" />
     <Compile Include="Core\Persistance\ILoader.cs" />
     <Compile Include="Core\Persistance\ISaver.cs" />
-    <Compile Include="Core\Persistance\XMLLoader.cs" />
-    <Compile Include="Core\Persistance\XMLSaver.cs" />
+    <Compile Include="Model\Square.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Page Include="GUI\Core\CreateContinue.xaml">
       <SubType>Designer</SubType>
@@ -204,7 +208,6 @@
     <Compile Include="Model\Piece\Piece.cs" />
     <Compile Include="Model\Piece\Queen.cs" />
     <Compile Include="Model\Piece\Rook.cs" />
-    <Compile Include="Model\Square.cs" />
     <Compile Include="Model\Piece\Knight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

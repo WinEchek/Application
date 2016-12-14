@@ -1,10 +1,11 @@
 ﻿using System;
+using WinEchek.Model;
 
 namespace WinEchek.Core.Persistance
 {
     interface ISaver
     {
-        void Save(Game game, string path);
+        void Save(Container container, string path);
         String Filter();
     }
 }

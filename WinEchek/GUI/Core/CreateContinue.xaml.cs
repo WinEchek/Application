@@ -36,18 +36,27 @@ namespace WinEchek.GUI.Core {
             ILoader loader = new BinaryLoader();
 
             string directorySaveName = "Save";
-            string fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
-            Console.WriteLine(fullSavePath);
-            if (Directory.Exists(fullSavePath) == false) {
+            string fullSavePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
+
+            if (Directory.Exists(fullSavePath) == false)
+            {
                 Directory.CreateDirectory(fullSavePath);
             }
-            OpenFileDialog openFileDialog = new OpenFileDialog() {
+
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
                 Filter = loader.Filter(),
                 InitialDirectory = fullSavePath
             };
-            if (openFileDialog.ShowDialog() == true) {
-                _mainWindow.WinEchek.Game = loader.Load(openFileDialog.FileName);
-                //_mainWindow.MainControl.Content = new GameView(_mainWindow, _mainWindow.WinEchek.Game);
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                GameFactory gameFactory = new GameFactory();
+                Container container = loader.Load(openFileDialog.FileName); //TODO verify filename
+                BoardView boardView = new BoardView(container.Board);
+                Game game = gameFactory.CreateGame(Mode.Local, container, boardView);
+
+                _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
             }
 
         }

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinEchek.GUI.Core.Widgets"
+             xmlns:gui="clr-namespace:WinEchek.GUI"
              mc:Ignorable="d">
     <Grid>
         <Grid.Resources>
@@ -18,12 +19,17 @@
                 </Style.Triggers>
             </Style>
         </Grid.Resources>
-        <ListView Name="ListViewHistory" MouseMove="ListViewHistory_OnMouseMove" AlternationCount="2">
+        <ListView Name="ListViewHistory" MouseLeave="ListViewHistory_OnMouseLeave" MouseEnter="ListViewHistory_OnMouseEnter" AlternationCount="2">
             <ListView.View >
                 <GridView AllowsColumnReorder="False" >
                     <GridViewColumn Header="Déplacement"/>
                 </GridView>
               </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseEnter" Handler="EventSetter_OnHandler"/>
+                </Style>
+            </ListView.ItemContainerStyle>
           </ListView>
     </Grid>
 </UserControl>

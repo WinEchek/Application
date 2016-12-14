@@ -1,8 +1,11 @@
-﻿namespace WinEchek.Core.Persistance
+﻿using WinEchek.Model;
+
+namespace WinEchek.Core.Persistance
 {
     interface ILoader
     {
-        Game Load(string path);
+        Container Load(string path);
+
         string Filter();
     }
 }

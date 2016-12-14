@@ -10,7 +10,7 @@ namespace WinEchek.GUI.Core.FlyoutContent
     /// <summary>
     /// Logique d'interaction pour GameViewFlyout.xaml
     /// </summary>
-    public partial class GameViewFlyout : UserControl
+    public partial class GameViewFlyout
     {
         private GameView _gameView;
         public GameViewFlyout(GameView gameView)
@@ -27,8 +27,8 @@ namespace WinEchek.GUI.Core.FlyoutContent
         private void TileSave_OnClick(object sender, RoutedEventArgs e)
         {
             ISaver saver = new BinarySaver();
-            String directorySaveName = "Save";
-            String fullSavePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
+            string directorySaveName = "Save";
+            string fullSavePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + directorySaveName;
             Console.WriteLine(fullSavePath);
             if (Directory.Exists(fullSavePath) == false) {
                 Directory.CreateDirectory(fullSavePath);
@@ -38,7 +38,7 @@ namespace WinEchek.GUI.Core.FlyoutContent
                 InitialDirectory = fullSavePath
             };
             if (saveFileDialog.ShowDialog() == true) {
-                saver.Save(_gameView.Game, saveFileDialog.FileName);
+                saver.Save(_gameView.Game.Container, saveFileDialog.FileName);
             }
         }
 

@@ -5,10 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using WinEchek.Core;
-using WinEchek.Engine;
 using WinEchek.Model;
-using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.GUI
 {
@@ -23,6 +20,7 @@ namespace WinEchek.GUI
         public List<BoardViewPlayerController> BoardViewPlayerControllers { get; set; } = new List<BoardViewPlayerController>();
         public static readonly DependencyProperty SetTextProperty =
          DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(SquareView));
+
         public BoardView(Board board)
         {
             InitializeComponent();
@@ -44,6 +42,7 @@ namespace WinEchek.GUI
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
         }
+
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);

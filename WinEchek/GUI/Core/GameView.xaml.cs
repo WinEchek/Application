@@ -20,14 +20,12 @@ namespace WinEchek.GUI.Core {
             _mainWindow = mainWindow;
             Game = game;
 
-            //HistoryView events handlers invert dependency
-            HistoryView.Content = new HistoryView(Game);
-
             //Création et ajout du contenu du PLS pour cette vue
             GameViewFlyout gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = gameViewFlyout.Content;
             UcBoardView.Content = boardView;
 
+            HistoryView.Content = new HistoryView(this);
         }
 
         #region Flyout

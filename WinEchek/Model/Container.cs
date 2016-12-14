@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using WinEchek.Engine.Command;
 
 namespace WinEchek.Model
@@ -6,6 +7,7 @@ namespace WinEchek.Model
     /// <summary>
     /// Contains the model for a chess game
     /// </summary>
+    [Serializable]
     public class Container
     {
         /// <summary>

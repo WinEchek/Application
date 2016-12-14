@@ -1,64 +1,114 @@
 ﻿using System;
-using System.CodeDom;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using WinEchek.Engine.Command;
 using WinEchek.Model;
-using WinEchek.Model.Piece;
 
 namespace WinEchek.GUI.Core.Widgets
 {
-    //TODO should be just a widget
     /// <summary>
     /// Logique d'interaction pour HistoryView.xaml
     /// </summary>
     public partial class HistoryView : UserControl
     {
-        private ObservableCollection<ICompensableCommand> _moves;
+        private ObservableCollection<ICompensableCommand> _moves = new ObservableCollection<ICompensableCommand>();
+        private HistoryViewConversation _conversation;
         private Game _game;
+        private GameView _gameView;
+        private BoardView _realBoardView;
         private int _lastIndex = -1;
+        private Board _board = new Board();
+        private BoardView _boardView;
 
-        public HistoryView(Game game)
+        public HistoryView(GameView gameView)
         {
             InitializeComponent();
+            _game = gameView.Game;
+            
+            _gameView = gameView;
+            _realBoardView = gameView.UcBoardView.Content as BoardView;
+            _conversation = new HistoryViewConversation();
 
-            _game = game;
-            _moves = game.Container.Moves;
+            foreach (ICompensableCommand command in _game.Container.Moves)
+            {
+                ICompensableCommand momand = command.Copy(_board);
+                _conversation.Execute(momand);
+                _moves.Add(momand);
+            }
+
+            _game.Container.Moves.CollectionChanged += (sender, args) =>
+            {
+                if (args.Action == NotifyCollectionChangedAction.Add)
+                {
+                    ICompensableCommand command = args.NewItems[args.NewItems.Count - 1] as ICompensableCommand;
+                    command = command.Copy(_board);
+                    _conversation.Execute(command);
+                    _moves.Add(command);
+                }
+                if (args.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    _conversation.Undo();
+                    _moves.RemoveAt(_moves.Count-1);
+                }
+            };
+
+            _boardView = new BoardView(_board) {RenderSize = new Size(250, 250)};
             ListViewHistory.ItemsSource = _moves;
         }
 
-        public delegate void ListItemNumber(int i);
-
-        public event ListItemNumber ListItemOvered;
-
-        private void ListViewHistory_OnMouseMove(object sender, MouseEventArgs e)
+        private void ListViewHistory_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            //TODO change to on item over
-            int index = -1;
-            for (int i = 0; i < _moves.Count; i++)
+            if (_lastIndex != -1 && _lastIndex != _moves.Count-1)
             {
-                var lbi = ListViewHistory.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
-                if (lbi == null) continue;
-                if (IsMouseOverTarget(lbi, e.GetPosition((IInputElement) lbi)))
+                for (int i = 1; i < _moves.Count-_lastIndex; i++)
                 {
-                    index = i;
-                    break;
+                    _conversation.Redo();
                 }
             }
-            if (index != -1 && index != _lastIndex)
-            {
-                _lastIndex = index;
-                ListItemOvered?.Invoke(_moves.Count - index);
-            }
+            _gameView.UcBoardView.Content = _realBoardView;
+            Console.WriteLine("Ce n'est plus le mauvais board");
+            _lastIndex = -1;
         }
 
-        private static bool IsMouseOverTarget(Visual target, Point point)
+
+        private void EventSetter_OnHandler(object sender, MouseEventArgs e)
         {
-            var bounds = VisualTreeHelper.GetDescendantBounds(target);
-            return bounds.Contains(point);
+            var item = (sender as FrameworkElement)?.DataContext;
+            int index = (ListViewHistory.Items).IndexOf(item);
+            var plop = sender as ListViewItem;
+            if (_lastIndex == -1)
+            {
+                for (int i = 1; i < _moves.Count-index; i++)
+                {
+                    _conversation.Undo();
+                }
+            }
+            else if (index < _lastIndex)
+            {
+                for (int i = 0; i < _lastIndex-index; i++)
+                {
+                    _conversation.Undo();
+                }
+            }
+            else if (index > _lastIndex)
+            {
+                for (int i = 0; i < index-_lastIndex; i++)
+                {
+                    _conversation.Redo();
+                }
+            }
+            _lastIndex = index;
+            
+        }
+
+        private void ListViewHistory_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            _gameView.UcBoardView.Content = _boardView;
+            Console.WriteLine("C'est le mauvais board");
         }
     }
 }
