@@ -98,6 +98,7 @@
     <Compile Include="Engine\Rules\BishopMovementRule.cs" />
     <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
     <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
+    <Compile Include="Engine\Rules\IsNotCheck.cs" />
     <Compile Include="Engine\Rules\KingMovementRule.cs" />
     <Compile Include="Engine\RuleManager\KingRuleGroup.cs" />
     <Compile Include="Engine\Rules\KnightMovementRule.cs" />
