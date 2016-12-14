@@ -50,28 +50,37 @@ namespace WinEchek
         {
             if (sender != _currentPlayer) return; //Tell the player it isn't his turn ?
 
-            if (Engine.DoMove(move)) _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+            if (Engine.DoMove(move)) ChangePlayer();
+            _currentPlayer.Play();
+        }
+        
+        private void ChangePlayer() => _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+        /// <summary>
+        /// Demande au moteur d'annuler le dernier coup joué
+        /// </summary>
+        public void Undo()
+        {
+            
+            if(Engine.Undo())
+                ChangePlayer();
             _currentPlayer.Play();
         }
 
         /// <summary>
-        /// Demande au moteur d'annuler le dernier coup joué
-        /// </summary>
-        public void Undo() => Engine.Undo();
-        
-        /// <summary>
         /// Demande au moteur de refaire le dernier coup annulé
         /// </summary>
-        public void Redo() => Engine.Redo();
+        public void Redo()
+        {
+            if (Engine.Redo()) 
+                ChangePlayer();
+            _currentPlayer.Play();
+        }
         
         /// <summary>
         /// Liste les mouvements possibles pour une pièce.
         /// </summary>
         /// <param name="piece">Pièce a tester</param>
         /// <returns>Liste des mouvements</returns>
-        public List<Square> PossibleMoves(Piece piece)
-        {
-            return Engine.PossibleMoves(piece);
-        }
+        public List<Square> PossibleMoves(Piece piece) => Engine.PossibleMoves(piece);
     }
 }

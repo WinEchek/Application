@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using WinEchek.Engine.Command;
 using WinEchek.Engine.RuleManager;
 using WinEchek.Model;
@@ -10,6 +11,7 @@ namespace WinEchek.Engine
     {
         private CompensableConversation _conversation;
         private RuleGroup _ruleGroups;
+        private ObservableCollection<ICompensableCommand> _moves;
 
         /// <summary>
         /// The board the engine works with
@@ -23,8 +25,10 @@ namespace WinEchek.Engine
         public RealEngine(Container container)
         {
             Board = container.Board;
-            _conversation = new CompensableConversation(container.Moves);
+            _moves = container.Moves;
 
+            _conversation = new CompensableConversation(container.Moves);
+            
             _ruleGroups = new PawnRuleGroup();
             _ruleGroups.AddGroup(new BishopRuleGroup());
             _ruleGroups.AddGroup(new KingRuleGroup());
@@ -48,7 +52,13 @@ namespace WinEchek.Engine
             //TODO gérer exception
             if (_ruleGroups.Handle(move))
             {
-                _conversation.Execute(new MoveCommand(move));
+                ICompensableCommand command;
+                if (move.Piece.Type == Type.King && move.TargetSquare?.Piece.Type == Type.Rook)
+                    command = new CastlingCommand(move);
+                else
+                    command = new MoveCommand(move);
+                _conversation.Execute(command);
+                _moves.Add(command);
                 return true;
             }
 
@@ -64,13 +74,26 @@ namespace WinEchek.Engine
         /// Undo the last command that has been done
         /// </summary>
         /// <returns>True if anything has been done</returns>
-        public override bool Undo() => _conversation.Undo() != null;
+        public override bool Undo()
+        {
+            ICompensableCommand command = _conversation.Undo();
+            if (command == null) return false;
+
+            _moves.Remove(command);
+            return true;
+        }
 
         /// <summary>
         /// Redo the last command that has been undone
         /// </summary>
         /// <returns>True if anything has been done</returns>
-        public override bool Redo() => _conversation.Redo() != null;
+        public override bool Redo()
+        {
+            ICompensableCommand command = _conversation.Redo();
+            if (command == null) return false;
 
+            _moves.Add(command);
+            return true;
+        }
     }
 }

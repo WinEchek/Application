@@ -1,27 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace WinEchek.Engine.Command
 {
-    /// <summary>
-    /// Conversation keeping track of commands,
-    /// making it able to undo and redo commands
-    /// </summary>
-    public class CompensableConversation : ICompensableConversation
+    class HistoryViewConversation : ICompensableConversation
     {
-        private ObservableCollection<ICompensableCommand> _moveList;
         private Stack<ICompensableCommand> _undoCommands = new Stack<ICompensableCommand>();
         private Stack<ICompensableCommand> _redoCommands = new Stack<ICompensableCommand>();
 
-        public CompensableConversation(ObservableCollection<ICompensableCommand> moveList)
-        {
-            _moveList = moveList;
-            foreach (ICompensableCommand command in _moveList)
-            {
-                _undoCommands.Push(command);
-            }
-        }
         /// <summary>
         /// Executes a command
         /// </summary>

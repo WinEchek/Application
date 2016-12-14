@@ -90,11 +90,16 @@
     <Compile Include="Core\LocalGameCreator.cs" />
     <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Core\WinEchek.cs" />
+    <Compile Include="Engine\Command\CastlingCommand.cs" />
     <Compile Include="Engine\Command\CompensableConversation.cs" />
+    <Compile Include="Engine\Command\HistoryViewConversation.cs" />
     <Compile Include="Engine\Command\ICompensableCommand.cs" />
+    <Compile Include="Engine\Command\ICompensableConversation.cs" />
     <Compile Include="Engine\Command\MoveCommand.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Engine\RealEngine.cs" />
+    <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRuleKing.cs" />
+    <Compile Include="Engine\Rules\Castling.cs" />
     <Compile Include="Engine\Rules\BishopMovementRule.cs" />
     <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
     <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />

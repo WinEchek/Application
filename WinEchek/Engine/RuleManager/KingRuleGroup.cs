@@ -8,7 +8,8 @@ namespace WinEchek.Engine.RuleManager
         public KingRuleGroup()
         {
             Rules.Add(new KingMovementRule());
-            Rules.Add(new CanOnlyTakeEnnemyRule());
+            Rules.Add(new CanOnlyTakeEnnemyRuleKing());
+            Rules.Add(new Castling());
         }
         protected override Type Type => Type.King;
     }
