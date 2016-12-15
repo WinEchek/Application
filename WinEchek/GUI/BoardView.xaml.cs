@@ -16,6 +16,7 @@ namespace WinEchek.GUI
     {
         private PieceView _selectedPiece;
         private SquareView _previousSquare;
+        private List<SquareView> _squareViews = new List<SquareView>();
         public Board Board { get; set; }
         public List<BoardViewPlayerController> BoardViewPlayerControllers { get; set; } = new List<BoardViewPlayerController>();
         public static readonly DependencyProperty SetTextProperty =
@@ -32,6 +33,9 @@ namespace WinEchek.GUI
                 Grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
+            Grid.RowDefinitions.Add(new RowDefinition() {Height = GridLength.Auto});
+            Grid.ColumnDefinitions.Add(new ColumnDefinition() {Width = GridLength.Auto});
+
             foreach (var square in Board.Squares)
             {
                 var squareView = new SquareView(square)
@@ -39,7 +43,32 @@ namespace WinEchek.GUI
                     UcPieceView = {LayoutTransform = LayoutTransform},
                     LayoutTransform = LayoutTransform
                 };
+                _squareViews.Add(squareView);
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
+            }
+
+            for (int i = 0; i < Board.Size; i++)
+            {
+                Label label = new Label()
+                {
+                    Content = (char)('A' + i),
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+                Grid.SetColumn(label, i);
+                Grid.SetRow(label, 8);
+                Grid.Children.Add(label);
+            }
+
+            for (int i = Board.Size; i > 0; i--)
+            {
+                Label label = new Label()
+                {
+                    Content = Board.Size-i+1,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                Grid.SetColumn(label, 8);
+                Grid.SetRow(label,i-1);
+                Grid.Children.Add(label);
             }
         }
 
@@ -109,7 +138,7 @@ namespace WinEchek.GUI
             }
             else
             {
-                foreach (SquareView squareView in Grid.Children.Cast<SquareView>().ToList())
+                foreach (SquareView squareView in _squareViews)
                 {
                     squareView.SetResourceReference(Control.BackgroundProperty,(squareView.Square.X + squareView.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
                 }

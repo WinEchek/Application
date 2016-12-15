@@ -110,5 +110,10 @@ namespace WinEchek.GUI.Core.Widgets
             _gameView.UcBoardView.Content = _boardView;
             Console.WriteLine("C'est le mauvais board");
         }
+
+        private void ListViewHistory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

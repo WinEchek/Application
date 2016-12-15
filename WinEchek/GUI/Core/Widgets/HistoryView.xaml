@@ -19,7 +19,7 @@
                 </Style.Triggers>
             </Style>
         </Grid.Resources>
-        <ListView Name="ListViewHistory" MouseLeave="ListViewHistory_OnMouseLeave" MouseEnter="ListViewHistory_OnMouseEnter" AlternationCount="2">
+        <ListView Name="ListViewHistory" MouseLeave="ListViewHistory_OnMouseLeave" MouseEnter="ListViewHistory_OnMouseEnter" AlternationCount="2" SelectionChanged="ListViewHistory_SelectionChanged">
             <ListView.View >
                 <GridView AllowsColumnReorder="False" >
                     <GridViewColumn Header="Déplacement"/>
