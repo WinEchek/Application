@@ -9,6 +9,7 @@ namespace WinEchek.Engine.RuleManager
         {
             Rules.Add(new CanOnlyTakeEnnemyRule());
             Rules.Add(new BishopMovementRule());
+            Rules.Add(new WillNotMakeCheck());
         }
         protected override Type Type => Type.Bishop;
     }

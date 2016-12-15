@@ -9,6 +9,8 @@ namespace WinEchek.Engine.RuleManager
         {
             Rules.Add(new QueenMovementRule());
             Rules.Add(new CanOnlyTakeEnnemyRule());
+            Rules.Add(new WillNotMakeCheck());
+
         }
 
         protected override Type Type => Type.Queen;

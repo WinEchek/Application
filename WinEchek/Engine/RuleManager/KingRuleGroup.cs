@@ -10,6 +10,8 @@ namespace WinEchek.Engine.RuleManager
             Rules.Add(new KingMovementRule());
             Rules.Add(new CanOnlyTakeEnnemyRuleKing());
             Rules.Add(new Castling());
+            Rules.Add(new WillNotMakeCheck());
+
         }
         protected override Type Type => Type.King;
     }
