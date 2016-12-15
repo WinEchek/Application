@@ -9,6 +9,9 @@ namespace WinEchek.Model.Piece
         {
         }
 
+        public override Piece Clone(Square square) => new King(Color, square);
+
+
         public override Type Type => Type.King;
         public override string ToString() => "Roi";
     }

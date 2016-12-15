@@ -25,6 +25,8 @@ namespace WinEchek.Model.Piece
             Square = square;
         }
 
+        public abstract Piece Clone(Square square);
+
         public abstract Type Type { get; }
     }
     [Serializable]

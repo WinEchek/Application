@@ -6,12 +6,13 @@ namespace WinEchek.Model
     [Serializable]
     public class Board
     {
+        //TODO change to not const
         public const int Size = 8;
         public Square[,] Squares { get; }
 
         public Board()
         {
-            Squares = new Square[Size,Size];
+            Squares = new Square[Size, Size];
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size; j++)
@@ -20,6 +21,25 @@ namespace WinEchek.Model
                 }
             }
 
+            EightByEightInit();
+        }
+
+        public Board(Board board)
+        {
+            Squares = new Square[Size, Size];
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    Square square = new Square(this, i, j);
+                    square.Piece = board.Squares[i, j]?.Piece?.Clone(square);
+                    Squares[i, j] = square;
+                }
+            }
+        }
+
+        private void EightByEightInit()
+        {
             //Pions noirs
             for (int i = 0; i < Size; i++)
             {
