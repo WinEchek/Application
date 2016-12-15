@@ -20,7 +20,7 @@ namespace WinEchek.Engine
         /// </summary>
         /// <param name="move">The move to do</param>
         /// <returns>True if the move was valid and therefore has been done</returns>
-        public abstract bool DoMove(Move move);
+        public abstract BoardState DoMove(Move move);
 
         /// <summary>
         /// Implémentation à revoir : la méthode devra renvoyer une liste de case.
@@ -35,5 +35,15 @@ namespace WinEchek.Engine
         /// </summary>
         /// <returns>True if anything was done</returns>
         public abstract bool Redo();
+    }
+
+    public enum BoardState
+    {
+        Valid,
+        Invalid,
+        WhiteCheck,
+        BlackCheck,
+        CheckMate,
+        Pat
     }
 }

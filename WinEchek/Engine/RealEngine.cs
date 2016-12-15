@@ -43,10 +43,10 @@ namespace WinEchek.Engine
         /// </summary>
         /// <param name="move">The move to do</param>
         /// <returns>True if the move was valid and therefore has been done</returns>
-        public override bool DoMove(Move move)
+        public override BoardState DoMove(Move move)
         {
             //No reason to move if it's the same square
-            if (move.TargetSquare == move.Piece.Square) return false;
+            if (move.TargetSquare == move.Piece.Square) return BoardState.Invalid;
 
             Square startSquare = move.Piece.Square;
 
@@ -60,12 +60,19 @@ namespace WinEchek.Engine
                     command = new MoveCommand(move);
                 _conversation.Execute(command);
                 _moves.Add(command);
-                IState lolDebug = new CheckState();
-                lolDebug.IsInState(move.Piece.Square.Board, (move.Piece.Color == Color.Black ? Color.White : Color.Black));
-                return true;
+
+                
+                IState checkState = new CheckState();
+
+                if (checkState.IsInState(move.Piece.Square.Board, (move.Piece.Color == Color.Black ? Color.White : Color.Black)))
+                {
+                    return move.Piece.Color == Color.Black ? BoardState.WhiteCheck : BoardState.BlackCheck;
+                }
+                
+                return BoardState.Valid;
             }
 
-            return false;
+            return BoardState.Invalid;
         }
 
         public override List<Square> PossibleMoves(Piece piece)

@@ -14,7 +14,7 @@ namespace WinEchek.Engine.States
              * On construit des groupes de règles spéciales qui ne tienne pas compte
              * de celle de la mise en echec
              */
-            
+            Board tempBoard = new Board(board);
             List<IRule> QueenMovementCheckRules = new List<IRule>();
             QueenMovementCheckRules.Add(new QueenMovementRule());
             QueenMovementCheckRules.Add(new CanOnlyTakeEnnemyRule());
@@ -48,7 +48,7 @@ namespace WinEchek.Engine.States
             rulesGroup.Add(Type.Bishop ,BishopMovementCheckRules);
 
             // On cherche le roi
-            Piece concernedKing = board.Squares.OfType<Square>()
+            Piece concernedKing = tempBoard.Squares.OfType<Square>()
                         .First(x => x?.Piece?.Type == Type.King && x?.Piece?.Color == color).Piece;
 
             bool res = false;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WinEchek.Core;
+using WinEchek.Engine;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
@@ -50,7 +51,14 @@ namespace WinEchek
         {
             if (sender != _currentPlayer) return; //Tell the player it isn't his turn ?
 
-            if (Engine.DoMove(move)) ChangePlayer();
+            BoardState boardState = Engine.DoMove(move);
+            if (boardState == BoardState.Valid) ChangePlayer();
+            else if(boardState == BoardState.WhiteCheck || boardState == BoardState.BlackCheck)
+            {
+                string lol = "Le roi " + boardState + " est en echec";
+                Console.WriteLine(lol);
+                ChangePlayer();
+            }
             _currentPlayer.Play();
         }
         
