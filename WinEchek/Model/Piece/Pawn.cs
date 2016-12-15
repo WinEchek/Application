@@ -7,9 +7,11 @@ namespace WinEchek.Model.Piece
     {
         public Pawn(Color color, Square square) : base(color, square)
         {
+            Type = Type.Pawn;
         }
 
-        public override Type Type => Type.Pawn;
+        public override Piece Clone(Square square) => new Pawn(Color, square);
+
 
         public override string ToString() => "Pion";
     }
