@@ -7,18 +7,6 @@
              xmlns:gui="clr-namespace:WinEchek.GUI"
              mc:Ignorable="d">
     <Grid>
-        <Grid.Resources>
-            <Style TargetType="ListViewItem">
-                <Style.Triggers>
-                    <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
-                        <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
-                    </Trigger>
-                    <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
-
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Resources>
         <ListView Name="ListViewHistory" MouseLeave="ListViewHistory_OnMouseLeave" MouseEnter="ListViewHistory_OnMouseEnter" AlternationCount="2">
             <ListView.View >
                 <GridView AllowsColumnReorder="False" >
@@ -28,8 +16,14 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <EventSetter Event="MouseEnter" Handler="EventSetter_OnHandler"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="ItemListDoubleClick"/>
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                            <Setter Property="Background" Value="{DynamicResource AccentBaseColorBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
-          </ListView>
+        </ListView>
     </Grid>
 </UserControl>
