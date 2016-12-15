@@ -21,6 +21,7 @@ namespace WinEchek.GUI.Core.Widgets
         private GameView _gameView;
         private BoardView _realBoardView;
         private int _lastIndex = -1;
+        //TODO the board should adapt to the loaded size
         private Board _board = new Board();
         private BoardView _boardView;
 
@@ -51,8 +52,9 @@ namespace WinEchek.GUI.Core.Widgets
                 }
                 if (args.Action == NotifyCollectionChangedAction.Remove)
                 {
-                    _conversation.Undo();
                     _moves.RemoveAt(_moves.Count-1);
+                    _conversation.Undo();
+                    
                 }
             };
 
@@ -62,15 +64,9 @@ namespace WinEchek.GUI.Core.Widgets
 
         private void ListViewHistory_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            if (_lastIndex != -1 && _lastIndex != _moves.Count-1)
-            {
-                for (int i = 1; i < _moves.Count-_lastIndex; i++)
-                {
-                    _conversation.Redo();
-                }
-            }
+            Reinit();
+
             _gameView.UcBoardView.Content = _realBoardView;
-            Console.WriteLine("Ce n'est plus le mauvais board");
             _lastIndex = -1;
         }
 
@@ -108,7 +104,32 @@ namespace WinEchek.GUI.Core.Widgets
         private void ListViewHistory_OnMouseEnter(object sender, MouseEventArgs e)
         {
             _gameView.UcBoardView.Content = _boardView;
-            Console.WriteLine("C'est le mauvais board");
+        }
+
+        private void ItemListDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = (sender as FrameworkElement)?.DataContext;
+            int index = (ListViewHistory.Items).IndexOf(item);
+            var plop = sender as ListViewItem;
+
+            Reinit();
+
+            int count = _moves.Count;
+            for (int i = 1; i < count - index; i++)
+            {
+                _game.Undo();
+            }
+
+            _lastIndex = -1;
+        }
+
+        private void Reinit()
+        {
+            if (_lastIndex == -1 || _lastIndex == _moves.Count - 1) return;
+            for (int i = 1; i < _moves.Count - _lastIndex; i++)
+            {
+                _conversation.Redo();
+            }
         }
     }
 }

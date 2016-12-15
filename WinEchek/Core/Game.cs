@@ -55,6 +55,7 @@ namespace WinEchek
         }
         
         private void ChangePlayer() => _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+
         /// <summary>
         /// Demande au moteur d'annuler le dernier coup joué
         /// </summary>
