@@ -27,6 +27,14 @@ namespace WinEchek.Engine.Command
         Type PieceType { get; }
 
         /// <summary>
+        /// PieceColor
+        /// </summary>
+        /// <value>
+        /// The color of the piece that is concerned by the move
+        /// </value>
+        Color PieceColor { get; }
+
+        /// <summary>
         /// Copy constructor to change the acting model
         /// </summary>
         /// <param name="board">The new board to apply the command on</param>

@@ -22,6 +22,8 @@ namespace WinEchek.Core
         /// </summary>
         public void Play() => _playerControler.Play();
 
+        public void Stop() => _playerControler.Stop();
+
         public List<Square> PossibleMoves(Piece piece) => Game.PossibleMoves(piece);
 
         public void Move(Move move)

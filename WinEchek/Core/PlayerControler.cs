@@ -33,5 +33,7 @@ namespace WinEchek.Core
         /// <param name="piece">Pièce dont on veut connaitre les mouvements possibles</param>
         /// <returns>Liste des cases accessibles par la pièce passé en paramètre</returns>
         public abstract List<Square> PossibleMoves(Piece piece);
+
+        public abstract void Stop();
     }
 }

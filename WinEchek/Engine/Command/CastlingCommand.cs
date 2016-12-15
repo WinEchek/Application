@@ -1,5 +1,6 @@
 ﻿using System;
 using WinEchek.Model;
+using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.Command
@@ -47,6 +48,8 @@ namespace WinEchek.Engine.Command
         }
 
         public Type PieceType => _move.Piece.Type;
+
+        public Color PieceColor => _move.Piece.Color;
 
         public ICompensableCommand Copy(Board board) => new CastlingCommand(this, board);
 

@@ -22,6 +22,15 @@ namespace WinEchek.Model
             }
 
             EightByEightInit();
+            //PatTestInit();
+        }
+
+        private void PatTestInit()
+        {
+            Squares[7, 0].Piece = new King(Color.Black, Squares[7, 0]);
+            Squares[0, 0].Piece = new King(Color.White, Squares[0, 0]);
+            Squares[2, 5].Piece = new Rook(Color.White, Squares[2, 5]);
+            Squares[3, 5].Piece = new Rook(Color.White, Squares[3, 5]);
         }
 
         public Board(Board board)

@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
+using WinEchek.Engine;
 using WinEchek.GUI.Core.FlyoutContent;
 using WinEchek.GUI.Core.Widgets;
+using WinEchek.Model.Piece;
 
 namespace WinEchek.GUI.Core {
 
@@ -14,12 +17,32 @@ namespace WinEchek.GUI.Core {
     {
         public Game Game { get; set; }
         private MainWindow _mainWindow;
+        private BoardView _boardView;
 
         public GameView(MainWindow mainWindow, Game game, BoardView boardView) {
             InitializeComponent();
             _mainWindow = mainWindow;
+            _boardView = boardView;
             Game = game;
 
+            game.StateChanged += _boardView.GameStateChanged;
+            game.StateChanged += state =>
+            {
+                if (state == BoardState.BlackCheckMate)
+                {
+                    _mainWindow.ShowMessageAsync("Fin de la partie", "Le joueur noir est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
+                }
+                else if (state == BoardState.WhiteCheckMate)
+                {
+                    _mainWindow.ShowMessageAsync("Fin de la partie", "Le joueur blanc est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
+                }
+                else if (state == BoardState.BlackPat || state == BoardState.WhitePat)
+                {
+                    _mainWindow.ShowMessageAsync("Match nul", "Le joueur blanc est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
+                }
+
+            };
+            
             //Création et ajout du contenu du PLS pour cette vue
             GameViewFlyout gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = gameViewFlyout.Content;
@@ -27,6 +50,7 @@ namespace WinEchek.GUI.Core {
 
             HistoryView.Content = new HistoryView(this);
         }
+
 
         #region Flyout
 

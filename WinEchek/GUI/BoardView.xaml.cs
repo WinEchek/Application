@@ -5,7 +5,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using WinEchek.Engine;
 using WinEchek.Model;
+using Color = WinEchek.Model.Piece.Color;
+using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.GUI
 {
@@ -16,7 +19,7 @@ namespace WinEchek.GUI
     {
         private PieceView _selectedPiece;
         private SquareView _previousSquare;
-        private List<SquareView> _squareViews = new List<SquareView>();
+        public List<SquareView> SquareViews { get; } = new List<SquareView>();
         public Board Board { get; set; }
         public List<BoardViewPlayerController> BoardViewPlayerControllers { get; set; } = new List<BoardViewPlayerController>();
         public static readonly DependencyProperty SetTextProperty =
@@ -43,7 +46,7 @@ namespace WinEchek.GUI
                     UcPieceView = {LayoutTransform = LayoutTransform},
                     LayoutTransform = LayoutTransform
                 };
-                _squareViews.Add(squareView);
+                SquareViews.Add(squareView);
                 Grid.Children.Add(squareView); //Position is set in the squareview constructor
             }
 
@@ -133,16 +136,16 @@ namespace WinEchek.GUI
                 {
                     Grid.Children.Cast<SquareView>()
                                 .First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X)
-                                .SetResourceReference(Control.BackgroundProperty, (square.X + square.Y) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
+                                .SetResourceReference(BackgroundProperty, (square.X + square.Y) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
                 }
             }
             else
             {
-                foreach (SquareView squareView in _squareViews)
+                foreach (SquareView squareView in SquareViews)
                 {
-                    squareView.SetResourceReference(Control.BackgroundProperty,(squareView.Square.X + squareView.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
+                    ResetSquareViewColor(squareView);
                 }
-                
+
                 _previousSquare.BorderThickness = new Thickness(0);
                 
                 Move move = new Move(_selectedPiece.Piece, clickedSquare.Square);
@@ -152,5 +155,50 @@ namespace WinEchek.GUI
             }
         }
 
+        private static void ResetSquareViewColor(SquareView squareView)
+        {
+            squareView.SetResourceReference(BackgroundProperty, (squareView.Square.X + squareView.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
+        }
+
+        private SquareView _lastChangedSquareView;
+        public void GameStateChanged(BoardState state)
+        {
+            SquareView squareView = null;
+
+            switch (state)
+            {
+                case BoardState.Normal:
+                    if(_lastChangedSquareView != null)
+                        ResetSquareViewColor(_lastChangedSquareView);
+                    break;
+                case BoardState.WhiteCheck:
+                    squareView = SquareViews.First(x => x.Square?.Piece?.Type == Type.King && x.Square?.Piece?.Color == Color.White);
+                    squareView.SetResourceReference(BackgroundProperty, "ValidationBrush5");
+                    break;
+                case BoardState.BlackCheck:
+                    squareView = SquareViews.First(x => x.Square?.Piece?.Type == Type.King && x.Square?.Piece?.Color == Color.Black);
+                    squareView.SetResourceReference(BackgroundProperty, "ValidationBrush5");
+                    break;
+                case BoardState.BlackCheckMate:
+                    squareView = SquareViews.First(x => x.Square?.Piece?.Type == Type.King && x.Square?.Piece?.Color == Color.Black);
+                    squareView.SetResourceReference(BackgroundProperty, "TextBrush");
+                    break;
+                case BoardState.WhiteCheckMate:
+                    squareView = SquareViews.First(x => x.Square?.Piece?.Type == Type.King && x.Square?.Piece?.Color == Color.White);
+                    squareView.SetResourceReference(BackgroundProperty, "TextBrush");
+                    break;
+                case BoardState.BlackPat:
+                    squareView = SquareViews.First(x => x.Square?.Piece?.Type == Type.King && x.Square?.Piece?.Color == Color.Black);
+                    squareView.SetResourceReference(BackgroundProperty, "WhiteColorBrush");
+                    break;
+                case BoardState.WhitePat:
+                    squareView = SquareViews.First(x => x.Square?.Piece?.Type == Type.King && x.Square?.Piece?.Color == Color.White);
+                    squareView.SetResourceReference(BackgroundProperty, "WhiteColorBrush");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
+            _lastChangedSquareView = squareView;
+        }
     }
 }

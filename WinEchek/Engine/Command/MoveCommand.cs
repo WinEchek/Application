@@ -107,6 +107,8 @@ namespace WinEchek.Engine.Command
 
         public Type PieceType => _piece.Type;
 
+        public Color PieceColor => _piece.Color;
+
         public ICompensableCommand Copy(Board board) => new MoveCommand(this, board);
 
         public override string ToString() => _piece + " de " + _startSquare + " vers " + _targetSquare;

@@ -51,27 +51,32 @@ namespace WinEchek
         {
             if (sender != _currentPlayer) return; //Tell the player it isn't his turn ?
 
-            BoardState boardState = Engine.DoMove(move);
-            if (boardState == BoardState.Valid) ChangePlayer();
-            else if(boardState == BoardState.WhiteCheck || boardState == BoardState.BlackCheck)
+            if (Engine.DoMove(move))
             {
-                string lol = "Le roi " + boardState + " est en echec";
-                Console.WriteLine(lol);
+                _currentPlayer.Stop();
                 ChangePlayer();
+                StateChanged?.Invoke(Engine.CurrentState());
             }
+
             _currentPlayer.Play();
         }
         
         private void ChangePlayer() => _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+
+        #region Undo Redo
 
         /// <summary>
         /// Demande au moteur d'annuler le dernier coup joué
         /// </summary>
         public void Undo()
         {
-            
-            if(Engine.Undo())
+
+            if (Engine.Undo())
+            {
+                _currentPlayer.Stop();
                 ChangePlayer();
+                StateChanged?.Invoke(Engine.CurrentState());
+            }
             _currentPlayer.Play();
         }
 
@@ -80,16 +85,25 @@ namespace WinEchek
         /// </summary>
         public void Redo()
         {
-            if (Engine.Redo()) 
+            if (Engine.Redo())
+            {
+                _currentPlayer.Stop();
                 ChangePlayer();
+                StateChanged?.Invoke(Engine.CurrentState());
+            }
             _currentPlayer.Play();
         }
-        
+
+        #endregion
+
         /// <summary>
         /// Liste les mouvements possibles pour une pièce.
         /// </summary>
         /// <param name="piece">Pièce a tester</param>
         /// <returns>Liste des mouvements</returns>
         public List<Square> PossibleMoves(Piece piece) => Engine.PossibleMoves(piece);
+
+        public delegate void StateHandler(BoardState state);
+        public event StateHandler StateChanged;
     }
 }

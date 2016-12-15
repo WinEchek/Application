@@ -36,5 +36,10 @@ namespace WinEchek.GUI
         {
             return Player.PossibleMoves(piece);
         }
+
+        public override void Stop()
+        {
+            IsPlayable = false;
+        }
     }
 }

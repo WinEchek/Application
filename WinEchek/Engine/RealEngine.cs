@@ -43,12 +43,10 @@ namespace WinEchek.Engine
         /// </summary>
         /// <param name="move">The move to do</param>
         /// <returns>True if the move was valid and therefore has been done</returns>
-        public override BoardState DoMove(Move move)
+        public override bool DoMove(Move move)
         {
             //No reason to move if it's the same square
-            if (move.TargetSquare == move.Piece.Square) return BoardState.Invalid;
-
-            Square startSquare = move.Piece.Square;
+            if (move.TargetSquare == move.Piece.Square) return false;
 
             //TODO gérer exception
             if (_ruleGroups.Handle(move))
@@ -58,21 +56,38 @@ namespace WinEchek.Engine
                     command = new CastlingCommand(move);
                 else
                     command = new MoveCommand(move);
+
                 _conversation.Execute(command);
                 _moves.Add(command);
 
-                
-                IState checkState = new CheckState();
-
-                if (checkState.IsInState(move.Piece.Square.Board, (move.Piece.Color == Color.Black ? Color.White : Color.Black)))
-                {
-                    return move.Piece.Color == Color.Black ? BoardState.WhiteCheck : BoardState.BlackCheck;
-                }
-                
-                return BoardState.Valid;
+                return true;
             }
 
-            return BoardState.Invalid;
+            return false;
+        }
+
+        public override BoardState CurrentState()
+        {
+            IState checkState = new CheckState();
+            IState patState = new PatState();
+
+
+            Color color = _moves.Count == 0 ? Color.White : _moves[_moves.Count - 1].PieceColor;
+
+            bool check = checkState.IsInState(Board, color == Color.White ? Color.Black : Color.White);
+            
+                
+            
+            bool pat = patState.IsInState(Board, color == Color.White ? Color.Black : Color.White);
+
+            if (pat && check)
+                return color == Color.Black ? BoardState.WhiteCheckMate : BoardState.BlackCheckMate;
+            if(pat)
+                return color == Color.Black ? BoardState.WhitePat : BoardState.BlackPat;
+            if(check)
+                return color == Color.Black ? BoardState.WhiteCheck : BoardState.BlackCheck;
+
+            return BoardState.Normal;
         }
 
         public override List<Square> PossibleMoves(Piece piece)
