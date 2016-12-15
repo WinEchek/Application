@@ -103,7 +103,7 @@
     <Compile Include="Engine\Rules\BishopMovementRule.cs" />
     <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
     <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
-    <Compile Include="Engine\Rules\IsNotCheck.cs" />
+    <Compile Include="Engine\Rules\WillNotMakeCheck.cs" />
     <Compile Include="Engine\Rules\KingMovementRule.cs" />
     <Compile Include="Engine\RuleManager\KingRuleGroup.cs" />
     <Compile Include="Engine\Rules\KnightMovementRule.cs" />
@@ -116,6 +116,8 @@
     <Compile Include="Engine\RuleManager\RuleGroup.cs" />
     <Compile Include="Engine\RuleManager\QueenRuleGroup.cs" />
     <Compile Include="Engine\RuleManager\RookRuleGroup.cs" />
+    <Compile Include="Engine\States\CheckState.cs" />
+    <Compile Include="Engine\States\IState.cs" />
     <Compile Include="GUI\BoardViewPlayerController.cs" />
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>

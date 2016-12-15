@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using WinEchek.Engine.Command;
 using WinEchek.Engine.RuleManager;
+using WinEchek.Engine.States;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
@@ -53,12 +54,14 @@ namespace WinEchek.Engine
             if (_ruleGroups.Handle(move))
             {
                 ICompensableCommand command;
-                if (move.Piece.Type == Type.King && move.TargetSquare?.Piece.Type == Type.Rook)
+                if (move.Piece.Type == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook)
                     command = new CastlingCommand(move);
                 else
                     command = new MoveCommand(move);
                 _conversation.Execute(command);
                 _moves.Add(command);
+                IState lolDebug = new CheckState();
+                lolDebug.IsInState(move.Piece.Square.Board, (move.Piece.Color == Color.Black ? Color.White : Color.Black));
                 return true;
             }
 

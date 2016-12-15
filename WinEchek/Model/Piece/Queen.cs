@@ -7,9 +7,9 @@ namespace WinEchek.Model.Piece
     {
         public Queen(Color color, Square square) : base(color, square)
         {
+            Type = Type.Queen;
         }
 
-        public override Type Type => Type.Queen;
         public override string ToString() => "Reine";
     }
 }
