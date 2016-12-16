@@ -92,7 +92,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="_Fichier">
-                <MenuItem Header="_Quitter"></MenuItem>
+                <MenuItem Header="_Quitter" Name="MenuItemQuit" Click="MenuItemQuit_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Options">
                 <MenuItem Header="_Thème">
