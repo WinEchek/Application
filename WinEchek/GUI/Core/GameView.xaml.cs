@@ -28,17 +28,20 @@ namespace WinEchek.GUI.Core {
             game.StateChanged += _boardView.GameStateChanged;
             game.StateChanged += state =>
             {
-                if (state == BoardState.BlackCheckMate)
+                switch (state)
                 {
-                    _mainWindow.ShowMessageAsync("Fin de la partie", "Le joueur noir est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
-                }
-                else if (state == BoardState.WhiteCheckMate)
-                {
-                    _mainWindow.ShowMessageAsync("Fin de la partie", "Le joueur blanc est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
-                }
-                else if (state == BoardState.BlackPat || state == BoardState.WhitePat)
-                {
-                    _mainWindow.ShowMessageAsync("Match nul", "Le joueur blanc est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
+                    case BoardState.BlackCheckMate:
+                        _mainWindow.ShowMessageAsync("Fin de la partie", "Le joueur noir est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
+                        break;
+                    case BoardState.WhiteCheckMate:
+                        _mainWindow.ShowMessageAsync("Fin de la partie", "Le joueur blanc est echec et mat.", MessageDialogStyle.AffirmativeAndNegative);
+                        break;
+                    case BoardState.BlackPat:
+                        _mainWindow.ShowMessageAsync("Match nul", "Le joueur noir est pat.", MessageDialogStyle.AffirmativeAndNegative);
+                        break;
+                    case BoardState.WhitePat:
+                        _mainWindow.ShowMessageAsync("Match nul", "Le joueur blanc est pat.", MessageDialogStyle.AffirmativeAndNegative);
+                        break;
                 }
 
             };

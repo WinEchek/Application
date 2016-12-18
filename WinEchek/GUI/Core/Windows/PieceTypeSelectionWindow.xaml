@@ -12,8 +12,9 @@
         Height="220"
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       ResizeMode="CanResizeWithGrip"
-                      ShowIconOnTitleBar="True"
-                      >
+                      ShowIconOnTitleBar="True" WindowStyle="ToolWindow"
+        IsCloseButtonEnabled="False"
+        ShowCloseButton="False">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

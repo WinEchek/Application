@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using WinEchek.Engine;
+using WinEchek.GUI.Core.Windows;
 using WinEchek.Model;
 using Color = WinEchek.Model.Piece.Color;
 using Type = WinEchek.Model.Piece.Type;
@@ -30,7 +31,6 @@ namespace WinEchek.GUI
             InitializeComponent();
             Board = board;
             
-
             for (int i = 0; i < Board.Size; i++) {
                 Grid.RowDefinitions.Add(new RowDefinition());
                 Grid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -83,6 +83,7 @@ namespace WinEchek.GUI
             Grid.Height = minNewSizeOfParentUserControl;
         }
 
+        private List<SquareView> _possibleMoves = new List<SquareView>();
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -134,22 +135,36 @@ namespace WinEchek.GUI
 
                 foreach (Square square in concernedControllers.First().PossibleMoves(_selectedPiece.Piece))
                 {
-                    Grid.Children.Cast<SquareView>()
-                                .First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X)
-                                .SetResourceReference(BackgroundProperty, (square.X + square.Y) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
+                    SquareView squareView = Grid.Children.Cast<SquareView>().First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X);
+                    squareView.SetResourceReference(BackgroundProperty, (square.X + square.Y) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
+                    _possibleMoves.Add(squareView);
                 }
             }
             else
             {
-                foreach (SquareView squareView in SquareViews)
+                _previousSquare.BorderThickness = new Thickness(0);
+                Move move;
+                if (_selectedPiece.Piece.Type == Type.Pawn && clickedSquare.Square.Y == (_selectedPiece.Piece.Color == Color.White ? 0 : 7) && _possibleMoves.Contains(clickedSquare))
+                {
+                    var promoteDialog = new PieceTypeSelectionWindow(_selectedPiece.Piece.Color);
+                    promoteDialog.ShowDialog();
+
+                    move = new Move(_selectedPiece.Piece.Square, clickedSquare.Square, _selectedPiece.Piece.Type, _selectedPiece.Piece.Color, promoteDialog.ChosenType);
+                }
+                else
+                {
+                    move = new Move(_selectedPiece.Piece, clickedSquare.Square);
+                }
+                
+                concernedControllers.ForEach(x => x.Move(move));
+
+                foreach (SquareView squareView in _possibleMoves)
                 {
                     ResetSquareViewColor(squareView);
                 }
 
-                _previousSquare.BorderThickness = new Thickness(0);
-                
-                Move move = new Move(_selectedPiece.Piece, clickedSquare.Square);
-                concernedControllers.ForEach(x => x.Move(move));
+                _possibleMoves.Clear();
+
                 _previousSquare = null;
                 _selectedPiece = null;
             }
@@ -161,6 +176,7 @@ namespace WinEchek.GUI
         }
 
         private SquareView _lastChangedSquareView;
+
         public void GameStateChanged(BoardState state)
         {
             SquareView squareView = null;

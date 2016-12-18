@@ -29,13 +29,13 @@ namespace WinEchek.Engine.Command
             Square secondSquare = board.Squares[x, y];
             Square thirdSquare = board.Squares[x, y + (isWhite ? -1 : 1)];
 
-            _firstMove = new MoveCommand(new Move(startSquare, secondSquare));
-            _secondMove = new MoveCommand(new Move(secondSquare, thirdSquare));
+            _firstMove = new MoveCommand(new Move(startSquare, secondSquare, _move.PieceType, _move.PieceColor));
+            _secondMove = new MoveCommand(new Move(secondSquare, thirdSquare, _move.PieceType, _move.PieceColor));
 
             /** Old version
             if (move.StartSquare.X > move.TargetSquare.X)
             {
-                if (move.Piece.Color == Color.White)
+                if (move.Piece.PieceColor == PieceColor.White)
                 {
                     _firstMove =
                         new MoveCommand(new Move(move.Piece, board.Squares[move.StartSquare.X - 1, move.StartSquare.Y]));
@@ -51,7 +51,7 @@ namespace WinEchek.Engine.Command
             }
             else
             {
-                if (move.Piece.Color == Color.White)
+                if (move.Piece.PieceColor == PieceColor.White)
                 {
                     _firstMove =
                         new MoveCommand(new Move(move.Piece, board.Squares[move.StartSquare.X + 1, move.StartSquare.Y]));

@@ -15,7 +15,7 @@ namespace WinEchek.Engine.Rules {
         {
             IState checkState = new CheckState();
             Board tempBoard = new Board(move.Piece.Square.Board);
-            bool castling = new Castling().IsMoveValid(move) && (move.Piece.Type == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook) ;
+            bool castling = new Castling().IsMoveValid(move) && (move.Piece.Type == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook && move.PieceColor == move.TargetSquare?.Piece?.Color) ;
 
             if (!castling)
             {

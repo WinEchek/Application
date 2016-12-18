@@ -56,10 +56,12 @@ namespace WinEchek.Engine
             if (_ruleGroups.Handle(move))
             {
                 ICompensableCommand command;
-                if (move.Piece.Type == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook)
+                if (move.PieceType == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook)
                     command = new CastlingCommand(move);
-                else if (move.Piece.Type == Type.Pawn && move.TargetSquare.Piece == null && move.StartSquare.X != move.TargetSquare.X)
+                else if (move.PieceType == Type.Pawn && move.TargetSquare.Piece == null && move.StartSquare.X != move.TargetSquare.X)
                     command = new EnPassantCommand(move);
+                else if(move.PieceType == Type.Pawn && move.TargetSquare.Y == (move.PieceColor == Color.White ? 0 : 7))
+                    command = new PromoteCommand(move);
                 else
                     command = new MoveCommand(move);
 
@@ -103,6 +105,7 @@ namespace WinEchek.Engine
 
             return false;
         }
+
 
         public override BoardState CurrentState()
         {

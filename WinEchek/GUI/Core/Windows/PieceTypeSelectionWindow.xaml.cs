@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,8 +78,13 @@ namespace WinEchek.GUI.Core.Windows {
         private void ButtonValidation_OnClick(object sender, RoutedEventArgs e)
         {
             PieceView pv = _selectedControl.Content as PieceView;
+            if (pv == null) return;
+
             ChosenType = pv.Piece.Type;
             DialogResult = true;
+            Close();
         }
+
+        protected override void OnClosing(CancelEventArgs e) => e.Cancel = DialogResult == null;
     }
 }

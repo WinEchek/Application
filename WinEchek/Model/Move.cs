@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using WinEchek.Annotations;
+using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Model
@@ -32,6 +33,10 @@ namespace WinEchek.Model
                 _board = value;
             }
         }
+
+        public Color PieceColor { get; }
+
+        public Type PieceType { get; }
 
         /// <summary>
         /// Piece
@@ -65,18 +70,29 @@ namespace WinEchek.Model
         /// The type of piece the piece promotes to
         /// </value>
         public Type PromotePieceType { get; }
-
+        
+        //TODO remove piece
         public Move(Piece.Piece piece, Square targetSquare)
         {
             Board = targetSquare.Board;
+            PieceColor = piece.Color;
+            PieceType = piece.Type;
             _startCoordinate = piece.Square.Coordinate;
             _targetCoordinate = targetSquare.Coordinate;
         }
 
-        //TODO remove the piece from this constructor
-        public Move(Square startSquare, Square targetSquare)
+        /// <summary>
+        /// Move constructor
+        /// </summary>
+        /// <param name="startSquare">The square the piece is on</param>
+        /// <param name="targetSquare">The square the piece goes to</param>
+        /// <param name="pieceType">The type of the piece</param>
+        /// <param name="pieceColor">The pieceColor of the piece</param>
+        public Move(Square startSquare, Square targetSquare, Type pieceType, Color pieceColor)
         {
             Board = startSquare.Board;
+            PieceColor = pieceColor;
+            PieceType = pieceType;
             _startCoordinate = startSquare.Coordinate;
             _targetCoordinate = targetSquare.Coordinate;
         }
@@ -86,10 +102,14 @@ namespace WinEchek.Model
         /// </summary>
         /// <param name="startSquare">The square the piece is on</param>
         /// <param name="targetSquare">The square the piece goes to</param>
+        /// <param name="pieceType">The type of the piece</param>
+        /// <param name="pieceColor">The color of the piece</param>
         /// <param name="promotePieceType">The type the piece promotes to</param>
-        public Move(Square startSquare, Square targetSquare, Type promotePieceType)
+        public Move(Square startSquare, Square targetSquare, Type pieceType, Color pieceColor, Type promotePieceType)
         {
             Board = startSquare.Board;
+            PieceColor = pieceColor;
+            PieceType = pieceType;
             _startCoordinate = startSquare.Coordinate;
             _targetCoordinate = targetSquare.Coordinate;
             PromotePieceType = promotePieceType;
