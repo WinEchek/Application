@@ -97,6 +97,7 @@
     <Compile Include="Engine\Command\ICompensableConversation.cs" />
     <Compile Include="Engine\Command\MoveCommand.cs" />
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Engine\Command\EnPassantCommand.cs" />
     <Compile Include="Engine\RealEngine.cs" />
     <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRuleKing.cs" />
     <Compile Include="Engine\Rules\Castling.cs" />

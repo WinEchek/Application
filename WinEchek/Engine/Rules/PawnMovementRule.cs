@@ -9,27 +9,51 @@ namespace WinEchek.Engine.Rules
     {
         public bool IsMoveValid(Move move)
         {
-            Square square = move.TargetSquare;
+            Square targetSquare = move.TargetSquare;
             Piece piece = move.Piece;
+            Square square = piece.Square;
+            Board board = targetSquare.Board;
             bool isWhite = piece.Color == Color.White;
             bool isStartPosition = piece.Square.Y == 1 && !isWhite || piece.Square.Y == 6 && isWhite;
 
-            if (square.Piece == null)
+            if (targetSquare.Piece == null)
             {
-                return //Déplacement d'une case en avant
-                    (piece.Square.Y - square.Y == (isWhite ? 1 : -1) ||
+                bool normalMove = 
+                    //Déplacement d'une case en avant
+                    (piece.Square.Y - targetSquare.Y == (isWhite ? 1 : -1) ||
                     //Premier déplacement de deux cases
-                    (isStartPosition && piece.Square.Y - square.Y == (isWhite ? 2 : -2))) 
-                    &&
-                piece.Square.X == square.X;
+                    (isStartPosition && piece.Square.Y - targetSquare.Y == (isWhite ? 2 : -2))) &&
+                    //Sur la même colonne
+                    piece.Square.X == targetSquare.X;
+
+                Pawn leftPiece =
+                    (square.X > 0)
+                        ? board.Squares[square.X - 1, square.Y]?.Piece as Pawn
+                        : null;
+                Pawn rightPiece =
+                    (square.X < 7)
+                        ? board.Squares[square.X + 1, square.Y]?.Piece as Pawn
+                        : null;
+
+                if (leftPiece?.EnPassant == true)
+                {
+                    if(targetSquare.X == square.X-1 && (piece.Square.Y - targetSquare.Y == (isWhite ? 1 : -1)))
+                    return true;
+                }
+                if (rightPiece?.EnPassant == true)
+                {
+                    if (targetSquare.X == square.X + 1 && (piece.Square.Y - targetSquare.Y == (isWhite ? 1 : -1)))
+                    return true;
+                }
                 
+                return normalMove;
             }
             else
             {
                 return //Seulement les deux cases diagonal
-                (piece.Square.X == square.X - 1 || piece.Square.X == square.X + 1) &&
+                (piece.Square.X == targetSquare.X - 1 || piece.Square.X == targetSquare.X + 1) &&
                 //D'une case en avant
-                piece.Square.Y - square.Y == (isWhite ? 1 : -1);
+                piece.Square.Y - targetSquare.Y == (isWhite ? 1 : -1);
             }
             
         }

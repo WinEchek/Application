@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WinEchek.Engine.Command;
 using WinEchek.Engine.RuleManager;
 using WinEchek.Engine.States;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
+using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine
 {
@@ -13,6 +15,8 @@ namespace WinEchek.Engine
         private CompensableConversation _conversation;
         private RuleGroup _ruleGroups;
         private ObservableCollection<ICompensableCommand> _moves;
+        private Pawn _enPassantPawnBlack = null;
+        private Pawn _enPassantPawnWhite = null;
 
         /// <summary>
         /// The board the engine works with
@@ -54,8 +58,42 @@ namespace WinEchek.Engine
                 ICompensableCommand command;
                 if (move.Piece.Type == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook)
                     command = new CastlingCommand(move);
+                else if (move.Piece.Type == Type.Pawn && move.TargetSquare.Piece == null && move.StartSquare.X != move.TargetSquare.X)
+                    command = new EnPassantCommand(move);
                 else
                     command = new MoveCommand(move);
+
+                //En passant
+                if (move.Piece.Color == Color.White)
+                {
+                    if (_enPassantPawnWhite != null)
+                    {
+                        _enPassantPawnWhite.EnPassant = false;
+                        _enPassantPawnWhite = null;
+                    }
+                }
+                else
+                {
+                    if (_enPassantPawnBlack != null)
+                    {
+                        _enPassantPawnBlack.EnPassant = false;
+                        _enPassantPawnBlack = null;
+                    }
+                }
+                if (move.Piece.Type == Type.Pawn && Math.Abs(move.StartSquare.Y - move.TargetSquare.Y) == 2)
+                {
+                    if (move.Piece.Color == Color.White)
+                    {
+                        _enPassantPawnWhite = (Pawn) move.Piece;
+                        _enPassantPawnWhite.EnPassant = true;
+                    }
+                    else
+                    {
+                        _enPassantPawnBlack = (Pawn) move.Piece;
+                        _enPassantPawnBlack.EnPassant = true;
+                    }
+                }
+                //En passant
 
                 _conversation.Execute(command);
                 _moves.Add(command);
@@ -75,8 +113,6 @@ namespace WinEchek.Engine
             Color color = _moves.Count == 0 ? Color.White : _moves[_moves.Count - 1].PieceColor;
 
             bool check = checkState.IsInState(Board, color == Color.White ? Color.Black : Color.White);
-            
-                
             
             bool pat = patState.IsInState(Board, color == Color.White ? Color.Black : Color.White);
 

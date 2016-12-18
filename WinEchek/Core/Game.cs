@@ -18,11 +18,12 @@ namespace WinEchek
         public Container Container { get; set; }
 
         /// <summary>
-        /// Construit une partie avec deux joueurs et un moteur
+        /// Construct a game with an engine and two players
         /// </summary>
-        /// <param name="engine">Moteur que la partie devra utilisée pour vérifier les coups</param>
-        /// <param name="whitePlayer">Joueur blanc</param>
-        /// <param name="blackPlayer">Joueur noir</param>
+        /// <param name="engine">The engin the game will use</param>
+        /// <param name="whitePlayer">White player</param>
+        /// <param name="blackPlayer">Black player</param>
+        /// <param name="container">Model container</param>
         public Game(Engine.Engine engine, Player whitePlayer, Player blackPlayer, Container container)
         {
             WhitePlayer = whitePlayer;
@@ -34,8 +35,12 @@ namespace WinEchek
             BlackPlayer.MoveDone += MoveHandler;
 
             _currentPlayer = WhitePlayer;
+            RaiseBoardState();
             _currentPlayer.Play();
         }
+
+        //Convenience method to raise the StateChangedEvent
+        private void RaiseBoardState() => StateChanged?.Invoke(Engine.CurrentState());
 
         /// <summary>
         /// Délégué appelé quand un joueur réalise un coup.
@@ -55,7 +60,7 @@ namespace WinEchek
             {
                 _currentPlayer.Stop();
                 ChangePlayer();
-                StateChanged?.Invoke(Engine.CurrentState());
+                RaiseBoardState();
             }
 
             _currentPlayer.Play();
@@ -75,8 +80,22 @@ namespace WinEchek
             {
                 _currentPlayer.Stop();
                 ChangePlayer();
-                StateChanged?.Invoke(Engine.CurrentState());
+                RaiseBoardState();
             }
+            _currentPlayer.Play();
+        }
+
+        public void Undo(int count)
+        {
+            bool undone = false;
+            for (int i = 0; i < count; i++)
+            {
+                if (Engine.Undo())
+                {
+                    ChangePlayer();
+                }
+            }
+            RaiseBoardState();
             _currentPlayer.Play();
         }
 

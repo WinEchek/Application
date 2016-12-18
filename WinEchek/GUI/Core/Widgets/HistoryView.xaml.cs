@@ -115,10 +115,8 @@ namespace WinEchek.GUI.Core.Widgets
             Reinit();
 
             int count = _moves.Count;
-            for (int i = 1; i < count - index; i++)
-            {
-                _game.Undo();
-            }
+
+            _game.Undo(count-index-1);
 
             _lastIndex = -1;
         }

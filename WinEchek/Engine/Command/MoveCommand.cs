@@ -11,24 +11,24 @@ namespace WinEchek.Engine.Command
     [Serializable]
     public class MoveCommand : ICompensableCommand
     {
-        [Serializable]
-        private struct Point
-        {
-            public int X { get; set; }
-            public int Y { get; set; }
-        }
-
-        private Point _piecePoint;
-        private Point _startPoint;
-        private Point _targetPoint;
+        private Coordinate _startCoordinate;
+        private Coordinate _targetCoordinate;
 
         private Square _startSquare;
         private Square _targetSquare;
+
         private Piece _piece;
         private Piece _removedPiece;
 
-        private bool _hasChangedState = false;
+        private bool _hasChangedState;
 
+
+        /// <summary>
+        /// Board
+        /// </summary>
+        /// <value>
+        /// The board the command is working on
+        /// </value>
         public Board Board { get; set; }
 
 
@@ -40,50 +40,44 @@ namespace WinEchek.Engine.Command
         {
             Board = move.StartSquare.Board;
 
-            _startSquare = move.StartSquare;
-            _targetSquare = move.TargetSquare;
-            _piece = move.Piece;
+            _startCoordinate.X = move.StartSquare.X;
+            _startCoordinate.Y = move.StartSquare.Y;
 
-            _piecePoint.X = move.Piece.Square.X;
-            _piecePoint.Y = move.Piece.Square.Y;
-
-            _startPoint.X = move.StartSquare.X;
-            _startPoint.Y = move.StartSquare.Y;
-
-            _targetPoint.X = move.TargetSquare.X;
-            _targetPoint.Y = move.TargetSquare.Y;
+            _targetCoordinate.X = move.TargetSquare.X;
+            _targetCoordinate.Y = move.TargetSquare.Y;  
         }
 
-        public MoveCommand(MoveCommand command, Board board)
+        private MoveCommand(MoveCommand command, Board board)
         {
             Board = board;
-            _piecePoint = command._piecePoint;
-            _startPoint = command._startPoint;
-            _targetPoint = command._targetPoint;
-
-            _targetSquare = Board.Squares[_targetPoint.X, _targetPoint.Y];
-            _startSquare = Board.Squares[_startPoint.X, _startPoint.Y];
-            _piece = _startSquare.Piece;
+            _startCoordinate = command._startCoordinate;
+            _targetCoordinate = command._targetCoordinate;
         }
 
         /// <summary>
-        /// Execute the move on the model
+        /// Execute the move on the Board
         /// </summary>
         public void Execute()
         {
-            //Si case vide
+            _targetSquare = Board.Squares[_targetCoordinate.X, _targetCoordinate.Y];
+            _startSquare = Board.Squares[_startCoordinate.X, _startCoordinate.Y];
+            _piece = _startSquare.Piece;
+
+            //Has moved update
             if (!_piece.HasMoved)
             {
                 _piece.HasMoved = true;
                 _hasChangedState = true;
             }
+
+            //Square is empty of piece
             if (_targetSquare.Piece == null)
             {
                 _startSquare.Piece = null;
                 _piece.Square = _targetSquare;
                 _targetSquare.Piece = _piece;
             }
-            //Si il y à une pièce à prendre
+            //There is a taken piece
             else
             {
                 _removedPiece = _targetSquare.Piece;
@@ -100,6 +94,7 @@ namespace WinEchek.Engine.Command
         public void Compensate()
         {
             if (_hasChangedState) _piece.HasMoved = false;
+
             _targetSquare.Piece = _removedPiece;
             _startSquare.Piece = _piece;
             _piece.Square = _startSquare;

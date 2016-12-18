@@ -6,7 +6,6 @@ namespace WinEchek.Model
     [Serializable]
     public class Board
     {
-        //TODO change to not const
         public const int Size = 8;
         public Square[,] Squares { get; }
 

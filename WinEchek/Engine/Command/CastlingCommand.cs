@@ -9,6 +9,8 @@ namespace WinEchek.Engine.Command
     internal class CastlingCommand : ICompensableCommand
     {
         private Move _move;
+        private Piece _piece;
+
         private ICompensableCommand _kingCommand;
         private ICompensableCommand _rookCommand;
 
@@ -16,21 +18,19 @@ namespace WinEchek.Engine.Command
         {
             Board board = move.StartSquare.Board;
             _move = move;
-            if (move.TargetSquare.X == 0)
-            {
-                _kingCommand = new MoveCommand(new Move(move.Piece, board.Squares[2, move.StartSquare.Y]));
-                _rookCommand = new MoveCommand(new Move(move.TargetSquare.Piece, board.Squares[3, move.StartSquare.Y]));
-            }
-            else
-            {
-                _kingCommand = new MoveCommand(new Move(move.Piece, board.Squares[6, move.StartSquare.Y]));
-                _rookCommand = new MoveCommand(new Move(move.TargetSquare.Piece, board.Squares[5, move.StartSquare.Y]));
-            }
+            _piece = move.Piece;
+
+            bool isLeftCastling = move.TargetSquare.X == 0;
+
+            _kingCommand = new MoveCommand(new Move(move.Piece, board.Squares[isLeftCastling ? 2 : 6, move.StartSquare.Y]));
+            _rookCommand = new MoveCommand(new Move(move.TargetSquare.Piece, board.Squares[isLeftCastling ? 3 : 5, move.TargetSquare.Y]));
         }
 
         private CastlingCommand(CastlingCommand command, Board board)
         {
             _move = command._move;
+            _piece = _move.Piece;
+
             _rookCommand = command._rookCommand.Copy(board);
             _kingCommand = command._kingCommand.Copy(board);
         }
@@ -43,13 +43,13 @@ namespace WinEchek.Engine.Command
 
         public void Compensate()
         {
-            _rookCommand.Compensate();
             _kingCommand.Compensate();
+            _rookCommand.Compensate();
         }
 
-        public Type PieceType => _move.Piece.Type;
+        public Type PieceType => _piece.Type;
 
-        public Color PieceColor => _move.Piece.Color;
+        public Color PieceColor => _piece.Color;
 
         public ICompensableCommand Copy(Board board) => new CastlingCommand(this, board);
 
