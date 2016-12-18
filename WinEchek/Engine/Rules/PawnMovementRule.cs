@@ -24,7 +24,11 @@ namespace WinEchek.Engine.Rules
                     //Premier déplacement de deux cases
                     (isStartPosition && piece.Square.Y - targetSquare.Y == (isWhite ? 2 : -2))) &&
                     //Sur la même colonne
-                    piece.Square.X == targetSquare.X;
+                    piece.Square.X == targetSquare.X
+                    //Pas de pièce au milieu
+                    &&
+                    board.Squares[square.X, (isWhite ? square.Y - 1 : square.Y + 1)].Piece == null
+                    ;
 
                 Pawn leftPiece =
                     (square.X > 0)
