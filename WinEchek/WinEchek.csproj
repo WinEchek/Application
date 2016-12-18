@@ -127,6 +127,9 @@
     <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml.cs">
+      <DependentUpon>PieceTypeSelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Move.cs" />
     <Compile Include="Core\Persistance\BinaryLoader.cs" />
@@ -152,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Core\Widgets\HistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

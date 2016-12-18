@@ -25,6 +25,13 @@ namespace WinEchek.Model.Piece
             Square = square;
         }
 
+        protected Piece(Color color)
+        {
+            Color = color;
+            Square = null;
+        }
+
+
         public abstract Piece Clone(Square square);
         public Type Type { get; set; }
     }

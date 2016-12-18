@@ -10,6 +10,11 @@ namespace WinEchek.Model.Piece
             Type = Type.Pawn;
         }
 
+        public Pawn(Color color) : base(color)
+        {
+            Type = Type.Pawn;
+        }
+
         public override Piece Clone(Square square) => new Pawn(Color, square);
 
         public bool EnPassant { get; set; }

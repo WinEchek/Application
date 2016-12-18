@@ -10,6 +10,10 @@ namespace WinEchek.Model.Piece
             Type = Type.King;
         }
 
+        public King(Color color) : base(color)
+        {
+            Type = Type.King;
+        }
         public override Piece Clone(Square square) => new King(Color, square);
 
         public override string ToString() => "Roi";

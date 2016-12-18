@@ -87,7 +87,6 @@ namespace WinEchek
 
         public void Undo(int count)
         {
-            bool undone = false;
             for (int i = 0; i < count; i++)
             {
                 if (Engine.Undo())

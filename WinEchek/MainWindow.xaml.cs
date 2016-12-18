@@ -7,7 +7,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro;
 using WinEchek.GUI;
+using WinEchek.GUI.Core.Windows;
 using WinEchek.Model;
+using Color = WinEchek.Model.Piece.Color;
 
 //TODO: TOUT REMETTRE DANS LES BON NAMESPACE APRÈS LES CHANGEMENTS DANS LE MODEL (PAR RAPPORT À L'ENGINE) VINZOU
 
