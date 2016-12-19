@@ -158,10 +158,7 @@ namespace WinEchek.GUI
                 
                 concernedControllers.ForEach(x => x.Move(move));
 
-                foreach (SquareView squareView in _possibleMoves)
-                {
-                    ResetSquareViewColor(squareView);
-                }
+                ResetBoardColor();
 
                 _possibleMoves.Clear();
 
@@ -170,6 +167,13 @@ namespace WinEchek.GUI
             }
         }
 
+        private void ResetBoardColor()
+        {
+            foreach (SquareView squareView in _possibleMoves)
+            {
+                ResetSquareViewColor(squareView);
+            }
+        }
         private static void ResetSquareViewColor(SquareView squareView)
         {
             squareView.SetResourceReference(BackgroundProperty, (squareView.Square.X + squareView.Square.Y) % 2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
@@ -180,6 +184,8 @@ namespace WinEchek.GUI
         public void GameStateChanged(BoardState state)
         {
             SquareView squareView = null;
+
+            ResetBoardColor();
 
             switch (state)
             {
