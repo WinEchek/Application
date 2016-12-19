@@ -6,11 +6,13 @@ namespace WinEchek.Model
     [Serializable]
     public class Board
     {
-        public const int Size = 8;
+        public int Size { get; }
         public Square[,] Squares { get; }
 
-        public Board()
+        public Board(int size = 8)
         {
+            Size = size;
+
             Squares = new Square[Size, Size];
             for (int i = 0; i < Size; i++)
             {
@@ -24,16 +26,14 @@ namespace WinEchek.Model
             //PatTestInit();
         }
 
-        private void PatTestInit()
-        {
-            Squares[7, 0].Piece = new King(Color.Black, Squares[7, 0]);
-            Squares[0, 0].Piece = new King(Color.White, Squares[0, 0]);
-            Squares[2, 5].Piece = new Rook(Color.White, Squares[2, 5]);
-            Squares[3, 5].Piece = new Rook(Color.White, Squares[3, 5]);
-        }
-
+        /// <summary>
+        /// Copy constructor
+        /// </summary>
+        /// <param name="board">Board to copy</param>
         public Board(Board board)
         {
+            Size = board.Size;
+
             Squares = new Square[Size, Size];
             for (int i = 0; i < Size; i++)
             {
@@ -45,6 +45,25 @@ namespace WinEchek.Model
                 }
             }
         }
+
+        #region ConvenienceGetters
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coordinate">Coordinate of the square</param>
+        /// <returns>The square at the coordinate</returns>
+        public Square SquareAt(Coordinate coordinate) => Squares[coordinate.X, coordinate.Y];
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coordinate">Coordinate of the square</param>
+        /// <returns>The piece at the coordinate</returns>
+        public Piece.Piece PieceAt(Coordinate coordinate) => SquareAt(coordinate).Piece;
+
+        #endregion
+
+        #region BoardInits
 
         private void EightByEightInit()
         {
@@ -78,5 +97,16 @@ namespace WinEchek.Model
             Squares[6, 7].Piece = new Knight(Color.White, Squares[6, 7]);
             Squares[7, 7].Piece = new Rook(Color.White, Squares[7, 7]);
         }
+
+        private void PatTestInit()
+        {
+            Squares[7, 0].Piece = new King(Color.Black, Squares[7, 0]);
+            Squares[0, 0].Piece = new King(Color.White, Squares[0, 0]);
+            Squares[2, 5].Piece = new Rook(Color.White, Squares[2, 5]);
+            Squares[3, 5].Piece = new Rook(Color.White, Squares[3, 5]);
+        }
+
+        #endregion
+
     }
 }
