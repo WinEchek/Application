@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using WinEchek.Model;
 
 namespace WinEchek.Core.Persistance
@@ -25,5 +27,19 @@ namespace WinEchek.Core.Persistance
             };
         }
 
+        public async void SendMailAsync()
+        {
+            MailMessage mail = new MailMessage("you@yourcompany.com", "user@hotmail.com");
+            SmtpClient client = new SmtpClient
+            {
+                Port = 25,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Host = "smtp.google.com"
+            };
+            mail.Subject = "this is a test email.";
+            mail.Body = "this is my test email body";
+            Task.Run(client.Send(mail));
+        }
     }
 }
