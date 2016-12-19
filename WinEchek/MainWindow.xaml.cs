@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,6 +43,14 @@ namespace WinEchek
         private void MenuItemQuit_OnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            //TODO has to do with the logger
+            if (File.Exists("log.temp"))
+                File.Delete("log.temp");
         }
     }
 }

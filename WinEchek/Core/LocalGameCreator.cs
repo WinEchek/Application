@@ -1,4 +1,5 @@
-﻿using WinEchek.Engine;
+﻿using WinEchek.Core.Persistance;
+using WinEchek.Engine;
 using WinEchek.GUI;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
@@ -8,6 +9,7 @@ namespace WinEchek.Core
     public class LocalGameCreator : GameCreator
     {
         public override Mode Mode => Mode.Local;
+
         public override Game CreateGame(Container container, BoardView boardView)
         {
             Engine.Engine engine = new RealEngine(container);
@@ -27,6 +29,8 @@ namespace WinEchek.Core
             boardView.BoardViewPlayerControllers.Add((BoardViewPlayerController) whitePlayerControler);
             boardView.BoardViewPlayerControllers.Add((BoardViewPlayerController) blackPlayerControler);
 
+            //TODO Remvoe the logger
+            FileLogger fileLogger = new FileLogger(game);
             return game;
         }
     }
