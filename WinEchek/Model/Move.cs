@@ -12,10 +12,13 @@ namespace WinEchek.Model
     [Serializable]
     public class Move
     {
-        //TODO make it independant of the board. A move shouldn't have any control logic. It's from a targetSquare to another one
+        public Coordinate StartCoordinate { get; }
+        public Coordinate TargetCoordinate { get; }
 
-        private Coordinate _startCoordinate;
-        private Coordinate _targetCoordinate;
+        public Color PieceColor { get; }
+
+        public Type PieceType { get; }
+
         private Board _board;
 
         /// <summary>
@@ -34,17 +37,13 @@ namespace WinEchek.Model
             }
         }
 
-        public Color PieceColor { get; }
-
-        public Type PieceType { get; }
-
         /// <summary>
         /// Piece
         /// </summary>
         /// <value>
         /// The piece concerned by the move
         /// </value>
-        public Piece.Piece Piece => Board.Squares[_startCoordinate.X, _startCoordinate.Y].Piece;
+        public Piece.Piece Piece => Board.Squares[StartCoordinate.X, StartCoordinate.Y].Piece;
 
         /// <summary>
         /// StartSquare
@@ -52,7 +51,7 @@ namespace WinEchek.Model
         /// <value>
         /// The square the piece is coming from
         /// </value>
-        public Square StartSquare => Board.Squares[_startCoordinate.X, _startCoordinate.Y];
+        public Square StartSquare => Board.Squares[StartCoordinate.X, StartCoordinate.Y];
 
         /// <summary>
         /// TargetSquare
@@ -61,8 +60,7 @@ namespace WinEchek.Model
         /// The square the piece is going to
         /// </value>
         [NotNull]
-        public Square TargetSquare => Board.Squares[_targetCoordinate.X, _targetCoordinate.Y];
-
+        public Square TargetSquare => Board.Squares[TargetCoordinate.X, TargetCoordinate.Y];
         /// <summary>
         /// PromotePieceType
         /// </summary>
@@ -70,15 +68,15 @@ namespace WinEchek.Model
         /// The type of piece the piece promotes to
         /// </value>
         public Type PromotePieceType { get; }
-        
-        //TODO remove piece
+
+        #region Constructors
         public Move(Piece.Piece piece, Square targetSquare)
         {
             Board = targetSquare.Board;
             PieceColor = piece.Color;
             PieceType = piece.Type;
-            _startCoordinate = piece.Square.Coordinate;
-            _targetCoordinate = targetSquare.Coordinate;
+            StartCoordinate = piece.Square.Coordinate;
+            TargetCoordinate = targetSquare.Coordinate;
         }
 
         /// <summary>
@@ -93,8 +91,8 @@ namespace WinEchek.Model
             Board = startSquare.Board;
             PieceColor = pieceColor;
             PieceType = pieceType;
-            _startCoordinate = startSquare.Coordinate;
-            _targetCoordinate = targetSquare.Coordinate;
+            StartCoordinate = startSquare.Coordinate;
+            TargetCoordinate = targetSquare.Coordinate;
         }
 
         /// <summary>
@@ -110,10 +108,11 @@ namespace WinEchek.Model
             Board = startSquare.Board;
             PieceColor = pieceColor;
             PieceType = pieceType;
-            _startCoordinate = startSquare.Coordinate;
-            _targetCoordinate = targetSquare.Coordinate;
+            StartCoordinate = startSquare.Coordinate;
+            TargetCoordinate = targetSquare.Coordinate;
             PromotePieceType = promotePieceType;
         }
+        #endregion
     }
 
     /// <summary>

@@ -18,7 +18,7 @@ namespace WinEchek.Engine.Command
         {
             Board board = move.StartSquare.Board;
             _move = move;
-            _piece = board.PieceAt();
+            _piece = board.PieceAt(move.StartCoordinate);
 
             bool isLeftCastling = move.TargetSquare.X == 0;
 
