@@ -5,6 +5,7 @@ using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.Command
 {
+    [Serializable]
     public class PromoteCommand : ICompensableCommand
     {
         private Board _board;
