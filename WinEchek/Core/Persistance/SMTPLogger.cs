@@ -65,10 +65,5 @@ namespace WinEchek.Core.Persistance
                 _saver.Save(_container, "log.temp");
             };
         }
-
-        public void SendMailAsync()
-        {
-            
-        }
     }
 }
