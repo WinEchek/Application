@@ -243,3 +243,7 @@ ModelManifest.xml
 
 #Jetbrains rider
 .idea/
+
+#SetupProject
+WinEchekSetup/Debug/
+WinEchekSteup/Debug/

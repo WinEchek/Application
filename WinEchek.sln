@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinEchek", "WinEchek\WinEchek.csproj", "{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WinEchekSetup", "WinEchekSetup\WinEchekSetup.vdproj", "{BB98D7FC-DE71-423E-8837-ABCCB3B23401}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB98D7FC-DE71-423E-8837-ABCCB3B23401}.Debug|Any CPU.ActiveCfg = Debug
+		{BB98D7FC-DE71-423E-8837-ABCCB3B23401}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

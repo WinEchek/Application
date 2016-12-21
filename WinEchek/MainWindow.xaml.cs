@@ -4,14 +4,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro;
-using WinEchek.GUI;
-using WinEchek.GUI.Core.Windows;
-using WinEchek.Model;
-using Color = WinEchek.Model.Piece.Color;
 
 //TODO: TOUT REMETTRE DANS LES BON NAMESPACE APRÈS LES CHANGEMENTS DANS LE MODEL (PAR RAPPORT À L'ENGINE) VINZOU
 
@@ -33,6 +28,11 @@ namespace WinEchek
             DataContext = this;
             MainControl.Content = new GUI.Core.Home(this);
             WinEchek = new Core.WinEchek();
+
+            foreach (string commandLineArg in Environment.GetCommandLineArgs())
+            {
+                Console.WriteLine(commandLineArg);
+            }
 
             /**
              * On remplit la liste des couleurs disponnibles pour le thème

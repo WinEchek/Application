@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using Microsoft.Win32;
 using WinEchek.Core.Persistance;
 
@@ -42,9 +41,9 @@ namespace WinEchek.GUI.Core.FlyoutContent
             }
         }
 
-        private void TileQuit_OnClick(object sender, RoutedEventArgs e)
+        private async void TileQuit_OnClick(object sender, RoutedEventArgs e)
         {
-            _gameView.Quit();
+            await _gameView.Quit();
         }
     }
 }
