@@ -63,6 +63,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -88,6 +90,10 @@
     <Compile Include="Core\GameCreator.cs" />
     <Compile Include="Core\GameFactory.cs" />
     <Compile Include="Core\LocalGameCreator.cs" />
+    <Compile Include="Core\Network\INetworkGameService.cs" />
+    <Compile Include="Core\Network\NetworkGameServiceClient.cs" />
+    <Compile Include="Core\Network\NetworkGameServiceHost.cs" />
+    <Compile Include="Core\Network\NetworkGameService.cs" />
     <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Core\Persistance\SMTPLogger.cs" />
     <Compile Include="Core\WinEchek.cs" />
@@ -126,11 +132,20 @@
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Core\HostGameOptions.xaml.cs">
+      <DependentUpon>HostGameOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\HostJoin.xaml.cs">
+      <DependentUpon>HostJoin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml.cs">
       <DependentUpon>PieceTypeSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\Windows\WaitJoinWindow.xaml.cs">
+      <DependentUpon>WaitJoinWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Move.cs" />
@@ -156,11 +171,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Core\HostGameOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\HostJoin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Core\Widgets\HistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Windows\WaitJoinWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

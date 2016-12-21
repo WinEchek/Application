@@ -1,9 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
+using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.Engine.Command
 {
+    [Serializable]
     internal class EnPassantCommand : ICompensableCommand
     {
         private Piece _piece;

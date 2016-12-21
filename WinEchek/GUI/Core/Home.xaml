@@ -62,6 +62,8 @@
                                              Kind="DeviceDesktop" />
             </controls:Tile>
             <controls:Tile Title="Jouer en réseau"
+                           Name="TileNetworkPlay"
+                           Click="TileNetworkPlay_OnClick"
                                Margin="3"
                                Style="{StaticResource LargeTileStyle}"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"

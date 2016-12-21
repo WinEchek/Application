@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using WinEchek.Annotations;
 using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
@@ -10,13 +11,19 @@ namespace WinEchek.Model
     /// Represent a chess move attached to a board for now
     /// </summary>
     [Serializable]
+    [DataContract]
     public class Move
     {
+        [DataMember]
         public Coordinate StartCoordinate { get; }
+
+        [DataMember]
         public Coordinate TargetCoordinate { get; }
 
+        [DataMember]
         public Color PieceColor { get; }
 
+        [DataMember]
         public Type PieceType { get; }
 
         private Board _board;
