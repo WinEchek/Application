@@ -20,14 +20,12 @@ namespace WinEchek
     /// </summary>
     public partial class MainWindow
     {
-        public Core.WinEchek WinEchek { get; set; }
         public List<AccentColorMenuData> ItemSource { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
             MainControl.Content = new GUI.Core.Home(this);
-            WinEchek = new Core.WinEchek();
 
             foreach (string commandLineArg in Environment.GetCommandLineArgs())
             {

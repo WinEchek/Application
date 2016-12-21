@@ -50,23 +50,26 @@ namespace WinEchek.Engine
         public override bool DoMove(Move move)
         {
             //No reason to move if it's the same square
-            if (move.TargetSquare == move.Piece.Square) return false;
+            if (move.StartCoordinate == move.TargetCoordinate) return false;
+
+            Piece piece = Board.PieceAt(move.StartCoordinate);
+            Piece targetPiece = Board.PieceAt(move.TargetCoordinate);
 
             //TODO gérer exception
-            if (_ruleGroups.Handle(move))
+            if (_ruleGroups.Handle(move, Board))
             {
                 ICompensableCommand command;
-                if (move.PieceType == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook)
-                    command = new CastlingCommand(move);
-                else if (move.PieceType == Type.Pawn && move.TargetSquare.Piece == null && move.StartSquare.X != move.TargetSquare.X)
-                    command = new EnPassantCommand(move);
-                else if(move.PieceType == Type.Pawn && move.TargetSquare.Y == (move.PieceColor == Color.White ? 0 : 7))
-                    command = new PromoteCommand(move);
+                if (move.PieceType == Type.King && targetPiece?.Type == Type.Rook)
+                    command = new CastlingCommand(move, Board);
+                else if (move.PieceType == Type.Pawn && targetPiece == null && move.StartCoordinate.X != move.TargetCoordinate.X)
+                    command = new EnPassantCommand(move, Board);
+                else if(move.PieceType == Type.Pawn && move.TargetCoordinate.Y == (move.PieceColor == Color.White ? 0 : 7))
+                    command = new PromoteCommand(move, Board);
                 else
-                    command = new MoveCommand(move);
+                    command = new MoveCommand(move, Board);
 
                 //En passant
-                if (move.Piece.Color == Color.White)
+                if (move.PieceColor == Color.White)
                 {
                     if (_enPassantPawnWhite != null)
                     {
@@ -82,16 +85,16 @@ namespace WinEchek.Engine
                         _enPassantPawnBlack = null;
                     }
                 }
-                if (move.Piece.Type == Type.Pawn && Math.Abs(move.StartSquare.Y - move.TargetSquare.Y) == 2)
+                if (move.PieceType == Type.Pawn && Math.Abs(move.StartCoordinate.Y - move.TargetCoordinate.Y) == 2)
                 {
-                    if (move.Piece.Color == Color.White)
+                    if (move.PieceColor == Color.White)
                     {
-                        _enPassantPawnWhite = (Pawn) move.Piece;
+                        _enPassantPawnWhite = (Pawn) piece;
                         _enPassantPawnWhite.EnPassant = true;
                     }
                     else
                     {
-                        _enPassantPawnBlack = (Pawn) move.Piece;
+                        _enPassantPawnBlack = (Pawn) piece;
                         _enPassantPawnBlack.EnPassant = true;
                     }
                 }

@@ -9,13 +9,12 @@ namespace WinEchek.Engine.Command
     public class PromoteCommand : ICompensableCommand
     {
         private Board _board;
-
         private Move _move;
 
-        public PromoteCommand(Move move)
+        public PromoteCommand(Move move, Board board)
         {
             if(move?.PromotePieceType == null) throw new ArgumentNullException();
-            _board = move.Board;
+            _board = board;
             _move = move;
         }
 
@@ -27,9 +26,9 @@ namespace WinEchek.Engine.Command
 
         public void Execute()
         {
-            _board.Squares[_move.StartSquare.X, _move.StartSquare.Y].Piece = null;
+            _board.SquareAt(_move.StartCoordinate).Piece = null;
+            Square square = _board.SquareAt(_move.TargetCoordinate);
             Piece piece;
-            Square square = _board.Squares[_move.TargetSquare.X, _move.TargetSquare.Y];
             switch (_move.PromotePieceType)
             {
                 case Type.Bishop:
@@ -58,8 +57,8 @@ namespace WinEchek.Engine.Command
 
         public void Compensate()
         {
-            _board.Squares[_move.TargetSquare.X, _move.TargetSquare.Y].Piece = null;
-            _board.Squares[_move.StartSquare.X, _move.StartSquare.Y].Piece = new Pawn(_move.PieceColor, _board.Squares[_move.StartSquare.X, _move.StartSquare.Y]);
+            _board.SquareAt(_move.TargetCoordinate).Piece = null;
+            _board.SquareAt(_move.StartCoordinate).Piece = new Pawn(_move.PieceColor, _board.SquareAt(_move.StartCoordinate));
         }
 
         public Type PieceType => _move.PieceType;

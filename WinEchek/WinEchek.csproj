@@ -96,7 +96,6 @@
     <Compile Include="Core\Network\NetworkGameService.cs" />
     <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Core\Persistance\SMTPLogger.cs" />
-    <Compile Include="Core\WinEchek.cs" />
     <Compile Include="Engine\Command\CastlingCommand.cs" />
     <Compile Include="Engine\Command\CompensableConversation.cs" />
     <Compile Include="Engine\Command\HistoryViewConversation.cs" />

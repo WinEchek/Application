@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using WinEchek.Engine.Command;
 using WinEchek.Engine.States;
 using WinEchek.Model;
@@ -11,32 +9,33 @@ using Type = WinEchek.Model.Piece.Type;
 namespace WinEchek.Engine.Rules {
     public class WillNotMakeCheck : IRule
     {
-        public bool IsMoveValid(Move move)
+        public bool IsMoveValid(Move move, Board board)
         {
             IState checkState = new CheckState();
-            Board tempBoard = new Board(move.Piece.Square.Board);
-            bool castling = new Castling().IsMoveValid(move) && (move.Piece.Type == Type.King && move.TargetSquare?.Piece?.Type == Type.Rook && move.PieceColor == move.TargetSquare?.Piece?.Color) ;
+            Board tempBoard = new Board(board);
+
+            bool castling = new Castling().IsMoveValid(move, board) && (move.PieceType == Type.King && tempBoard.PieceAt(move.TargetCoordinate)?.Type == Type.Rook && move.PieceColor == tempBoard.PieceAt(move.TargetCoordinate)?.Color) ;
 
             if (!castling)
             {
-                if (move.Piece.Color == move.TargetSquare?.Piece?.Color)
+                if (move.PieceColor == tempBoard.PieceAt(move.TargetCoordinate)?.Color)
                 {
                     return true;
                 }
             }
             ICompensableCommand command = castling
-                ? new CastlingCommand(move).Copy(tempBoard)
-                : new MoveCommand(move).Copy(tempBoard);
+                ? new CastlingCommand(move, tempBoard)
+                : new MoveCommand(move, tempBoard) as ICompensableCommand;
 
             command.Execute();
 
-            return !checkState.IsInState(tempBoard, move.Piece.Color);
+            return !checkState.IsInState(tempBoard, move.PieceColor);
 
         }
 
         public List<Square> PossibleMoves(Piece piece)
         {
-            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x)));
+            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x), piece.Square.Board));
         }
     }
 }

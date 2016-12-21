@@ -23,11 +23,11 @@ namespace WinEchek.Engine.RuleManager
                 Next.AddGroup(ruleGroup);
         }
         
-        public bool Handle(Move move)
+        public bool Handle(Move move, Board board)
         {
-            if (move.Piece.Type == Type) return Rules.All(rule => rule.IsMoveValid(move));
-            if (Next != null) return Next.Handle(move);
-            throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.Piece);
+            if (move.PieceType == Type) return Rules.All(rule => rule.IsMoveValid(move, board));
+            if (Next != null) return Next.Handle(move, board);
+            throw new Exception("NOBODY TREATS THIS PIECE !!! " + move.PieceType);
         }
 
         public List<Square> PossibleMoves(Piece piece)

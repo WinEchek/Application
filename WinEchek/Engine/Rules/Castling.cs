@@ -9,23 +9,22 @@ namespace WinEchek.Engine.Rules
 {
     public class Castling : IRule
     {
-        public bool IsMoveValid(Move move)
+        public bool IsMoveValid(Move move, Board board)
         {
-            if (move.TargetSquare.Piece?.Color != move.Piece.Color) return true;
-            Board board = move.TargetSquare.Board;
+            if (board.PieceAt(move.TargetCoordinate)?.Color != move.PieceColor) return true;
 
-            List<Square> list = move.TargetSquare.X > move.StartSquare.X ?
-                board.Squares.OfType<Square>().ToList().FindAll(x => (x.Y == move.StartSquare.Y && x.X < 7 && x.X > move.StartSquare.X)) :
-                board.Squares.OfType<Square>().ToList().FindAll(x => (x.Y == move.StartSquare.Y && x.X > 0 && x.X < move.StartSquare.X));
+            List<Square> list = move.TargetCoordinate.X > move.StartCoordinate.X ?
+                board.Squares.OfType<Square>().ToList().FindAll(x => (x.Y == move.StartCoordinate.Y && x.X < 7 && x.X > move.StartCoordinate.X)) :
+                board.Squares.OfType<Square>().ToList().FindAll(x => (x.Y == move.StartCoordinate.Y && x.X > 0 && x.X < move.StartCoordinate.X));
 
-            return list.All(x => x.Piece == null) && move.TargetSquare.Piece.Type == Type.Rook && !move.Piece.HasMoved && !move.TargetSquare.Piece.HasMoved;
+            return list.All(x => x.Piece == null) && board.PieceAt(move.TargetCoordinate).Type == Type.Rook && !board.PieceAt(move.StartCoordinate).HasMoved && !board.PieceAt(move.TargetCoordinate).HasMoved;
         }
 
         public List<Square> PossibleMoves(Piece piece)
         {
             return piece.Square.Board.Squares.OfType<Square>()
                 .ToList()
-                .FindAll(x => IsMoveValid(new Move(piece, x)));
+                .FindAll(x => IsMoveValid(new Move(piece, x), piece.Square.Board));
         }
     }
 }

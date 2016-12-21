@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using WinEchek.Annotations;
 using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
@@ -26,60 +24,24 @@ namespace WinEchek.Model
         [DataMember]
         public Type PieceType { get; }
 
-        private Board _board;
-
-        /// <summary>
-        /// Board
-        /// </summary>
-        /// <value> 
-        /// The board the move uses to retrieve data
-        /// </value>
-        public Board Board
-        {
-            get { return _board; }
-            set
-            {
-                if(value == null) throw new ArgumentNullException(nameof(value));
-                _board = value;
-            }
-        }
-
-        /// <summary>
-        /// Piece
-        /// </summary>
-        /// <value>
-        /// The piece concerned by the move
-        /// </value>
-        public Piece.Piece Piece => Board.Squares[StartCoordinate.X, StartCoordinate.Y].Piece;
-
-        /// <summary>
-        /// StartSquare
-        /// </summary>
-        /// <value>
-        /// The square the piece is coming from
-        /// </value>
-        public Square StartSquare => Board.Squares[StartCoordinate.X, StartCoordinate.Y];
-
-        /// <summary>
-        /// TargetSquare
-        /// </summary>
-        /// <value>
-        /// The square the piece is going to
-        /// </value>
-        [NotNull]
-        public Square TargetSquare => Board.Squares[TargetCoordinate.X, TargetCoordinate.Y];
         /// <summary>
         /// PromotePieceType
         /// </summary>
         /// <value>
         /// The type of piece the piece promotes to
         /// </value>
+        [DataMember]
         public Type PromotePieceType { get; }
 
         #region Constructors
+
+        /// <summary>
+        /// Move constructor
+        /// </summary>
+        /// <param name="piece">The piece that move</param>
+        /// <param name="targetSquare">The square the piece goes to</param>
         public Move(Piece.Piece piece, Square targetSquare)
         {
-            Board = targetSquare.Board;
             PieceColor = piece.Color;
             PieceType = piece.Type;
             StartCoordinate = piece.Square.Coordinate;
@@ -95,7 +57,6 @@ namespace WinEchek.Model
         /// <param name="pieceColor">The pieceColor of the piece</param>
         public Move(Square startSquare, Square targetSquare, Type pieceType, Color pieceColor)
         {
-            Board = startSquare.Board;
             PieceColor = pieceColor;
             PieceType = pieceType;
             StartCoordinate = startSquare.Coordinate;
@@ -112,7 +73,6 @@ namespace WinEchek.Model
         /// <param name="promotePieceType">The type the piece promotes to</param>
         public Move(Square startSquare, Square targetSquare, Type pieceType, Color pieceColor, Type promotePieceType)
         {
-            Board = startSquare.Board;
             PieceColor = pieceColor;
             PieceType = pieceType;
             StartCoordinate = startSquare.Coordinate;
@@ -154,5 +114,11 @@ namespace WinEchek.Model
             X = x;
             Y = y;
         }
+
+        public static bool operator ==(Coordinate a, Coordinate b) => a.X == b.X && a.Y == b.Y;
+
+        public static bool operator !=(Coordinate a, Coordinate b) => !(a == b);
+
+        public override string ToString() => (char)('A' + X) + (8 - Y).ToString();
     }
 }

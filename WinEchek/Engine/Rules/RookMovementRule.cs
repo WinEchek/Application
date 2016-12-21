@@ -8,11 +8,10 @@ namespace WinEchek.Engine.Rules
 {
     public class RookMovementRule : IRule
     {
-        public bool IsMoveValid(Move move)
+        public bool IsMoveValid(Move move, Board board)
         {
-            Board board = move.TargetSquare.Board;
-            Square targetSquare = move.TargetSquare;
-            Piece piece = move.Piece;
+            Square targetSquare = board.SquareAt(move.TargetCoordinate);
+            Piece piece = board.PieceAt(move.StartCoordinate);
             //if the movement is not inline
             if (!(piece.Square.X == targetSquare.X ^ piece.Square.Y == targetSquare.Y)) return false;
 
@@ -26,11 +25,11 @@ namespace WinEchek.Engine.Rules
 
         public List<Square> PossibleMoves(Piece piece)
         {
-            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x)));
+            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x), piece.Square.Board));
         }
 
-        private static bool Between(int i, int j, int x) => (i > j) ? 
-            i > x && j < x : 
-            j > x && i < x;
+        private static bool Between(int i, int j, int x) => (i > j)
+            ? i > x && j < x
+            : j > x && i < x;
     }
 }

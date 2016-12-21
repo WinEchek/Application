@@ -9,22 +9,22 @@ namespace WinEchek.Engine.Rules
 {
     public class KingMovementRule : IRule
     {
-        public bool IsMoveValid(Move move)
+        public bool IsMoveValid(Move move, Board board)
         {
-            if (move.TargetSquare?.Piece?.Color == move.Piece.Color && move.TargetSquare?.Piece?.Type == Type.Rook)
+            if (board.PieceAt(move.TargetCoordinate)?.Color == move.PieceColor && board.PieceAt(move.TargetCoordinate)?.Type == Type.Rook)
             {
                 return true;
             }
                 
-           return Math.Abs(move.Piece.Square.X - move.TargetSquare.X) <= 1 &&
-                   Math.Abs(move.Piece.Square.Y - move.TargetSquare.Y) <= 1;
+           return Math.Abs(move.StartCoordinate.X - move.TargetCoordinate.X) <= 1 &&
+                   Math.Abs(move.StartCoordinate.Y - move.TargetCoordinate.Y) <= 1;
         }
 
         public List<Square> PossibleMoves(Piece piece)
         {
             return piece.Square.Board.Squares.OfType<Square>()
                 .ToList()
-                .FindAll(x => IsMoveValid(new Move(piece, x)));  
+                .FindAll(x => IsMoveValid(new Move(piece, x), piece.Square.Board));  
         }
     }
 }

@@ -7,12 +7,11 @@ namespace WinEchek.Engine.Rules
 {
     public class PawnMovementRule : IRule
     {
-        public bool IsMoveValid(Move move)
+        public bool IsMoveValid(Move move, Board board)
         {
-            Square targetSquare = move.TargetSquare;
-            Piece piece = move.Piece;
-            Square square = piece.Square;
-            Board board = targetSquare.Board;
+            Square targetSquare = board.SquareAt(move.TargetCoordinate);
+            Piece piece = board.PieceAt(move.StartCoordinate);
+            Square square = board.SquareAt(move.StartCoordinate);
             bool isWhite = piece.Color == Color.White;
             bool isStartPosition = piece.Square.Y == 1 && !isWhite || piece.Square.Y == 6 && isWhite;
 
@@ -64,7 +63,7 @@ namespace WinEchek.Engine.Rules
 
         public List<Square> PossibleMoves(Piece piece)
         {
-            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x)));
+            return piece.Square.Board.Squares.OfType<Square>().ToList().FindAll(x => IsMoveValid(new Move(piece, x), piece.Square.Board));
         }
     }
 }

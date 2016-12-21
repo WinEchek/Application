@@ -9,7 +9,7 @@ namespace WinEchek.Engine.Rules
     {
         //TODO Refactor (copy/paste)
         /// <inheritdoc />
-        public bool IsMoveValid(Move move) => PossibleMoves(move.Piece).Contains(move.TargetSquare);
+        public bool IsMoveValid(Move move, Board board) => PossibleMoves(board.PieceAt(move.StartCoordinate)).Contains(board.SquareAt(move.TargetCoordinate));
 
         /// <inheritdoc />
         public List<Square> PossibleMoves(Piece piece)

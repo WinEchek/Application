@@ -11,47 +11,33 @@ namespace WinEchek.Engine.Command
     [Serializable]
     public class MoveCommand : ICompensableCommand
     {
-        private Coordinate _startCoordinate;
-        private Coordinate _targetCoordinate;
-
-        private Square _startSquare;
-        private Square _targetSquare;
+        private Move _move;
 
         private Piece _piece;
         private Piece _removedPiece;
 
         private bool _hasChangedState;
+        private Square _targetSquare;
+        private Square _startSquare;
 
-
-        /// <summary>
-        /// Board
-        /// </summary>
-        /// <value>
-        /// The board the command is working on
-        /// </value>
-        public Board Board { get; set; }
+        private Board _board;
 
 
         /// <summary>
         /// MoveCommand constructor
         /// </summary>
         /// <param name="move">The move to do</param>
-        public MoveCommand(Move move)
+        /// <param name="board">The board the command executes on</param>
+        public MoveCommand(Move move, Board board)
         {
-            Board = move.StartSquare.Board;
-
-            _startCoordinate.X = move.StartSquare.X;
-            _startCoordinate.Y = move.StartSquare.Y;
-
-            _targetCoordinate.X = move.TargetSquare.X;
-            _targetCoordinate.Y = move.TargetSquare.Y;  
+            _move = move;
+            _board = board;
         }
 
         private MoveCommand(MoveCommand command, Board board)
         {
-            Board = board;
-            _startCoordinate = command._startCoordinate;
-            _targetCoordinate = command._targetCoordinate;
+            _board = board;
+            _move = command._move; 
         }
 
         /// <summary>
@@ -59,8 +45,8 @@ namespace WinEchek.Engine.Command
         /// </summary>
         public void Execute()
         {
-            _targetSquare = Board.Squares[_targetCoordinate.X, _targetCoordinate.Y];
-            _startSquare = Board.Squares[_startCoordinate.X, _startCoordinate.Y];
+            _targetSquare = _board.SquareAt(_move.TargetCoordinate);
+            _startSquare = _board.SquareAt(_move.StartCoordinate);
             _piece = _startSquare.Piece;
 
             //Has moved update
@@ -100,12 +86,12 @@ namespace WinEchek.Engine.Command
             _piece.Square = _startSquare;
         }
 
-        public Type PieceType => _piece.Type;
+        public Type PieceType => _move.PieceType;
 
-        public Color PieceColor => _piece.Color;
+        public Color PieceColor => _move.PieceColor;
 
         public ICompensableCommand Copy(Board board) => new MoveCommand(this, board);
 
-        public override string ToString() => _piece + " de " + _startSquare + " vers " + _targetSquare;
+        public override string ToString() => _piece + " de " + _move.StartCoordinate + " vers " + _move.TargetCoordinate;
     }
 }

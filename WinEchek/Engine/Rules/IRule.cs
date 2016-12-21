@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 
@@ -7,11 +8,12 @@ namespace WinEchek.Engine.Rules
     public interface IRule
     {
         /// <summary>
-        /// Vérifie si un mouvement vérifie la règle
+        /// Check if a move is correct against a rule
         /// </summary>
-        /// <param name="move">Mouvement à vérifier par la règle</param>
-        /// <returns>Vrai si le mouvement passé en paramètre est valide</returns>
-        bool IsMoveValid(Move move);
+        /// <param name="move">Move to check</param>
+        /// <param name="board">Board to apply the move on</param>
+        /// <returns>False if the move is invalidated by this rule</returns>
+        bool IsMoveValid(Move move, Board board);
         
         /// <summary>
         /// Récupère toutes les cases qui vérifie la règle pour la pièce donnée

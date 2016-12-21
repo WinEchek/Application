@@ -9,12 +9,11 @@ namespace WinEchek.Engine.Rules
 {
     internal class CanOnlyTakeEnnemyRuleKing : IRule
     {
-        public bool IsMoveValid(Move move)
+        public bool IsMoveValid(Move move, Board board)
         {
-            if (move.Piece.Color == move.TargetSquare?.Piece?.Color)
+            if (move.PieceColor == board.PieceAt(move.TargetCoordinate)?.Color)
             {
-                Console.WriteLine("Can only roi");
-                return move.TargetSquare.Piece.Type == Type.Rook;
+                return board.PieceAt(move.TargetCoordinate).Type == Type.Rook;
             }
                 
             return true;
@@ -24,7 +23,7 @@ namespace WinEchek.Engine.Rules
         {
             return piece.Square.Board.Squares.OfType<Square>()
                 .ToList()
-                .FindAll(x => IsMoveValid(new Move(piece, x)));
+                .FindAll(x => IsMoveValid(new Move(piece, x), piece.Square.Board));
         }
     }
 }

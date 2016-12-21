@@ -76,7 +76,6 @@ namespace WinEchek.GUI.Core {
             if (result == MessageDialogResult.Affirmative)
             {
                 _mainWindow.Flyout.Content = null;
-                _mainWindow.WinEchek.Game = null;
                 _mainWindow.MainControl.Content = new Home(_mainWindow);
             }
 
