@@ -142,6 +142,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -407,7 +415,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WinEchek"
         "ProductCode" = "8:{0806A4F6-FBBE-46BB-8C67-C12E3D32BF82}"
-        "PackageCode" = "8:{FFD207BE-BE48-4093-9070-EE937E4FFFAA}"
+        "PackageCode" = "8:{2A2B79F0-BC26-4745-850C-31FEE11458CF}"
         "UpgradeCode" = "8:{376750D6-D68D-4722-A67E-96ED38E06837}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -552,7 +560,7 @@
             "Target" = "8:_B9932A215B36476B935071F0C5C80D0F"
             "Folder" = "8:_A44297C0BAF94EE1B149F0BBE5E79E49"
             "WorkingFolder" = "8:_66659ECB25C14957AD008BA6ABCAD16C"
-            "Icon" = "8:"
+            "Icon" = "8:_6302CD2541B54711999400E0F2EE9198"
             "Feature" = "8:"
             }
         }
