@@ -132,11 +132,20 @@
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Core\HostGameOptions.xaml.cs">
+      <DependentUpon>HostGameOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\HostJoin.xaml.cs">
+      <DependentUpon>HostJoin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml.cs">
       <DependentUpon>PieceTypeSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\Windows\WaitJoinWindow.xaml.cs">
+      <DependentUpon>WaitJoinWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Move.cs" />
@@ -162,11 +171,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Core\HostGameOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\HostJoin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Core\Widgets\HistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Windows\WaitJoinWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

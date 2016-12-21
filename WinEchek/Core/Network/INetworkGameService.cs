@@ -17,5 +17,8 @@ namespace WinEchek.Core.Network
         /// <param name="uri"></param>
         [OperationContract(IsOneWay = true)]
         void SendClientAdress(Uri uri);
+
+        [OperationContract]
+        string Echo(string message);
     }
 }

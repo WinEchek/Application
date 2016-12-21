@@ -22,5 +22,10 @@ namespace WinEchek.GUI.Core {
         {
             System.Diagnostics.Process.Start("https://github.com/WinEchek/Application");
         }
+
+        private void TileNetworkPlay_OnClick(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.MainControl.Content = new HostJoin(_mainWindow);
+        }
     }
 }

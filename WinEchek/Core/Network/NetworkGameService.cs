@@ -12,7 +12,7 @@ namespace WinEchek.Core.Network
         public delegate void MoveReceivedHandler(Move move);
         public event MoveReceivedHandler MoveReceived;
 
-        public delegate void ClientUriReceivedHandler();
+        public delegate void ClientUriReceivedHandler(Uri uri);
         public event ClientUriReceivedHandler ClientUriReceived;
 
 
@@ -27,7 +27,12 @@ namespace WinEchek.Core.Network
             ClientAdress = uri;
 
             // On informe qu'on à reçut les informations de connexion
-            ClientUriReceived?.Invoke();
+            ClientUriReceived?.Invoke(uri);
+        }
+
+        public string Echo(string message)
+        {
+            return message;
         }
     }
 }

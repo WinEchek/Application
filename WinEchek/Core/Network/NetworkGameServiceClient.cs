@@ -21,5 +21,10 @@ namespace WinEchek.Core.Network
         {
             Channel.SendClientAdress(uri);
         }
+
+        public string Echo(string message)
+        {
+            return Channel.Echo(message);
+        }
     }
 }
