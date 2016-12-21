@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WinEchek.Core.Network;
 using WinEchek.GUI.Core.Windows;
+using WinEchek.Model;
 
 namespace WinEchek.GUI.Core
 {
@@ -24,10 +25,13 @@ namespace WinEchek.GUI.Core
     public partial class HostGameOptions : UserControl
     {
         private MainWindow _mainWindow;
-        public HostGameOptions(MainWindow mainWindow)
+        private Container _container;
+
+        public HostGameOptions(MainWindow mainWindow, Container container)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+            _container = container;
 
             InitComboBoxIp();
         }

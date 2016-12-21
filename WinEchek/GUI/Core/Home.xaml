@@ -48,42 +48,30 @@
                        Height="Auto"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top">
-            <controls:Tile Title="Jouer en local"
-                           Name="LocalGameButton"
+            <controls:Tile Title="Créer une nouvelle partie"
                                Margin="3"
                                Style="{StaticResource LargeTileStyle}"
                                Background="Teal"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
                                HorizontalTitleAlignment="Center"
-                               Click="LocalGameButton_OnClick"
+                               Click="CreateNewGameButton_OnClick"
                            >
-                <iconPacks:PackIconOcticons Width="40"
+                <iconPacks:PackIconModern Width="40"
                                              Height="40"
-                                             Kind="DeviceDesktop" />
+                                             Kind="New" />
             </controls:Tile>
-            <controls:Tile Title="Jouer en réseau"
-                           Name="TileNetworkPlay"
-                           Click="TileNetworkPlay_OnClick"
+            <controls:Tile Title="Reprendre une partie"
                                Margin="3"
                                Style="{StaticResource LargeTileStyle}"
+                               Background="Teal"
                                controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                               HorizontalTitleAlignment="Center">
-                <iconPacks:PackIconModern Width="40"
-                                                  Height="40"
-                                                  Kind="CloudPlay" />
-            </controls:Tile>
-
-            <controls:Tile Title="Jouer contre l'ordinateur"
-                           Margin="3"
-                               Style="{StaticResource LargeTileStyle}"
-                               controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                               Background="#D2691E"
-                               HorizontalTitleAlignment="Center">
+                               HorizontalTitleAlignment="Center"
+                               Click="UseSaveButton_OnClick"
+                           >
                 <iconPacks:PackIconMaterial Width="40"
-                                             Height="40"
-                                             Kind="Robot" />
+                                                  Height="40"
+                                                  Kind="BackupRestore" />
             </controls:Tile>
-
             <StackPanel Orientation="Horizontal">
                 <controls:Tile Title="Paramètres"
                                HorizontalTitleAlignment="Center"

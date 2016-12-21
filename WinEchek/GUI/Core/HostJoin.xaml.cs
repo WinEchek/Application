@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WinEchek.Model;
 
 namespace WinEchek.GUI.Core
 {
@@ -21,15 +11,19 @@ namespace WinEchek.GUI.Core
     public partial class HostJoin : UserControl
     {
         private MainWindow _mainWindow;
-        public HostJoin(MainWindow mainWindow)
+        private Container _container;
+
+        public HostJoin(MainWindow mainWindow, Container container)
         {
             InitializeComponent();
+            _container = container;
+
             _mainWindow = mainWindow;
         }
 
         private void TileHostGame_OnClick(object sender, RoutedEventArgs e)
         {
-            _mainWindow.MainControl.Content = new HostGameOptions(_mainWindow);
+            _mainWindow.MainControl.Content = new HostGameOptions(_mainWindow, _container);
         }
 
         private void TileJoinGame_OnClick(object sender, RoutedEventArgs e)

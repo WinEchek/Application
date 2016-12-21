@@ -7,6 +7,10 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro;
+using Microsoft.Win32;
+using WinEchek.Core.Persistance;
+using WinEchek.GUI.Core;
+using Container = WinEchek.Model.Container;
 
 //TODO: TOUT REMETTRE DANS LES BON NAMESPACE APRÈS LES CHANGEMENTS DANS LE MODEL (PAR RAPPORT À L'ENGINE) VINZOU
 
@@ -25,11 +29,15 @@ namespace WinEchek
         {
             InitializeComponent();
             DataContext = this;
-            MainControl.Content = new GUI.Core.Home(this);
-
-            foreach (string commandLineArg in Environment.GetCommandLineArgs())
+            if (Environment.GetCommandLineArgs().Length == 1)
+                MainControl.Content = new GUI.Core.Home(this);
+            else
             {
-                Console.WriteLine(commandLineArg);
+                ILoader loader = new BinaryLoader();
+
+                Container container = loader.Load(Environment.GetCommandLineArgs()[1]);
+
+                MainControl.Content = new GameModeSelection(container, this);
             }
 
             /**

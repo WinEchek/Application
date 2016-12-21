@@ -131,6 +131,9 @@
     <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Core\GameModeSelection.xaml.cs">
+      <DependentUpon>GameModeSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Core\HostGameOptions.xaml.cs">
       <DependentUpon>HostGameOptions.xaml</DependentUpon>
     </Compile>
@@ -155,11 +158,11 @@
     <Compile Include="Core\Persistance\ISaver.cs" />
     <Compile Include="Model\Square.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Page Include="GUI\Core\CreateContinue.xaml">
+    <Page Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml">
+    <Page Include="GUI\Core\GameModeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,9 +213,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GUI\Core\CreateContinue.xaml.cs">
-      <DependentUpon>CreateContinue.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Core\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
