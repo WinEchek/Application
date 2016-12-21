@@ -147,6 +147,7 @@
       <DependentUpon>WaitJoinWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Container.cs" />
+    <Compile Include="Model\Coordinate.cs" />
     <Compile Include="Model\Move.cs" />
     <Compile Include="Core\Persistance\BinaryLoader.cs" />
     <Compile Include="Core\Persistance\BinarySaver.cs" />

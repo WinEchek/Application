@@ -6,7 +6,7 @@ using Type = WinEchek.Model.Piece.Type;
 namespace WinEchek.Model
 {
     /// <summary>
-    /// Represent a chess move attached to a board for now
+    /// Represent a chess move independantly of the board
     /// </summary>
     [Serializable]
     [DataContract]
@@ -24,12 +24,6 @@ namespace WinEchek.Model
         [DataMember]
         public Type PieceType { get; }
 
-        /// <summary>
-        /// PromotePieceType
-        /// </summary>
-        /// <value>
-        /// The type of piece the piece promotes to
-        /// </value>
         [DataMember]
         public Type PromotePieceType { get; }
 
@@ -80,45 +74,5 @@ namespace WinEchek.Model
             PromotePieceType = promotePieceType;
         }
         #endregion
-    }
-
-    /// <summary>
-    /// Square coordinate, independant of the board
-    /// </summary>
-    [Serializable]
-    public struct Coordinate
-    {
-        /// <summary>
-        /// X
-        /// </summary>
-        /// <value>
-        /// The X coordinate
-        /// </value>
-        public int X { get; set; }
-
-        /// <summary>
-        /// Y
-        /// </summary>
-        /// <value>
-        /// The Y coordinate
-        /// </value>
-        public int Y { get; set; }
-
-        /// <summary>
-        /// Coordinate constructor
-        /// </summary>
-        /// <param name="x">The X coordinate</param>
-        /// <param name="y">The Y coordinate</param>
-        public Coordinate(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public static bool operator ==(Coordinate a, Coordinate b) => a.X == b.X && a.Y == b.Y;
-
-        public static bool operator !=(Coordinate a, Coordinate b) => !(a == b);
-
-        public override string ToString() => (char)('A' + X) + (8 - Y).ToString();
     }
 }
