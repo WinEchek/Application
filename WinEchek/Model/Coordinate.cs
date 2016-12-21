@@ -8,6 +8,25 @@ namespace WinEchek.Model
     [Serializable]
     public struct Coordinate
     {
+        public bool Equals(Coordinate other)
+        {
+            return this == other;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is Coordinate && Equals((Coordinate) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (X*397) ^ Y;
+            }
+        }
+
         /// <summary>
         /// X
         /// </summary>

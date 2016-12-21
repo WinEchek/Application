@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro;
-using Microsoft.Win32;
+using MahApps.Metro.Controls.Dialogs;
 using WinEchek.Core.Persistance;
 using WinEchek.GUI.Core;
 using Container = WinEchek.Model.Container;
@@ -29,23 +29,10 @@ namespace WinEchek
         {
             InitializeComponent();
             DataContext = this;
-            if (Environment.GetCommandLineArgs().Length == 1)
-                MainControl.Content = new GUI.Core.Home(this);
-            else
-            {
-                ILoader loader = new BinaryLoader();
-
-                Container container = loader.Load(Environment.GetCommandLineArgs()[1]);
-
-                MainControl.Content = new GameModeSelection(container, this);
-            }
-
-            /**
-             * On remplit la liste des couleurs disponnibles pour le thème
-             */
             ItemSource = ThemeManager.Accents.Select(a => new AccentColorMenuData() { Name = a.Name, ColorBrush = a.Resources["AccentColorBrush"] as Brush }).ToList();
         }
 
+        
         private void MenuItemQuit_OnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -58,10 +45,33 @@ namespace WinEchek
             if (File.Exists("log.temp"))
                 File.Delete("log.temp");
         }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (Environment.GetCommandLineArgs().Length != 1)
+            {
+                ILoader loader = new BinaryLoader();
+                Container container = null;
+
+                try
+                {
+                    container = loader.Load(Environment.GetCommandLineArgs()[1]);
+                }
+                catch (Exception)
+                {
+                    this.ShowMessageAsync("Impossible de lire le fichier selectionner", Environment.GetCommandLineArgs()[1]);
+                }
+
+                if (container != null)
+                    MainControl.Content = new GameModeSelection(container, this);
+                else
+                    MainControl.Content = new Home(this);
+            }
+            else
+                MainControl.Content = new Home(this);
+        }
     }
 }
-
-
 
 public class AccentColorMenuData {
     public string Name { get; set; }

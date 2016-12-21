@@ -11,6 +11,7 @@
         mc:Ignorable="d"
         Icon="GUI/Ressources/Logo/Icon.png"
         Title="WinEchek"
+                      Loaded="MainWindow_OnLoaded"
         ShowIconOnTitleBar="True" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Window.Resources>

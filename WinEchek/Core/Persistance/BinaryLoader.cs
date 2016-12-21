@@ -9,6 +9,9 @@ namespace WinEchek.Core.Persistance
     {
         public Container Load(string path)
         {
+            if(!File.Exists(path))
+                throw new FileNotFoundException();
+
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             Container container = formatter.Deserialize(stream) as Container;

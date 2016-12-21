@@ -157,6 +157,7 @@
     <Compile Include="Core\Persistance\ILoader.cs" />
     <Compile Include="Core\Persistance\ISaver.cs" />
     <Compile Include="Model\Square.cs" />
+    <Compile Include="Model\Utility\FenTranslator.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Page Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml">
       <SubType>Designer</SubType>
