@@ -15,8 +15,9 @@ namespace WinEchek.Engine
         private CompensableConversation _conversation;
         private RuleGroup _ruleGroups;
         private ObservableCollection<ICompensableCommand> _moves;
-        private Pawn _enPassantPawnBlack = null;
-        private Pawn _enPassantPawnWhite = null;
+        private Pawn _enPassantPawnBlack;
+        private Pawn _enPassantPawnWhite;
+        private Container _container;
 
         /// <summary>
         /// The board the engine works with
@@ -30,6 +31,7 @@ namespace WinEchek.Engine
         public RealEngine(Container container)
         {
             Board = container.Board;
+            _container = container;
             _moves = container.Moves;
 
             _conversation = new CompensableConversation(container.Moves);
@@ -98,7 +100,12 @@ namespace WinEchek.Engine
                         _enPassantPawnBlack.EnPassant = true;
                     }
                 }
-                //En passant
+                
+                //Number of moves since last capture
+                if (Board.PieceAt(move.TargetCoordinate) == null)
+                    _container.HalfMoveSinceLastCapture++;
+                else
+                    _container.HalfMoveSinceLastCapture = 0;
 
                 _conversation.Execute(command);
                 _moves.Add(command);
@@ -146,6 +153,21 @@ namespace WinEchek.Engine
             ICompensableCommand command = _conversation.Undo();
             if (command == null) return false;
 
+            if (_container.HalfMoveSinceLastCapture != 0)
+                _container.HalfMoveSinceLastCapture--;
+            else
+            {
+                int count = 0;
+                for (int i = _moves.Count-1; i > 0; i--)
+                {
+                    if (!_moves[i].TakePiece)
+                        count++;
+                    else
+                        break;
+                }
+                _container.HalfMoveSinceLastCapture = count;
+            }
+
             _moves.Remove(command);
             return true;
         }
@@ -158,6 +180,12 @@ namespace WinEchek.Engine
         {
             ICompensableCommand command = _conversation.Redo();
             if (command == null) return false;
+
+            //Number of moves since last capture
+            if (!command.TakePiece)
+                _container.HalfMoveSinceLastCapture++;
+            else
+                _container.HalfMoveSinceLastCapture = 0;
 
             _moves.Add(command);
             return true;

@@ -19,6 +19,22 @@ namespace WinEchek.Engine.Command
         void Compensate();
 
         /// <summary>
+        /// TakePiece
+        /// </summary>
+        /// <value>
+        /// True if this command take an ennemy piece
+        /// </value>
+        bool TakePiece { get; }
+        
+        /// <summary>
+        /// Move
+        /// </summary>
+        /// <value>
+        /// Move corresponding to the command
+        /// </value>
+        Move Move { get; }
+
+        /// <summary>
         /// PieceType
         /// </summary>
         /// <value>

@@ -8,15 +8,13 @@ namespace WinEchek.Engine.Command
     [Serializable]
     internal class CastlingCommand : ICompensableCommand
     {
-        private Move _move;
-
         private ICompensableCommand _kingCommand;
         private ICompensableCommand _rookCommand;
         
 
         public CastlingCommand(Move move, Board board)
         {
-            _move = move;
+            Move = move;
 
             bool isLeftCastling = move.TargetCoordinate.X == 0;
 
@@ -26,7 +24,7 @@ namespace WinEchek.Engine.Command
 
         private CastlingCommand(CastlingCommand command, Board board)
         {
-            _move = command._move;
+            Move = command.Move;
 
             _rookCommand = command._rookCommand.Copy(board);
             _kingCommand = command._kingCommand.Copy(board);
@@ -44,12 +42,16 @@ namespace WinEchek.Engine.Command
             _rookCommand.Compensate();
         }
 
-        public Type PieceType => _move.PieceType;
+        public bool TakePiece => false;
 
-        public Color PieceColor => _move.PieceColor;
+        public Move Move { get; }
+
+        public Type PieceType => Move.PieceType;
+
+        public Color PieceColor => Move.PieceColor;
 
         public ICompensableCommand Copy(Board board) => new CastlingCommand(this, board);
 
-        public override string ToString() => "Roc vers tour " + _move.TargetCoordinate;
+        public override string ToString() => "Roc vers tour " + Move.TargetCoordinate;
     }
 }

@@ -20,6 +20,9 @@ namespace WinEchek.Model
         /// </summary>
         public ObservableCollection<ICompensableCommand> Moves { get; }
 
+        //Increment at each 
+        public int HalfMoveSinceLastCapture { get; set; } = 0;
+
         /// <summary>
         /// Container constructor
         /// </summary>
@@ -30,20 +33,6 @@ namespace WinEchek.Model
         {
             Board = new Board();
             Moves = new ObservableCollection<ICompensableCommand>();
-        }
-
-        /// <summary>
-        /// Container constructor
-        /// </summary>
-        /// <remarks>
-        /// Use to load a game
-        /// </remarks>
-        /// <param name="board">The game board</param>
-        /// <param name="moves">The list of moves that has been done</param>
-        public Container(Board board, ObservableCollection<ICompensableCommand> moves)
-        {
-            Board = board;
-            Moves = moves;
         }
     }
 }

@@ -11,8 +11,6 @@ namespace WinEchek.Engine.Command
     [Serializable]
     public class MoveCommand : ICompensableCommand
     {
-        private Move _move;
-
         private Piece _piece;
         private Piece _removedPiece;
 
@@ -30,14 +28,18 @@ namespace WinEchek.Engine.Command
         /// <param name="board">The board the command executes on</param>
         public MoveCommand(Move move, Board board)
         {
-            _move = move;
+            Move = move;
             _board = board;
+
+            TakePiece = board.PieceAt(Move.TargetCoordinate) != null;
         }
 
         private MoveCommand(MoveCommand command, Board board)
         {
             _board = board;
-            _move = command._move; 
+            Move = command.Move;
+
+            TakePiece = board.PieceAt(Move.TargetCoordinate) != null;
         }
 
         /// <summary>
@@ -45,8 +47,8 @@ namespace WinEchek.Engine.Command
         /// </summary>
         public void Execute()
         {
-            _targetSquare = _board.SquareAt(_move.TargetCoordinate);
-            _startSquare = _board.SquareAt(_move.StartCoordinate);
+            _targetSquare = _board.SquareAt(Move.TargetCoordinate);
+            _startSquare = _board.SquareAt(Move.StartCoordinate);
             _piece = _startSquare.Piece;
 
             //Has moved update
@@ -86,12 +88,16 @@ namespace WinEchek.Engine.Command
             _piece.Square = _startSquare;
         }
 
-        public Type PieceType => _move.PieceType;
+        public bool TakePiece { get; }
 
-        public Color PieceColor => _move.PieceColor;
+        public Move Move { get; }
+
+        public Type PieceType => Move.PieceType;
+
+        public Color PieceColor => Move.PieceColor;
 
         public ICompensableCommand Copy(Board board) => new MoveCommand(this, board);
 
-        public override string ToString() => _piece + " de " + _move.StartCoordinate + " vers " + _move.TargetCoordinate;
+        public override string ToString() => _piece + " de " + Move.StartCoordinate + " vers " + Move.TargetCoordinate;
     }
 }

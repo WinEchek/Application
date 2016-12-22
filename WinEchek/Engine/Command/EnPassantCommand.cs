@@ -8,14 +8,13 @@ namespace WinEchek.Engine.Command
     [Serializable]
     internal class EnPassantCommand : ICompensableCommand
     {
-        private Move _move;
         private ICompensableCommand _firstMove;
         private ICompensableCommand _secondMove;
 
 
         public EnPassantCommand(Move move, Board board)
         {
-            _move = move;
+            Move = move;
 
             bool isWhite = move.PieceColor == Color.White;
             bool isLeft = move.StartCoordinate.X > move.TargetCoordinate.X;
@@ -27,13 +26,13 @@ namespace WinEchek.Engine.Command
             Square secondSquare = board.Squares[x, y];
             Square thirdSquare = board.Squares[x, y + (isWhite ? -1 : 1)];
 
-            _firstMove = new MoveCommand(new Move(startSquare, secondSquare, _move.PieceType, _move.PieceColor), board);
-            _secondMove = new MoveCommand(new Move(secondSquare, thirdSquare, _move.PieceType, _move.PieceColor), board);
+            _firstMove = new MoveCommand(new Move(startSquare, secondSquare, Move.PieceType, Move.PieceColor), board);
+            _secondMove = new MoveCommand(new Move(secondSquare, thirdSquare, Move.PieceType, Move.PieceColor), board);
         }
 
         private EnPassantCommand(EnPassantCommand command, Board board)
         {
-            _move = command._move;
+            Move = command.Move;
             _firstMove = command._firstMove.Copy(board);
             _secondMove = command._secondMove.Copy(board);
         }
@@ -50,12 +49,16 @@ namespace WinEchek.Engine.Command
             _firstMove.Compensate();
         }
 
-        public Type PieceType => _move.PieceType;
+        public bool TakePiece => true;
 
-        public Color PieceColor => _move.PieceColor;
+        public Move Move { get; }
+
+        public Type PieceType => Move.PieceType;
+
+        public Color PieceColor => Move.PieceColor;
 
         public ICompensableCommand Copy(Board board) => new EnPassantCommand(this, board);
 
-        public override string ToString() => "En passant de " + _move.StartCoordinate + " vers " + _move.TargetCoordinate;
+        public override string ToString() => "En passant de " + Move.StartCoordinate + " vers " + Move.TargetCoordinate;
     }
 }
