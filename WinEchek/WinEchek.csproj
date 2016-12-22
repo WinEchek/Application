@@ -140,6 +140,9 @@
     <Compile Include="GUI\Core\HostJoin.xaml.cs">
       <DependentUpon>HostJoin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Core\JoinGameOptions.xaml.cs">
+      <DependentUpon>JoinGameOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Core\HostJoin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\JoinGameOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

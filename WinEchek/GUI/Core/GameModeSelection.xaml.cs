@@ -27,9 +27,9 @@ namespace WinEchek.GUI.Core
 
         private void TileNetworkPlay_OnClick(object sender, RoutedEventArgs e)
         {
-            if(_container.Moves.Count == 0)
+            //if(_container.Moves.Count == 0)
                 _mainWindow.MainControl.Content = new HostJoin(_mainWindow, _container);
-            _mainWindow.MainControl.Content = new HostGameOptions(_mainWindow, _container);
+           // _mainWindow.MainControl.Content = new HostGameOptions(_mainWindow, _container);
         }
 
         private void LocalGameButton_OnClick(object sender, RoutedEventArgs e)
