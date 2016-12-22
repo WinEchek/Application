@@ -10,7 +10,6 @@ namespace WinEchek.Core.Network
         [OperationContract(IsOneWay = true)]
         void Inform(Move move);
 
-
         /// <summary>
         /// Méthode pour envoyer au service les informations pour se connecter au nôtre
         /// </summary>

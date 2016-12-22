@@ -6,7 +6,7 @@ using WinEchek.Model;
 
 namespace WinEchek.Core.Network
 {
-    public class NetworkGameServiceClient : System.ServiceModel.ClientBase<INetworkGameService>, INetworkGameService
+    public class NetworkGameServiceClient : ClientBase<INetworkGameService>, INetworkGameService
     {
         public NetworkGameServiceClient([NotNull] Binding binding, [NotNull] EndpointAddress remoteAddress) : base(binding, remoteAddress)
         {

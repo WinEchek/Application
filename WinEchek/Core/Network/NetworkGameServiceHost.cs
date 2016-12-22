@@ -14,11 +14,14 @@ namespace WinEchek.Core.Network
             NetworkGameService = new NetworkGameService();
 
             _host = new ServiceHost(NetworkGameService, uri);
+
             // Enable metadata publishing.
-            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-            smb.HttpGetEnabled = true;
-            smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-            _host.Description.Behaviors.Add(smb);
+            _host.Description.Behaviors.Add(
+                new ServiceMetadataBehavior
+                {
+                    HttpGetEnabled = true,
+                    MetadataExporter = { PolicyVersion = PolicyVersion.Policy15 }
+                });
         }
 
         public void Open()
