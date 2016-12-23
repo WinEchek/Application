@@ -16,10 +16,10 @@ namespace WinEchek.Engine.Command
         {
             Move = move;
 
-            bool isLeftCastling = move.TargetCoordinate.X == 0;
+            bool isLeftCastling = move.TargetCoordinate.X < move.StartCoordinate.X;
 
             _kingCommand = new MoveCommand(new Move(board.PieceAt(move.StartCoordinate), board.Squares[isLeftCastling ? 2 : 6, move.StartCoordinate.Y]), board);
-            _rookCommand = new MoveCommand(new Move(board.PieceAt(move.TargetCoordinate), board.Squares[isLeftCastling ? 3 : 5, move.TargetCoordinate.Y]), board);
+            _rookCommand = new MoveCommand(new Move(board.PieceAt(new Coordinate(isLeftCastling ? 0 : 7, move.StartCoordinate.Y)), board.Squares[isLeftCastling ? 3 : 5, move.TargetCoordinate.Y]), board);
         }
 
         private CastlingCommand(CastlingCommand command, Board board)
