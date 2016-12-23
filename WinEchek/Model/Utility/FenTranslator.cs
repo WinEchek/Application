@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Markup.Localizer;
 using WinEchek.Model.Piece;
 using Type = WinEchek.Model.Piece.Type;
 
@@ -56,13 +55,16 @@ namespace WinEchek.Model.Utility
                         emptySquareNumber++;
                     }
                 }
-
+                if (emptySquareNumber != 0)
+                    result += emptySquareNumber;
                 result += '/';
             }
 
             result += ' ';
 
-            result += container.Moves[container.Moves.Count - 1].PieceColor == Color.White ? 'w' : 'b';
+            result += container.Moves[container.Moves.Count - 1].PieceColor == Color.White ? 'b' : 'w';
+
+            result += ' ';
 
             Piece.Piece blackRookQueen = null;
             Piece.Piece blackRookKing = null;
@@ -100,13 +102,18 @@ namespace WinEchek.Model.Utility
                             blackRookKing = square.Piece;
                     }
                 }
-                else if (square.Piece.Type == Type.Pawn)
+                else if (square?.Piece?.Type == Type.Pawn)
                 {
                     if ((square.Piece as Pawn)?.EnPassant == true)
-                        enPassant = square;
+                    {
+                        Console.WriteLine(square);
+                        enPassant =
+                            board.Squares[square.X, square.Piece.Color == Color.White ? square.Y + 1 : square.Y - 1];
+                    }
                 }
             }
 
+            //Castling
             var bRQ = !blackRookQueen?.HasMoved == true;
             var bRK = !blackRookKing?.HasMoved == true;
             var wRQ = !whiteRookQueen?.HasMoved == true;
@@ -114,8 +121,6 @@ namespace WinEchek.Model.Utility
 
             var wK = !whiteKing.HasMoved;
             var bK = !blackKing.HasMoved;
-
-
 
             if (wK)
             {
@@ -132,11 +137,13 @@ namespace WinEchek.Model.Utility
                     result += 'q';
             }
 
-            if (!(bK && (bRK || bRQ) && wK && (wRK || wRQ)))
+            if (!(bK && (bRK || bRQ))
+                && !(wK && (wRK || wRQ)))
                 result += '-';
 
             result += ' ';
 
+            //En passant
             if (enPassant != null)
                 result += enPassant.ToString().ToLower();
             else

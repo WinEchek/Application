@@ -22,7 +22,11 @@ namespace WinEchek.GUI.Core
 
         private void TileAiPlay_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            GameFactory gameFactory = new GameFactory();
+            BoardView boardView = new BoardView(_container.Board);
+            Game game = gameFactory.CreateGame(Mode.AI, _container, boardView);
+
+            _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }
 
         private void TileNetworkPlay_OnClick(object sender, RoutedEventArgs e)

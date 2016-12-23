@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WinEchek.Engine.Command;
 using WinEchek.Model;
+using WinEchek.Model.Utility;
 
 namespace WinEchek.GUI.Core.Widgets
 {
@@ -49,6 +50,7 @@ namespace WinEchek.GUI.Core.Widgets
                     command = command.Copy(_board);
                     _conversation.Execute(command);
                     _moves.Add(command);
+                    TextBlock.Text = FenTranslator.FenNotation(_game.Container);
                 }
                 if (args.Action == NotifyCollectionChangedAction.Remove)
                 {

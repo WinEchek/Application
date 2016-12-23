@@ -12,6 +12,7 @@ namespace WinEchek.Core
         public GameFactory()
         {
             GameCreators.Add(new LocalGameCreator());
+            GameCreators.Add(new AiGameCreator());
         }
 
         /// <summary>

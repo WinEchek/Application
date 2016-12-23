@@ -7,7 +7,9 @@ namespace WinEchek.Core
     public class Player
     {
         public Color Color { get; internal set; }
+
         private PlayerControler _playerControler;
+
         public Game Game { get; set; }
 
         public Player(Color color, PlayerControler playerControler)

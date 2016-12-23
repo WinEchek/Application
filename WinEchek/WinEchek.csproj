@@ -87,6 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\AiGameCreator.cs" />
     <Compile Include="Core\GameCreator.cs" />
     <Compile Include="Core\GameFactory.cs" />
     <Compile Include="Core\LocalGameCreator.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="GUI\Core\Windows\WaitJoinWindow.xaml.cs">
       <DependentUpon>WaitJoinWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IA\UciProcessController.cs" />
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Coordinate.cs" />
     <Compile Include="Model\Move.cs" />
