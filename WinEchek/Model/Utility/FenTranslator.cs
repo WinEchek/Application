@@ -102,14 +102,21 @@ namespace WinEchek.Model.Utility
                             blackRookKing = square.Piece;
                     }
                 }
+
+
                 else if (square?.Piece?.Type == Type.Pawn)
                 {
+
                     if ((square.Piece as Pawn)?.EnPassant == true)
                     {
-                        Console.WriteLine(square);
-                        enPassant =
-                            board.Squares[square.X, square.Piece.Color == Color.White ? square.Y + 1 : square.Y - 1];
+                        if (square?.Piece.Color == container.Moves[container.Moves.Count - 1].PieceColor)
+                        {
+                            enPassant = board.Squares[square.X, square.Piece.Color == Color.White ? square.Y + 1 : square.Y - 1];
+                        }
                     }
+
+
+
                 }
             }
 
@@ -144,6 +151,7 @@ namespace WinEchek.Model.Utility
             result += ' ';
 
             //En passant
+            
             if (enPassant != null)
                 result += enPassant.ToString().ToLower();
             else
