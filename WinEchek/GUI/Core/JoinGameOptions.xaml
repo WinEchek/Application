@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinEchek.GUI.Core"
              mc:Ignorable="d">
-    <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" >
         <GroupBox Header="Informations sur la partie à rejoindre">
             <StackPanel Orientation="Vertical">
                 <Label>Nom de la partie à rejoindre</Label>
@@ -32,4 +33,6 @@
 
 
     </StackPanel>
+    </ScrollViewer>
+    
 </UserControl>

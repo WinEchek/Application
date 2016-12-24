@@ -7,6 +7,7 @@ namespace WinEchek.Core.Network
     [ServiceContract]
     public interface INetworkGameService
     {
+     
         [OperationContract(IsOneWay = true)]
         void Inform(Move move);
 
@@ -17,6 +18,13 @@ namespace WinEchek.Core.Network
         [OperationContract(IsOneWay = true)]
         void SendClientAdress(Uri uri);
 
+
+        /// <summary>
+        /// Renvoie la chaîne passée en paramètre par l'appellant
+        /// Permet de tester le présence d'un service sur une certaine URI
+        /// </summary>
+        /// <param name="message">Chaine à retourner</param>
+        /// <returns>Une chaine de caractère identique à celle passée en paramètre</returns>
         [OperationContract]
         string Echo(string message);
     }

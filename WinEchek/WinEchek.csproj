@@ -91,6 +91,8 @@
     <Compile Include="Core\GameCreator.cs" />
     <Compile Include="Core\GameFactory.cs" />
     <Compile Include="Core\LocalGameCreator.cs" />
+    <Compile Include="Core\NetworkGame.cs" />
+    <Compile Include="Core\NetworkGameCreator.cs" />
     <Compile Include="Core\Network\INetworkGameService.cs" />
     <Compile Include="Core\Network\NetworkGameServiceClient.cs" />
     <Compile Include="Core\Network\NetworkGameServiceHost.cs" />

@@ -48,10 +48,14 @@ namespace WinEchek.GUI.Core.Windows
             }
             catch (Exception)
             {
+                NetworkGameServiceClient.Close();
+                NetworkGameServiceHost.Close();
                 DialogResult = false;
             }
             if (NetworkGameServiceClient.State != CommunicationState.Opened)
             {
+                NetworkGameServiceClient.Close();
+                NetworkGameServiceHost.Close();
                 DialogResult = false;
             }
 
@@ -68,12 +72,16 @@ namespace WinEchek.GUI.Core.Windows
                 string received = NetworkGameServiceClient.Echo(testMessage);
                 if (received != testMessage)
                 {
+                    NetworkGameServiceClient.Close();
+                    NetworkGameServiceHost.Close();
                     return false;
                 }
                 return true;
             }
             catch (Exception)
             {
+                NetworkGameServiceClient.Close();
+                NetworkGameServiceHost.Close();
                 return false;
             }
         }
