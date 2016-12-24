@@ -288,7 +288,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Files\stockfish_64.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="GUI\Ressources\Sprites\queenBlack.png" />
     <Resource Include="GUI\Ressources\Sprites\rookBlack.png" />
