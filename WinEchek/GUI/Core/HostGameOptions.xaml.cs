@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
 using WinEchek.Core.Network;
 using WinEchek.GUI.Core.Windows;
 using WinEchek.Model;
@@ -56,7 +57,17 @@ namespace WinEchek.GUI.Core
         {
             Uri uri = new Uri("http://" + ComboBoxIP.SelectedItem + ":" + TextBoxPort.Text + "/" + TextBoxGameName.Text + TextBoxPseudo.Text);
             WaitJoinWindow waitJoinWindow = new WaitJoinWindow(uri);
-            Console.WriteLine(waitJoinWindow.ShowDialog());
+            if (waitJoinWindow.ShowDialog() == true)
+            {
+                //créer la partie
+            }
+            else
+            {
+                _mainWindow.ShowMessageAsync("Erreur réseau",
+                    "Il y a eu un problème lors de la connexion avec l'autre joueur... Vueillez réessayer.",
+                    MessageDialogStyle.Affirmative);
+            }
+
         }
     }
 }

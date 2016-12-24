@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinEchek.GUI.Core"
              mc:Ignorable="d" >
-<StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
     <Label>Nom de la partie</Label>
     <TextBox Name="TextBoxGameName"/>
         <Label>Votre pseudo</Label>
@@ -19,8 +20,9 @@
     <ComboBox Name="ComboBoxIP"/>
     <Label>Modifier, si besoin, le port pour l'hôte</Label>
         <TextBox Name="TextBoxPort">4242</TextBox>
-    <Button Name="ButtonCreate" Click="ButtonCreate_OnClick" Margin="4 20">Créer la partie</Button>
+            <Button Name="ButtonCreate" Click="ButtonCreate_OnClick" Margin="4 20">Créer la partie</Button>
+        </StackPanel>
+    </ScrollViewer>
     
-    
-</StackPanel>
+
 </UserControl>
