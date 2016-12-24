@@ -40,7 +40,8 @@ namespace WinEchek.IA
                 Console.WriteLine(output);
             }
             _uciProcess.StandardInput.WriteLine("ucinewgame");
-            _uciProcess.StandardInput.WriteLine("setoption name Threads value 8");
+            //Console.WriteLine(Environment.ProcessorCount);
+            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
             Console.WriteLine("ucinewgame");
         }
 
