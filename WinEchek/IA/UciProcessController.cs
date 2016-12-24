@@ -41,6 +41,7 @@ namespace WinEchek.IA
             }
             _uciProcess.StandardInput.WriteLine("ucinewgame");
             _uciProcess.StandardInput.WriteLine("setoption name Threads value 8");
+
             Console.WriteLine("ucinewgame");
         }
 
@@ -54,6 +55,7 @@ namespace WinEchek.IA
             Console.WriteLine(FenTranslator.FenNotation(_container));
             await _uciProcess.StandardInput.WriteLineAsync("position fen " + FenTranslator.FenNotation(_container));
             await _uciProcess.StandardInput.WriteLineAsync("go movetime 2000");
+            
 
             string input = new string(' ', 1);
 
@@ -64,11 +66,14 @@ namespace WinEchek.IA
                     Console.WriteLine(input);
             }
 
+            if (!input.Contains("(none)"))
+            {
+                Coordinate startCoordinate = new Coordinate(input[9] - 'a', 7 - (input[10] - '1'));
+                Coordinate targCoordinate = new Coordinate(input[11] - 'a', 7 - (input[12] - '1'));
 
-            Coordinate startCoordinate = new Coordinate(input[9] - 'a', 7 - (input[10] - '1'));
-            Coordinate targCoordinate = new Coordinate(input[11] - 'a', 7 - (input[12] - '1'));
-
-            Move(new Move(_container.Board.PieceAt(startCoordinate), _container.Board.SquareAt(targCoordinate)));
+                Move(new Move(_container.Board.PieceAt(startCoordinate), _container.Board.SquareAt(targCoordinate)));
+            }
+            
         }
 
         public override void Move(Move move)
