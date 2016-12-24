@@ -6,6 +6,7 @@ using WinEchek.Core;
 using WinEchek.Model;
 using WinEchek.Model.Piece;
 using WinEchek.Model.Utility;
+using Type = WinEchek.Model.Piece.Type;
 
 namespace WinEchek.IA
 {
@@ -54,7 +55,7 @@ namespace WinEchek.IA
         {
             Console.WriteLine(FenTranslator.FenNotation(_container));
             await _uciProcess.StandardInput.WriteLineAsync("position fen " + FenTranslator.FenNotation(_container));
-            await _uciProcess.StandardInput.WriteLineAsync("go movetime 2000");
+            await _uciProcess.StandardInput.WriteLineAsync("go movetime 1000");
             
 
             string input = new string(' ', 1);
@@ -71,7 +72,30 @@ namespace WinEchek.IA
                 Coordinate startCoordinate = new Coordinate(input[9] - 'a', 7 - (input[10] - '1'));
                 Coordinate targCoordinate = new Coordinate(input[11] - 'a', 7 - (input[12] - '1'));
 
-                Move(new Move(_container.Board.PieceAt(startCoordinate), _container.Board.SquareAt(targCoordinate)));
+                if (input.Length>13 && input[13] != ' ')
+                {
+                    switch (input[13])
+                    {
+                        case 'q':
+                            Move(new Move(_container.Board.SquareAt(startCoordinate), _container.Board.SquareAt(targCoordinate), Type.Pawn, Player.Color, Type.Queen));
+                            break;
+                        case 'r':
+                            Move(new Move(_container.Board.SquareAt(startCoordinate), _container.Board.SquareAt(targCoordinate), Type.Pawn, Player.Color, Type.Rook));
+                            break;
+                        case 'b':
+                            Move(new Move(_container.Board.SquareAt(startCoordinate), _container.Board.SquareAt(targCoordinate), Type.Pawn, Player.Color, Type.Bishop));
+                            break;
+                        case 'n':
+                            Move(new Move(_container.Board.SquareAt(startCoordinate), _container.Board.SquareAt(targCoordinate), Type.Pawn, Player.Color, Type.Knight));
+                            break;
+                    }
+                }
+                else
+                {
+                    Move(new Move(_container.Board.PieceAt(startCoordinate), _container.Board.SquareAt(targCoordinate)));
+                }
+
+                
             }
             
         }
