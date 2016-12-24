@@ -77,5 +77,8 @@ namespace WinEchek.Engine.Command
         public Color PieceColor => Move.PieceColor;
 
         public ICompensableCommand Copy(Board board) => new PromoteCommand(this, board);
+
+        public override string ToString() =>
+            "Promotion en " + Move.PromotePieceType + " en " + Move.TargetCoordinate;
     }
 }
