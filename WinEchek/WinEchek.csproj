@@ -110,7 +110,7 @@
     <Compile Include="Engine\Command\PromoteCommand.cs" />
     <Compile Include="Engine\RealEngine.cs" />
     <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRuleKing.cs" />
-    <Compile Include="Engine\Rules\Castling.cs" />
+    <Compile Include="Engine\Rules\CastlingRule.cs" />
     <Compile Include="Engine\Rules\BishopMovementRule.cs" />
     <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
     <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />

@@ -9,7 +9,7 @@ namespace WinEchek.Engine.RuleManager
         {
             Rules.Add(new KingMovementRule());
             Rules.Add(new CanOnlyTakeEnnemyRuleKing());
-            Rules.Add(new Castling());
+            Rules.Add(new CastlingRule());
             Rules.Add(new WillNotMakeCheck());
 
         }
