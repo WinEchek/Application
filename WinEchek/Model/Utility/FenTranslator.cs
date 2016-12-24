@@ -120,7 +120,7 @@ namespace WinEchek.Model.Utility
                 }
             }
 
-            //Castling
+            //CastlingRule
             var bRQ = !blackRookQueen?.HasMoved == true;
             var bRK = !blackRookKing?.HasMoved == true;
             var wRQ = !whiteRookQueen?.HasMoved == true;

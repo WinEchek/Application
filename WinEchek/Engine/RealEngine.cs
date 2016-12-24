@@ -61,7 +61,8 @@ namespace WinEchek.Engine
             if (_ruleGroups.Handle(move, Board))
             {
                 ICompensableCommand command;
-                if (move.PieceType == Type.King && targetPiece?.Type == Type.Rook)
+                if (move.PieceType == Type.King && (targetPiece?.Type == Type.Rook && move.PieceColor == targetPiece.Color 
+                    || Math.Abs(move.TargetCoordinate.X-move.StartCoordinate.X)==2))
                     command = new CastlingCommand(move, Board);
                 else if (move.PieceType == Type.Pawn && targetPiece == null && move.StartCoordinate.X != move.TargetCoordinate.X)
                     command = new EnPassantCommand(move, Board);

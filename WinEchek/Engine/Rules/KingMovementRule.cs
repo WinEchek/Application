@@ -11,7 +11,8 @@ namespace WinEchek.Engine.Rules
     {
         public bool IsMoveValid(Move move, Board board)
         {
-            if (board.PieceAt(move.TargetCoordinate)?.Color == move.PieceColor && board.PieceAt(move.TargetCoordinate)?.Type == Type.Rook)
+            if (board.PieceAt(move.TargetCoordinate)?.Color == move.PieceColor && board.PieceAt(move.TargetCoordinate)?.Type == Type.Rook ||
+                Math.Abs(move.TargetCoordinate.X - move.StartCoordinate.X) == 2 && move.TargetCoordinate.Y == move.StartCoordinate.Y)
             {
                 return true;
             }
