@@ -143,7 +143,7 @@ namespace WinEchek.Model.Utility
                 if (bRQ)
                     result += 'q';
             }
-
+            
             if (!(bK && (bRK || bRQ))
                 && !(wK && (wRK || wRQ)))
                 result += '-';
