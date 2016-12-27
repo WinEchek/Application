@@ -8,31 +8,35 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
-using WinEchek.Core.Persistance;
-using WinEchek.GUI.Core;
+using WinEchek.Core;
+using WinEchek.IO;
 using Container = WinEchek.Model.Container;
-
-//TODO: TOUT REMETTRE DANS LES BON NAMESPACE APRÈS LES CHANGEMENTS DANS LE MODEL (PAR RAPPORT À L'ENGINE) VINZOU
-
-
-
 
 namespace WinEchek
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
-        public List<AccentColorMenuData> ItemSource { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
-            ItemSource = ThemeManager.Accents.Select(a => new AccentColorMenuData() { Name = a.Name, ColorBrush = a.Resources["AccentColorBrush"] as Brush }).ToList();
+            ItemSource =
+                ThemeManager.Accents.Select(
+                        a =>
+                            new AccentColorMenuData
+                            {
+                                Name = a.Name,
+                                ColorBrush = a.Resources["AccentColorBrush"] as Brush
+                            })
+                    .ToList();
         }
 
-        
+        public List<AccentColorMenuData> ItemSource { get; set; }
+
+
         private void MenuItemQuit_OnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -59,7 +63,8 @@ namespace WinEchek
                 }
                 catch (Exception)
                 {
-                    this.ShowMessageAsync("Impossible de lire le fichier selectionner", Environment.GetCommandLineArgs()[1]);
+                    this.ShowMessageAsync("Impossible de lire le fichier selectionner",
+                        Environment.GetCommandLineArgs()[1]);
                 }
 
                 if (container != null)
@@ -73,35 +78,45 @@ namespace WinEchek
     }
 }
 
-public class AccentColorMenuData {
+public class AccentColorMenuData
+{
+    private ICommand _changeAccentCommand;
     public string Name { get; set; }
     public Brush BorderColorBrush { get; set; }
     public Brush ColorBrush { get; set; }
 
-    private ICommand _changeAccentCommand;
-
-    public ICommand ChangeAccentCommand {
-        get { return this._changeAccentCommand ?? (_changeAccentCommand = new SimpleCommand { CanExecuteDelegate = x => true, ExecuteDelegate = x => this.DoChangeTheme(x) }); }
+    public ICommand ChangeAccentCommand
+    {
+        get
+        {
+            return _changeAccentCommand ??
+                   (_changeAccentCommand =
+                       new SimpleCommand {CanExecuteDelegate = x => true, ExecuteDelegate = x => DoChangeTheme(x)});
+        }
     }
 
-    protected virtual void DoChangeTheme(object sender) {
+    protected virtual void DoChangeTheme(object sender)
+    {
         var theme = ThemeManager.DetectAppStyle(Application.Current);
-        var accent = ThemeManager.GetAccent(this.Name);
+        var accent = ThemeManager.GetAccent(Name);
         ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
     }
 }
 
-public class SimpleCommand : ICommand {
+public class SimpleCommand : ICommand
+{
     public Predicate<object> CanExecuteDelegate { get; set; }
     public Action<object> ExecuteDelegate { get; set; }
 
-    public bool CanExecute(object parameter) {
+    public bool CanExecute(object parameter)
+    {
         if (CanExecuteDelegate != null)
             return CanExecuteDelegate(parameter);
         return true;
     }
 
-    public event EventHandler CanExecuteChanged {
+    public event EventHandler CanExecuteChanged
+    {
         add { CommandManager.RequerySuggested += value; }
         remove { CommandManager.RequerySuggested -= value; }
     }

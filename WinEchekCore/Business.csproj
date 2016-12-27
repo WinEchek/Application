@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WinEchek</RootNamespace>
+    <AssemblyName>Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.2.1\lib\net\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\NetworkGame.cs" />
+    <Compile Include="Network\INetworkGameService.cs" />
+    <Compile Include="Network\NetworkGameService.cs" />
+    <Compile Include="Network\NetworkGameServiceClient.cs" />
+    <Compile Include="Network\NetworkGameServiceHost.cs" />
+    <Compile Include="Core\Player.cs" />
+    <Compile Include="Core\PlayerControler.cs" />
+    <Compile Include="Engine\IEngine.cs" />
+    <Compile Include="Engine\RealEngine.cs" />
+    <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\KingRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\KnightRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\PawnRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\QueenRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\RookRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\RuleGroup.cs" />
+    <Compile Include="Engine\Rules\BishopMovementRule.cs" />
+    <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
+    <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRuleKing.cs" />
+    <Compile Include="Engine\Rules\CastlingRule.cs" />
+    <Compile Include="Engine\Rules\IRule.cs" />
+    <Compile Include="Engine\Rules\KingMovementRule.cs" />
+    <Compile Include="Engine\Rules\KnightMovementRule.cs" />
+    <Compile Include="Engine\Rules\PawnMovementRule.cs" />
+    <Compile Include="Engine\Rules\QueenMovementRule.cs" />
+    <Compile Include="Engine\Rules\RookMovementRule.cs" />
+    <Compile Include="Engine\Rules\WillNotMakeCheck.cs" />
+    <Compile Include="Engine\States\CheckState.cs" />
+    <Compile Include="Engine\States\IState.cs" />
+    <Compile Include="Engine\States\PatState.cs" />
+    <Compile Include="IA\UciProcessController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SMTPLogger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{AFE729B0-C85C-423D-8C32-02685FD66875}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

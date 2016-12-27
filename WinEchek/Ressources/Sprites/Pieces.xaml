@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Images des pièces -->
+    <BitmapImage x:Key="BlackBishop" UriSource="bishopBlack.png" />
+    <BitmapImage x:Key="BlackKnight" UriSource="knightBlack.png" />
+    <BitmapImage x:Key="BlackKing" UriSource="kingBlack.png" />
+    <BitmapImage x:Key="BlackPawn" UriSource="pawnBlack.png" />
+    <BitmapImage x:Key="BlackQueen" UriSource="queenBlack.png" />
+    <BitmapImage x:Key="BlackRook" UriSource="rookBlack.png" />
+
+    <BitmapImage x:Key="WhiteBishop" UriSource="bishopWhite.png" />
+    <BitmapImage x:Key="WhiteKnight" UriSource="knightWhite.png" />
+    <BitmapImage x:Key="WhiteKing" UriSource="kingWhite.png" />
+    <BitmapImage x:Key="WhitePawn" UriSource="pawnWhite.png" />
+    <BitmapImage x:Key="WhiteQueen" UriSource="queenWhite.png" />
+    <BitmapImage x:Key="WhiteRook" UriSource="rookWhite.png" />
+</ResourceDictionary>
