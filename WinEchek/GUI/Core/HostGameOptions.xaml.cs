@@ -14,9 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls.Dialogs;
+using WinEchek.Core;
 using WinEchek.Core.Network;
 using WinEchek.GUI.Core.Windows;
 using WinEchek.Model;
+using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.GUI.Core
 {
@@ -55,11 +57,15 @@ namespace WinEchek.GUI.Core
 
         private void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
         {
-            Uri uri = new Uri("http://" + ComboBoxIP.SelectedItem + ":" + TextBoxPort.Text + "/" + TextBoxGameName.Text + TextBoxPseudo.Text);
-            WaitJoinWindow waitJoinWindow = new WaitJoinWindow(uri);
+            Uri uri = new Uri("net.tcp://" + ComboBoxIP.SelectedItem + ":" + TextBoxPort.Text + "/" + TextBoxGameName.Text + TextBoxPseudo.Text);
+            WaitJoinWindow waitJoinWindow = new WaitJoinWindow(uri, GetComboBoxColor());
             if (waitJoinWindow.ShowDialog() == true)
             {
-                //créer la partie
+                GameFactory gameFactory = new GameFactory();
+                BoardView boardView = new BoardView(_container.Board);
+                Game game = gameFactory.CreateNetworkGame(_container, boardView, waitJoinWindow.NetworkGameServiceHost, GetComboBoxColor());
+                _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
+
             }
             else
             {
@@ -68,6 +74,11 @@ namespace WinEchek.GUI.Core
                     MessageDialogStyle.Affirmative);
             }
 
+        }
+
+        private Color GetComboBoxColor()
+        {
+            return ComboBoxColor.Text == "Blanc" ? Color.White : Color.Black;
         }
     }
 }

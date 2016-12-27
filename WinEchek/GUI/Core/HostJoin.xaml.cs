@@ -28,7 +28,7 @@ namespace WinEchek.GUI.Core
 
         private void TileJoinGame_OnClick(object sender, RoutedEventArgs e)
         {
-            _mainWindow.MainControl.Content = new JoinGameOptions(_mainWindow);
+            _mainWindow.MainControl.Content = new JoinGameOptions(_mainWindow, _container);
         }
     }
 }

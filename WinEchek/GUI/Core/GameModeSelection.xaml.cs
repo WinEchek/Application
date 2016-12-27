@@ -2,6 +2,7 @@
 using System.Windows;
 using WinEchek.Core;
 using WinEchek.Model;
+using WinEchek.Model.Piece;
 
 namespace WinEchek.GUI.Core
 {

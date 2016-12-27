@@ -15,7 +15,7 @@ namespace WinEchek.GUI
             _boardView = boardView;
         }
 
-        public override void Play()
+        public override void Play(Move move)
         {
             IsPlayable = true;
         }

@@ -22,7 +22,7 @@ namespace WinEchek.Core
         /// Notifie le joueur que c'est à son tour de jouer et que le Game peut recevoir un mouvement de sa part.
         /// Tant que ce mouvement n'est pas valide, cette méthode est appelée.
         /// </summary>
-        public void Play() => _playerControler.Play();
+        public void Play(Move move) => _playerControler.Play(move);
 
         public void Stop() => _playerControler.Stop();
 

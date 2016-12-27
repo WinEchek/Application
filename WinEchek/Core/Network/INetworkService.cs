@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ServiceModel;
 using WinEchek.Model;
+using WinEchek.Model.Piece;
 
 namespace WinEchek.Core.Network
 {
     [ServiceContract]
-    public interface INetworkGameService
+    public interface INetworkService
     {
      
         [OperationContract(IsOneWay = true)]
@@ -16,8 +17,7 @@ namespace WinEchek.Core.Network
         /// </summary>
         /// <param name="uri"></param>
         [OperationContract(IsOneWay = true)]
-        void SendClientAdress(Uri uri);
-
+        void SendClientAdress(string uri);
 
         /// <summary>
         /// Renvoie la chaîne passée en paramètre par l'appellant
@@ -27,5 +27,8 @@ namespace WinEchek.Core.Network
         /// <returns>Une chaine de caractère identique à celle passée en paramètre</returns>
         [OperationContract]
         string Echo(string message);
+
+        [OperationContract]
+        string GetColor();
     }
 }

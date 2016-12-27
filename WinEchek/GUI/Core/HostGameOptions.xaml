@@ -8,11 +8,11 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
     <Label>Nom de la partie</Label>
-    <TextBox Name="TextBoxGameName"/>
+    <TextBox Name="TextBoxGameName">a</TextBox>
         <Label>Votre pseudo</Label>
-    <TextBox Name="TextBoxPseudo" />
+    <TextBox Name="TextBoxPseudo" >a</TextBox>
     <Label>Votre Couleur</Label>
-    <ComboBox Name="ComboBoxColor">
+    <ComboBox Name="ComboBoxColor" SelectedIndex="0">
             <ComboBoxItem>Blanc</ComboBoxItem>
             <ComboBoxItem>Noir</ComboBoxItem>
     </ComboBox>

@@ -10,9 +10,9 @@
         <GroupBox Header="Informations sur la partie à rejoindre">
             <StackPanel Orientation="Vertical">
                 <Label>Nom de la partie à rejoindre</Label>
-                <TextBox Name="TextBoxGameName"/>
+                <TextBox Name="TextBoxGameName">a</TextBox>
                 <Label>Pseudo de votre adversaire</Label>
-                <TextBox Name="TextBoxHostPseudo" />
+                <TextBox Name="TextBoxHostPseudo" >a</TextBox>
                 <Label>Adresse IP de l'adversaire</Label>
                 <TextBox Name="TextBoxHostIP"/>
                 <Label>Sauf indication du créateur de la partie, laissez la valeur par défaut</Label>
@@ -22,11 +22,11 @@
         <GroupBox Header="Configuration de votre joueur">
             <StackPanel Orientation="Vertical">
                 <Label>Votre pseudo</Label>
-                <TextBox Name="TextBoxPseudo"/>
+                <TextBox Name="TextBoxPseudo">b</TextBox>
                 <Label>Votre adresse IP</Label>
                 <ComboBox Name="ComboBoxIP" />
                 <Label>Port</Label>
-                <TextBox Name="TextBoxPort">4242</TextBox>
+                <TextBox Name="TextBoxPort">4243</TextBox>
             </StackPanel>
         </GroupBox>
         <Button Name="ButtonJoin" Click="ButtonJoin_OnClick" Margin="4 20">Rejoindre la partie</Button>

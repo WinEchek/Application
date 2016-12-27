@@ -93,10 +93,11 @@
     <Compile Include="Core\LocalGameCreator.cs" />
     <Compile Include="Core\NetworkGame.cs" />
     <Compile Include="Core\NetworkGameCreator.cs" />
-    <Compile Include="Core\Network\INetworkGameService.cs" />
-    <Compile Include="Core\Network\NetworkGameServiceClient.cs" />
-    <Compile Include="Core\Network\NetworkGameServiceHost.cs" />
-    <Compile Include="Core\Network\NetworkGameService.cs" />
+    <Compile Include="Core\Network\INetworkService.cs" />
+    <Compile Include="Core\Network\NetworkServiceClient.cs" />
+    <Compile Include="Core\Network\NetworkServiceHost.cs" />
+    <Compile Include="Core\Network\NetworkService.cs" />
+    <Compile Include="Core\Network\NetworkPlayerController.cs" />
     <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Core\Persistance\SMTPLogger.cs" />
     <Compile Include="Engine\Command\CastlingCommand.cs" />

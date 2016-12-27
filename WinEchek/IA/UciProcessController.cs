@@ -46,7 +46,7 @@ namespace WinEchek.IA
             Console.WriteLine("ucinewgame");
         }
 
-        public override void Play()
+        public override void Play(Move move)
         {
             PlayAsync();
         }

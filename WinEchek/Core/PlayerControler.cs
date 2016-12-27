@@ -13,7 +13,7 @@ namespace WinEchek.Core
         /// <summary>
         /// Indique au contrôleur du joueur que c'est à lui de jouer
         /// </summary>
-        public abstract void Play();
+        public abstract void Play(Move move);
 
         /// <summary>
         /// Donne au joueur le mouvement à effectuer

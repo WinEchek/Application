@@ -13,19 +13,19 @@ namespace WinEchek.Model
     public class Move
     {
         [DataMember]
-        public Coordinate StartCoordinate { get; }
+        public Coordinate StartCoordinate { get; set; }
 
         [DataMember]
-        public Coordinate TargetCoordinate { get; }
+        public Coordinate TargetCoordinate { get; set; }
 
         [DataMember]
-        public Color PieceColor { get; }
+        public Color PieceColor { get; set; }
 
         [DataMember]
-        public Type PieceType { get; }
+        public Type PieceType { get; set; }
 
         [DataMember]
-        public Type PromotePieceType { get; }
+        public Type PromotePieceType { get; set; }
 
         #region Constructors
 

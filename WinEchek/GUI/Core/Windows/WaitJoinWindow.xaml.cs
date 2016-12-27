@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WinEchek.Core.Network;
+using Color = WinEchek.Model.Piece.Color;
 
 namespace WinEchek.GUI.Core.Windows
 {
@@ -20,59 +21,47 @@ namespace WinEchek.GUI.Core.Windows
     /// Logique d'interaction pour WaitJoinWindow.xaml
     /// </summary>
     public partial class WaitJoinWindow
-    {
-        public NetworkGameServiceClient NetworkGameServiceClient { get; set; }
-        public NetworkGameServiceHost NetworkGameServiceHost { get; set; }
+    { 
+        public NetworkServiceHost NetworkGameServiceHost { get; set; }
 
-        public WaitJoinWindow(Uri uri)
+        public WaitJoinWindow(Uri uri, Color color)
         {
             InitializeComponent();
             LabelWait.Content = "Création de la partie";
-            NetworkGameServiceHost = new NetworkGameServiceHost(uri);
+            NetworkGameServiceHost = new NetworkServiceHost(uri) {NetworkGameService = {PlayerColor = color}};
             NetworkGameServiceHost.Open();
             NetworkGameServiceHost.NetworkGameService.ClientUriReceived += NetworkGameServiceOnClientUriReceived;
             LabelWait.Content = "Attente d'un autre joueur";
         }
 
-        private void NetworkGameServiceOnClientUriReceived(Uri uri)
+        private void NetworkGameServiceOnClientUriReceived(string uri)
         {
             LabelWait.Content = "Configuration de la partie";
-
-            BasicHttpBinding basicHttpBinding = new BasicHttpBinding();
             EndpointAddress endpointAddress = new EndpointAddress(uri);
 
             try
             {
-                NetworkGameServiceClient = new NetworkGameServiceClient(basicHttpBinding, endpointAddress);
-                NetworkGameServiceClient.Open();
+                NetworkServiceClient.Create(endpointAddress);
             }
             catch (Exception)
             {
-                NetworkGameServiceClient.Close();
-                NetworkGameServiceHost.Close();
-                DialogResult = false;
-            }
-            if (NetworkGameServiceClient.State != CommunicationState.Opened)
-            {
-                NetworkGameServiceClient.Close();
                 NetworkGameServiceHost.Close();
                 DialogResult = false;
             }
 
             LabelWait.Content = "Tentative de connexion avec le client";
-            DialogResult = Ping();
+            DialogResult = true;
         }
 
         private bool Ping()
         {
             string testMessage = "42";
+            NetworkServiceClient.Channel().Echo(testMessage);
             try
             {
-                NetworkGameServiceClient.InnerChannel.OperationTimeout = TimeSpan.FromSeconds(4);
-                string received = NetworkGameServiceClient.Echo(testMessage);
+                string received = NetworkServiceClient.Channel().Echo(testMessage);
                 if (received != testMessage)
                 {
-                    NetworkGameServiceClient.Close();
                     NetworkGameServiceHost.Close();
                     return false;
                 }
@@ -80,7 +69,6 @@ namespace WinEchek.GUI.Core.Windows
             }
             catch (Exception)
             {
-                NetworkGameServiceClient.Close();
                 NetworkGameServiceHost.Close();
                 return false;
             }

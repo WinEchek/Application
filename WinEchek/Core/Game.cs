@@ -36,7 +36,8 @@ namespace WinEchek
 
             _currentPlayer = WhitePlayer;
             RaiseBoardState();
-            _currentPlayer.Play();
+            // TODO : trouver une meilleure solution
+            _currentPlayer.Play(null);
         }
 
         //Convenience method to raise the StateChangedEvent
@@ -63,7 +64,7 @@ namespace WinEchek
                 RaiseBoardState();
             }
 
-            _currentPlayer.Play();
+            _currentPlayer.Play(move);
         }
         
         private void ChangePlayer() => _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
@@ -82,7 +83,8 @@ namespace WinEchek
                 ChangePlayer();
                 RaiseBoardState();
             }
-            _currentPlayer.Play();
+            // TODO : Trouver une solution
+            _currentPlayer.Play(null);
         }
 
         public void Undo(int count)
@@ -95,7 +97,8 @@ namespace WinEchek
                 }
             }
             RaiseBoardState();
-            _currentPlayer.Play();
+            //TODO trouver une solution
+            _currentPlayer.Play(null);
         }
 
         /// <summary>
@@ -109,7 +112,8 @@ namespace WinEchek
                 ChangePlayer();
                 StateChanged?.Invoke(Engine.CurrentState());
             }
-            _currentPlayer.Play();
+            //TODO trouver une solution
+            _currentPlayer.Play(null);
         }
 
         #endregion

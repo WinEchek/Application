@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WinEchek.Core.Network;
 using WinEchek.GUI;
 using WinEchek.Model;
+using WinEchek.Model.Piece;
 
 namespace WinEchek.Core
 {
@@ -23,6 +25,12 @@ namespace WinEchek.Core
         public Game CreateGame(Mode mode, Container container, BoardView boardView)
         {
             return GameCreators.FindAll(x => x.Mode == mode).First().CreateGame(container, boardView);
+        }
+
+        public Game CreateNetworkGame(Container container, BoardView boardView, NetworkServiceHost networkServiceHost, Color color)
+        {
+            NetworkGameCreator networkGameCreator = new NetworkGameCreator();
+            return networkGameCreator.CreateGame(container, boardView, networkServiceHost, color);
         }
     }
 
