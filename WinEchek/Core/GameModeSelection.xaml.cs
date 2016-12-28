@@ -6,12 +6,12 @@ using WinEchek.ModelView;
 namespace WinEchek.Core
 {
     /// <summary>
-    ///     Interaction logic for GameModeSelection.xaml
+    /// Interaction logic for GameModeSelection.xaml
     /// </summary>
     public partial class GameModeSelection
     {
-        private Container _container;
         private MainWindow _mainWindow;
+        private Container _container;
 
         public GameModeSelection(Container container, MainWindow mainWindow)
         {
@@ -24,7 +24,7 @@ namespace WinEchek.Core
         {
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container.Board);
-            Game game = gameFactory.CreateGame(Mode.AI, _container, boardView);
+            WinEchek.Core.Game game = gameFactory.CreateGame(Mode.AI, _container, boardView);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }
@@ -40,7 +40,7 @@ namespace WinEchek.Core
         {
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container.Board);
-            Game game = gameFactory.CreateGame(Mode.Local, _container, boardView);
+            WinEchek.Core.Game game = gameFactory.CreateGame(Mode.Local, _container, boardView);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }

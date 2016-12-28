@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace WinEchek.Model.Pieces
 {
@@ -37,18 +38,26 @@ namespace WinEchek.Model.Pieces
     [Serializable]
     public enum Type
     {
+        [EnumMember]
         Bishop,
+        [EnumMember]
         King,
+        [EnumMember]
         Queen,
+        [EnumMember]
         Pawn,
+        [EnumMember]
         Knight,
+        [EnumMember]
         Rook
     }
 
     [Serializable]
     public enum Color
     {
+        [EnumMember]
         White,
+        [EnumMember]
         Black
     }
 }

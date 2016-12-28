@@ -41,11 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Game.cs" />
-    <Compile Include="Core\NetworkGame.cs" />
-    <Compile Include="Network\INetworkGameService.cs" />
-    <Compile Include="Network\NetworkGameService.cs" />
-    <Compile Include="Network\NetworkGameServiceClient.cs" />
-    <Compile Include="Network\NetworkGameServiceHost.cs" />
+    <Compile Include="Network\INetworkService.cs" />
+    <Compile Include="Network\NetworkService.cs" />
+    <Compile Include="Network\NetworkServiceClient.cs" />
+    <Compile Include="Network\NetworkServiceHost.cs" />
     <Compile Include="Core\Player.cs" />
     <Compile Include="Core\PlayerControler.cs" />
     <Compile Include="Engine\IEngine.cs" />

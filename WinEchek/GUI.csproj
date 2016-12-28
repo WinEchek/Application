@@ -112,6 +112,7 @@
     <Compile Include="Game\LocalGameCreator.cs" />
     <Compile Include="Game\NetworkGame.cs" />
     <Compile Include="Game\NetworkGameCreator.cs" />
+    <Compile Include="Game\NetworkPlayerController.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Page Include="Core\FlyoutContent\GameViewFlyout.xaml">
       <SubType>Designer</SubType>

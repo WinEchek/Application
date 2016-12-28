@@ -17,7 +17,7 @@ namespace WinEchek.Game
 
         public bool IsPlayable { get; set; }
 
-        public override void Play()
+        public override void Play(Move move)
         {
             IsPlayable = true;
         }

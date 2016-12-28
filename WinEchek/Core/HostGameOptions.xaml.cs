@@ -4,17 +4,20 @@ using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using WinEchek.Core.Windows;
+using WinEchek.Game;
 using WinEchek.Model;
+using WinEchek.ModelView;
+using Color = WinEchek.Model.Pieces.Color;
 
 namespace WinEchek.Core
 {
     /// <summary>
-    ///     Logique d'interaction pour HostGameOptions.xaml
+    /// Logique d'interaction pour HostGameOptions.xaml
     /// </summary>
-    public partial class HostGameOptions : UserControl
+    public partial class HostGameOptions
     {
-        private Container _container;
         private MainWindow _mainWindow;
+        private Container _container;
 
         public HostGameOptions(MainWindow mainWindow, Container container)
         {
@@ -36,18 +39,22 @@ namespace WinEchek.Core
             IPAddress[] addr = ipEntry.AddressList;
 
             foreach (IPAddress t in addr)
+            {
                 ComboBoxIP.Items.Add(t.ToString());
+            }
         }
 
         private void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
         {
-            Uri uri =
-                new Uri("http://" + ComboBoxIP.SelectedItem + ":" + TextBoxPort.Text + "/" + TextBoxGameName.Text +
-                        TextBoxPseudo.Text);
-            WaitJoinWindow waitJoinWindow = new WaitJoinWindow(uri);
+            Uri uri = new Uri("net.tcp://" + ComboBoxIP.SelectedItem + ":" + TextBoxPort.Text + "/" + TextBoxGameName.Text + TextBoxPseudo.Text);
+            WaitJoinWindow waitJoinWindow = new WaitJoinWindow(uri, GetComboBoxColor());
             if (waitJoinWindow.ShowDialog() == true)
             {
-                //créer la partie
+                GameFactory gameFactory = new GameFactory();
+                BoardView boardView = new BoardView(_container.Board);
+                WinEchek.Core.Game game = gameFactory.CreateNetworkGame(_container, boardView, waitJoinWindow.NetworkGameServiceHost, GetComboBoxColor());
+                _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
+
             }
             else
             {
@@ -55,6 +62,12 @@ namespace WinEchek.Core
                     "Il y a eu un problème lors de la connexion avec l'autre joueur... Vueillez réessayer.",
                     MessageDialogStyle.Affirmative);
             }
+
+        }
+
+        private Color GetComboBoxColor()
+        {
+            return ComboBoxColor.Text == "Blanc" ? Color.White : Color.Black;
         }
     }
 }

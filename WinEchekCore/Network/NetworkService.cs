@@ -1,17 +1,20 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using WinEchek.Model;
+using WinEchek.Model.Pieces;
 
 namespace WinEchek.Network
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class NetworkGameService : INetworkGameService
+    public class NetworkService : INetworkService
     {
-        public delegate void ClientUriReceivedHandler(Uri uri);
+        public string ClientAdress { get; set; }
+        public Color PlayerColor { get; set; }
 
         public delegate void MoveReceivedHandler(Move move);
+        public event MoveReceivedHandler MoveReceived;
 
-        public Uri ClientAdress { get; set; }
+        public delegate void ClientUriReceivedHandler(string uri);
+        public event ClientUriReceivedHandler ClientUriReceived;
 
 
         public void Inform(Move move)
@@ -19,7 +22,7 @@ namespace WinEchek.Network
             MoveReceived?.Invoke(move);
         }
 
-        public void SendClientAdress(Uri uri)
+        public void SendClientAdress(string uri)
         {
             // On sauvegarde l'adresse qu'on a reçut
             ClientAdress = uri;
@@ -33,7 +36,9 @@ namespace WinEchek.Network
             return message;
         }
 
-        public event MoveReceivedHandler MoveReceived;
-        public event ClientUriReceivedHandler ClientUriReceived;
+        public string GetColor()
+        {
+            return PlayerColor == Color.White ? "White" : "Black";
+        }
     }
 }

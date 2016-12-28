@@ -1,29 +1,20 @@
 ﻿using System;
 using System.ServiceModel;
-using System.ServiceModel.Description;
 
 namespace WinEchek.Network
 {
-    public class NetworkGameServiceHost
+    public class NetworkServiceHost
     {
         private ServiceHost _host;
+        public NetworkService NetworkGameService { get; set; }
 
-        public NetworkGameServiceHost(Uri uri)
+        public NetworkServiceHost(Uri uri)
         {
-            NetworkGameService = new NetworkGameService();
-
+            NetworkGameService = new NetworkService();
             _host = new ServiceHost(NetworkGameService, uri);
-
-            // Enable metadata publishing.
-            _host.Description.Behaviors.Add(
-                new ServiceMetadataBehavior
-                {
-                    HttpGetEnabled = true,
-                    MetadataExporter = {PolicyVersion = PolicyVersion.Policy15}
-                });
+            NetTcpBinding netTcpBinding = new NetTcpBinding(SecurityMode.None);
+            _host.AddServiceEndpoint(typeof(INetworkService), netTcpBinding, uri);
         }
-
-        public NetworkGameService NetworkGameService { get; set; }
 
         public void Open()
         {

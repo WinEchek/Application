@@ -5,12 +5,12 @@ using WinEchek.Model;
 namespace WinEchek.Core
 {
     /// <summary>
-    ///     Logique d'interaction pour HostJoin.xaml
+    /// Logique d'interaction pour HostJoin.xaml
     /// </summary>
     public partial class HostJoin : UserControl
     {
-        private Container _container;
         private MainWindow _mainWindow;
+        private Container _container;
 
         public HostJoin(MainWindow mainWindow, Container container)
         {
@@ -27,7 +27,7 @@ namespace WinEchek.Core
 
         private void TileJoinGame_OnClick(object sender, RoutedEventArgs e)
         {
-            _mainWindow.MainControl.Content = new JoinGameOptions(_mainWindow);
+            _mainWindow.MainControl.Content = new JoinGameOptions(_mainWindow, _container);
         }
     }
 }

@@ -1,19 +1,19 @@
 ﻿<UserControl x:Class="WinEchek.Core.JoinGameOptions"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" >
             <GroupBox Header="Informations sur la partie à rejoindre">
                 <StackPanel Orientation="Vertical">
                     <Label>Nom de la partie à rejoindre</Label>
-                    <TextBox Name="TextBoxGameName" />
+                    <TextBox Name="TextBoxGameName">a</TextBox>
                     <Label>Pseudo de votre adversaire</Label>
-                    <TextBox Name="TextBoxHostPseudo" />
+                    <TextBox Name="TextBoxHostPseudo" >a</TextBox>
                     <Label>Adresse IP de l'adversaire</Label>
-                    <TextBox Name="TextBoxHostIP" />
+                    <TextBox Name="TextBoxHostIP"/>
                     <Label>Sauf indication du créateur de la partie, laissez la valeur par défaut</Label>
                     <TextBox Name="TextBoxHostPort">4242</TextBox>
                 </StackPanel>
@@ -21,11 +21,11 @@
             <GroupBox Header="Configuration de votre joueur">
                 <StackPanel Orientation="Vertical">
                     <Label>Votre pseudo</Label>
-                    <TextBox Name="TextBoxPseudo" />
+                    <TextBox Name="TextBoxPseudo">b</TextBox>
                     <Label>Votre adresse IP</Label>
                     <ComboBox Name="ComboBoxIP" />
                     <Label>Port</Label>
-                    <TextBox Name="TextBoxPort">4242</TextBox>
+                    <TextBox Name="TextBoxPort">4243</TextBox>
                 </StackPanel>
             </GroupBox>
             <Button Name="ButtonJoin" Click="ButtonJoin_OnClick" Margin="4 20">Rejoindre la partie</Button>

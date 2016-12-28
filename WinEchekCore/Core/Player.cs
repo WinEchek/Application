@@ -6,9 +6,11 @@ namespace WinEchek.Core
 {
     public class Player
     {
-        public delegate void MoveHandler(Player sender, Move move);
+        public Color Color { get; internal set; }
 
         private PlayerControler _playerControler;
+
+        public Game Game { get; set; }
 
         public Player(Color color, PlayerControler playerControler)
         {
@@ -16,15 +18,11 @@ namespace WinEchek.Core
             _playerControler = playerControler;
         }
 
-        public Color Color { get; internal set; }
-
-        public Game Game { get; set; }
-
         /// <summary>
-        ///     Notifie le joueur que c'est à son tour de jouer et que le Game peut recevoir un mouvement de sa part.
-        ///     Tant que ce mouvement n'est pas valide, cette méthode est appelée.
+        /// Notifie le joueur que c'est à son tour de jouer et que le Game peut recevoir un mouvement de sa part.
+        /// Tant que ce mouvement n'est pas valide, cette méthode est appelée.
         /// </summary>
-        public void Play() => _playerControler.Play();
+        public void Play(Move move) => _playerControler.Play(move);
 
         public void Stop() => _playerControler.Stop();
 
@@ -35,6 +33,7 @@ namespace WinEchek.Core
             MoveDone?.Invoke(this, move);
         }
 
+        public delegate void MoveHandler(Player sender, Move move);
         public event MoveHandler MoveDone;
     }
 }
