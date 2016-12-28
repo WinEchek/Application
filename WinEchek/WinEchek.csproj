@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WinEchek</RootNamespace>
+    <AssemblyName>WinEchek</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publier\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MahApps.Metro, Version=1.3.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.1.6.0\lib\net45\MahApps.Metro.IconPacks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Core\AiGameCreator.cs" />
+    <Compile Include="Core\GameCreator.cs" />
+    <Compile Include="Core\GameFactory.cs" />
+    <Compile Include="Core\LocalGameCreator.cs" />
+    <Compile Include="Core\NetworkGame.cs" />
+    <Compile Include="Core\NetworkGameCreator.cs" />
+    <Compile Include="Core\Network\INetworkService.cs" />
+    <Compile Include="Core\Network\NetworkServiceClient.cs" />
+    <Compile Include="Core\Network\NetworkServiceHost.cs" />
+    <Compile Include="Core\Network\NetworkService.cs" />
+    <Compile Include="Core\Network\NetworkPlayerController.cs" />
+    <Compile Include="Core\PlayerControler.cs" />
+    <Compile Include="Core\Persistance\SMTPLogger.cs" />
+    <Compile Include="Engine\Command\CastlingCommand.cs" />
+    <Compile Include="Engine\Command\CompensableConversation.cs" />
+    <Compile Include="Engine\Command\HistoryViewConversation.cs" />
+    <Compile Include="Engine\Command\ICompensableCommand.cs" />
+    <Compile Include="Engine\Command\ICompensableConversation.cs" />
+    <Compile Include="Engine\Command\MoveCommand.cs" />
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Engine\Command\EnPassantCommand.cs" />
+    <Compile Include="Engine\Command\PromoteCommand.cs" />
+    <Compile Include="Engine\RealEngine.cs" />
+    <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRuleKing.cs" />
+    <Compile Include="Engine\Rules\CastlingRule.cs" />
+    <Compile Include="Engine\Rules\BishopMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\BishopRuleGroup.cs" />
+    <Compile Include="Engine\Rules\CanOnlyTakeEnnemyRule.cs" />
+    <Compile Include="Engine\Rules\WillNotMakeCheck.cs" />
+    <Compile Include="Engine\Rules\KingMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\KingRuleGroup.cs" />
+    <Compile Include="Engine\Rules\KnightMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\KnightRuleGroup.cs" />
+    <Compile Include="Engine\Rules\PawnMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\PawnRuleGroup.cs" />
+    <Compile Include="Engine\Rules\IRule.cs" />
+    <Compile Include="Engine\Rules\QueenMovementRule.cs" />
+    <Compile Include="Engine\Rules\RookMovementRule.cs" />
+    <Compile Include="Engine\RuleManager\RuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\QueenRuleGroup.cs" />
+    <Compile Include="Engine\RuleManager\RookRuleGroup.cs" />
+    <Compile Include="Engine\States\CheckState.cs" />
+    <Compile Include="Engine\States\IState.cs" />
+    <Compile Include="Engine\States\PatState.cs" />
+    <Compile Include="GUI\BoardViewPlayerController.cs" />
+    <Compile Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml.cs">
+      <DependentUpon>GameViewFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\GameModeSelection.xaml.cs">
+      <DependentUpon>GameModeSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\HostGameOptions.xaml.cs">
+      <DependentUpon>HostGameOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\HostJoin.xaml.cs">
+      <DependentUpon>HostJoin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\JoinGameOptions.xaml.cs">
+      <DependentUpon>JoinGameOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\Widgets\HistoryView.xaml.cs">
+      <DependentUpon>HistoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml.cs">
+      <DependentUpon>PieceTypeSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Core\Windows\WaitJoinWindow.xaml.cs">
+      <DependentUpon>WaitJoinWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IA\UciProcessController.cs" />
+    <Compile Include="Model\Container.cs" />
+    <Compile Include="Model\Coordinate.cs" />
+    <Compile Include="Model\Move.cs" />
+    <Compile Include="Core\Persistance\BinaryLoader.cs" />
+    <Compile Include="Core\Persistance\BinarySaver.cs" />
+    <Compile Include="Core\Persistance\ILoader.cs" />
+    <Compile Include="Core\Persistance\ISaver.cs" />
+    <Compile Include="Model\Square.cs" />
+    <Compile Include="Model\Utility\FenTranslator.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Page Include="GUI\Core\FlyoutContent\GameViewFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\GameModeSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\HostGameOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\HostJoin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\JoinGameOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Widgets\HistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Windows\PieceTypeSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Core\Windows\WaitJoinWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\PieceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\BoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\SquareView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI\Core\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\Engine.cs" />
+    <Compile Include="GUI\Core\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\PieceView.xaml.cs">
+      <DependentUpon>PieceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Player.cs" />
+    <Compile Include="Model\Piece\Bishop.cs" />
+    <Compile Include="GUI\BoardView.xaml.cs">
+      <DependentUpon>BoardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SquareView.xaml.cs">
+      <DependentUpon>SquareView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Board.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="GUI\Ressources\Sprites\Pieces.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Piece\King.cs" />
+    <Compile Include="Model\Piece\Pawn.cs" />
+    <Compile Include="Model\Piece\Piece.cs" />
+    <Compile Include="Model\Piece\Queen.cs" />
+    <Compile Include="Model\Piece\Rook.cs" />
+    <Compile Include="Model\Piece\Knight.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\stockfish_64.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Sprites\queenBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\rookBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Sprites\bishopBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\kingBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\knightBlack.png" />
+    <Resource Include="GUI\Ressources\Sprites\pawnBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Sprites\bishopWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\kingWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\knightWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\pawnWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\queenWhite.png" />
+    <Resource Include="GUI\Ressources\Sprites\rookWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Logo\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\Ressources\Logo\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
