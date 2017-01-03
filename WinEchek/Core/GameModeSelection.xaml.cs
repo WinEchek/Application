@@ -23,7 +23,7 @@ namespace WinEchek.Core
         private void TileAiPlay_OnClick(object sender, RoutedEventArgs e)
         {
             GameFactory gameFactory = new GameFactory();
-            BoardView boardView = new BoardView(_container.Board);
+            BoardView boardView = new BoardView(_container);
             WinEchek.Core.Game game = gameFactory.CreateGame(Mode.AI, _container, boardView);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
@@ -39,7 +39,7 @@ namespace WinEchek.Core
         private void LocalGameButton_OnClick(object sender, RoutedEventArgs e)
         {
             GameFactory gameFactory = new GameFactory();
-            BoardView boardView = new BoardView(_container.Board);
+            BoardView boardView = new BoardView(_container);
             WinEchek.Core.Game game = gameFactory.CreateGame(Mode.Local, _container, boardView);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);

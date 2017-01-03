@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
 using WinEchek.Command;
 
 namespace WinEchek.Model
@@ -20,6 +22,20 @@ namespace WinEchek.Model
         {
             Board = new Board();
             Moves = new ObservableCollection<ICompensableCommand>();
+            Moves.CollectionChanged += (sender, args) =>
+            {
+                switch (args.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        OnMoveDone(Moves.Last().Move);
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        OnMoveUndone(Moves.Last().Move);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            };
         }
 
         /// <summary>
@@ -32,7 +48,15 @@ namespace WinEchek.Model
         /// </summary>
         public ObservableCollection<ICompensableCommand> Moves { get; }
 
-        //Increment at each 
         public int HalfMoveSinceLastCapture { get; set; } = 0;
+
+        
+        public delegate void MoveHandler(Move move);
+
+        protected void OnMoveDone(Move move) => MoveDone?.Invoke(move);
+        public event MoveHandler MoveDone;
+
+        protected void OnMoveUndone(Move move) => MoveUndone?.Invoke(move);
+        public event MoveHandler MoveUndone;
     }
 }

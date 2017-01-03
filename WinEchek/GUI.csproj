@@ -81,10 +81,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Game\AiGameCreator.cs" />
-    <Compile Include="Game\GameCreator.cs" />
-    <Compile Include="Game\GameFactory.cs" />
-    <Compile Include="Game\BoardViewPlayerController.cs" />
     <Compile Include="Core\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
@@ -109,6 +105,10 @@
     <Compile Include="Core\Windows\WaitJoinWindow.xaml.cs">
       <DependentUpon>WaitJoinWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Game\AiGameCreator.cs" />
+    <Compile Include="Game\BoardViewPlayerController.cs" />
+    <Compile Include="Game\GameCreator.cs" />
+    <Compile Include="Game\GameFactory.cs" />
     <Compile Include="Game\LocalGameCreator.cs" />
     <Compile Include="Game\NetworkGame.cs" />
     <Compile Include="Game\NetworkGameCreator.cs" />

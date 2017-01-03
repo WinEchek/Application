@@ -5,6 +5,7 @@ using Type = WinEchek.Model.Pieces.Type;
 
 namespace WinEchek.Command
 {
+    //TODO update this command to be a single move of the pawn and a deletion of the other pawn.
     [Serializable]
     public class EnPassantCommand : ICompensableCommand
     {

@@ -51,7 +51,7 @@ namespace WinEchek.Core
             if (waitJoinWindow.ShowDialog() == true)
             {
                 GameFactory gameFactory = new GameFactory();
-                BoardView boardView = new BoardView(_container.Board);
+                BoardView boardView = new BoardView(_container);
                 WinEchek.Core.Game game = gameFactory.CreateNetworkGame(_container, boardView, waitJoinWindow.NetworkGameServiceHost, GetComboBoxColor());
                 _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
 

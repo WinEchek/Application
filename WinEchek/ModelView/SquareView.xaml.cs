@@ -25,10 +25,15 @@ namespace WinEchek.ModelView
 
             Grid.SetColumn(this, square.X);
             Grid.SetRow(this, square.Y);
-            UcPieceView.Content = PieceView;
+            
         }
 
-        public PieceView PieceView { get; set; }
+        public PieceView PieceView
+        {
+            get { return UcPieceView.Content as PieceView; }
+            set { UcPieceView.Content = value; } 
+        }
+
         public Square Square { get; set; }
 
         private void SquarePropertyChangeHandler(object sender, PropertyChangedEventArgs e)
@@ -36,5 +41,7 @@ namespace WinEchek.ModelView
             PieceView = Square.Piece != null ? new PieceView(Square.Piece) : null;
             UcPieceView.Content = PieceView;
         }
+
+        public override string ToString() => Square.ToString();
     }
 }

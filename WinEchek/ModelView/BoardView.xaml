@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:modelView="clr-namespace:WinEchek.ModelView"
              mc:Ignorable="d">
     <UserControl.LayoutTransform>
         <RotateTransform CenterX="0.5" CenterY="0.5" Angle="0" />
     </UserControl.LayoutTransform>
-    <Grid Name="Grid" />
+    <Grid>
+        <Grid Name="Grid"/>
+        <Canvas Name="Canvas"/>
+    </Grid>
 </UserControl>

@@ -56,7 +56,7 @@ namespace WinEchek.Core.Widgets
                 }
             };
 
-            _boardView = new BoardView(_board) {RenderSize = new Size(250, 250)};
+            _boardView = new BoardView(_game.Container);
             ListViewHistory.ItemsSource = _moves;
         }
 

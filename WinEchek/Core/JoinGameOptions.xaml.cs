@@ -59,7 +59,7 @@ namespace WinEchek.Core
             Color color = NetworkServiceClient.Channel().GetColor() == "White" ? Color.White : Color.Black;
 
             GameFactory gameFactory = new GameFactory();
-            BoardView boardView = new BoardView(_container.Board);
+            BoardView boardView = new BoardView(_container);
             Game game = gameFactory.CreateNetworkGame(_container, boardView, NetworkGameServiceHost, Color.Black);
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
 
