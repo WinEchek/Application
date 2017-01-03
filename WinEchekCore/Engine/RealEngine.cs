@@ -151,10 +151,10 @@ namespace WinEchek.Engine
         ///     Undo the last command that has been done
         /// </summary>
         /// <returns>True if anything has been done</returns>
-        public bool Undo()
+        public Move Undo()
         {
             ICompensableCommand command = _conversation.Undo();
-            if (command == null) return false;
+            if (command == null) return null;
 
             if (_container.HalfMoveSinceLastCapture != 0)
                 _container.HalfMoveSinceLastCapture--;
@@ -170,17 +170,17 @@ namespace WinEchek.Engine
             }
 
             _moves.Remove(command);
-            return true;
+            return command.Move;
         }
 
         /// <summary>
         ///     Redo the last command that has been undone
         /// </summary>
         /// <returns>True if anything has been done</returns>
-        public bool Redo()
+        public Move Redo()
         {
             ICompensableCommand command = _conversation.Redo();
-            if (command == null) return false;
+            if (command == null) return null;
 
             //Number of moves since last capture
             if (!command.TakePiece)
@@ -189,7 +189,7 @@ namespace WinEchek.Engine
                 _container.HalfMoveSinceLastCapture = 0;
 
             _moves.Add(command);
-            return true;
+            return command.Move;
         }
     }
 }

@@ -16,24 +16,20 @@ namespace WinEchek.Engine
         /// <returns>True if the move was valid and therefore has been done</returns>
         bool DoMove(Move move);
 
-        /// <summary>
-        ///     Implémentation à revoir : la méthode devra renvoyer une liste de case.
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <returns></returns>
+
         List<Square> PossibleMoves(Piece piece);
 
         /// <summary>
         ///     Undo the last move
         /// </summary>
         /// <returns>True if anything was done</returns>
-        bool Undo();
+        Move Undo();
 
         /// <summary>
         ///     Redo the last move that has been undone
         /// </summary>
         /// <returns>True if anything was done</returns>
-        bool Redo();
+        Move Redo();
 
         BoardState CurrentState();
     }

@@ -9,9 +9,9 @@ namespace WinEchek.Core
     {
         private Player _currentPlayer;
 
-        public Player WhitePlayer { get; set; }
-        public Player BlackPlayer { get; set; }
-        public IEngine Engine { get; internal set; }
+        private Player WhitePlayer { get; }
+        private Player BlackPlayer { get; }
+        private IEngine Engine { get; }
         public Container Container { get; set; }
 
         /// <summary>
@@ -28,17 +28,14 @@ namespace WinEchek.Core
             Engine = engine;
             Container = container;
 
-            WhitePlayer.MoveDone += MoveHandler;
-            BlackPlayer.MoveDone += MoveHandler;
+            WhitePlayer.MoveDone += PlayerMoveHandler;
+            BlackPlayer.MoveDone += PlayerMoveHandler;
 
             _currentPlayer = WhitePlayer;
-            RaiseBoardState();
-            // TODO : trouver une meilleure solution
+            OnBoardStateChanged();
+
             _currentPlayer.Play(null);
         }
-
-        //Convenience method to raise the StateChangedEvent
-        private void RaiseBoardState() => StateChanged?.Invoke(Engine.CurrentState());
 
         /// <summary>
         /// Délégué appelé quand un joueur réalise un coup.
@@ -50,21 +47,28 @@ namespace WinEchek.Core
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="move"></param>
-        private void MoveHandler(Player sender, Move move)
+        private void PlayerMoveHandler(Player sender, Move move)
         {
-            if (sender != _currentPlayer) return; //Tell the player it isn't his turn ?
-
-            if (Engine.DoMove(move))
+            if (sender != _currentPlayer)
             {
-                _currentPlayer.Stop();
-                ChangePlayer();
-                RaiseBoardState();
+                sender.Stop();
             }
+            else
+            {
+                if (Engine.DoMove(move))
+                {
+                    _currentPlayer.Stop();
+                    ChangePlayer();
+                    OnBoardStateChanged();
+                }
 
-            _currentPlayer.Play(move);
+                _currentPlayer.Play(move);
+            }
         }
 
         private void ChangePlayer() => _currentPlayer = _currentPlayer == WhitePlayer ? BlackPlayer : WhitePlayer;
+
+        public List<Square> PossibleMoves(Piece piece) => Engine.PossibleMoves(piece);
 
         #region Undo Redo
 
@@ -73,29 +77,32 @@ namespace WinEchek.Core
         /// </summary>
         public void Undo()
         {
+            Move move = Engine.Undo();
+            if (move == null) return;
 
-            if (Engine.Undo())
-            {
-                _currentPlayer.Stop();
-                ChangePlayer();
-                RaiseBoardState();
-            }
-            // TODO : Trouver une solution
-            _currentPlayer.Play(null);
+            _currentPlayer.Stop();
+            ChangePlayer();
+            OnBoardStateChanged();
+            _currentPlayer.Play(move);
         }
 
         public void Undo(int count)
         {
+            Move lastMove = null;
             for (int i = 0; i < count; i++)
             {
-                if (Engine.Undo())
+                Move move = Engine.Undo();
+                if (move != null)
                 {
+                    _currentPlayer.Stop();
                     ChangePlayer();
+                    _currentPlayer.Play(move);
+                    lastMove = move;
                 }
             }
-            RaiseBoardState();
-            //TODO trouver une solution
-            _currentPlayer.Play(null);
+
+            if(lastMove != null)
+                OnBoardStateChanged();
         }
 
         /// <summary>
@@ -103,26 +110,23 @@ namespace WinEchek.Core
         /// </summary>
         public void Redo()
         {
-            if (Engine.Redo())
-            {
-                _currentPlayer.Stop();
-                ChangePlayer();
-                StateChanged?.Invoke(Engine.CurrentState());
-            }
-            //TODO trouver une solution
-            _currentPlayer.Play(null);
+            Move move = Engine.Redo();
+            if (move == null) return;
+
+            _currentPlayer.Stop();
+            ChangePlayer();
+            StateChanged?.Invoke(Engine.CurrentState());
+            _currentPlayer.Play(move);
         }
 
         #endregion
 
-        /// <summary>
-        /// Liste les mouvements possibles pour une pièce.
-        /// </summary>
-        /// <param name="piece">Pièce a tester</param>
-        /// <returns>Liste des mouvements</returns>
-        public List<Square> PossibleMoves(Piece piece) => Engine.PossibleMoves(piece);
+        #region Delegate and Events
 
         public delegate void StateHandler(BoardState state);
         public event StateHandler StateChanged;
+        private void OnBoardStateChanged() => StateChanged?.Invoke(Engine.CurrentState());
+
+        #endregion
     }
 }
