@@ -23,11 +23,7 @@ namespace WinEchek.Core
 
         private void TileAiPlay_OnClick(object sender, RoutedEventArgs e)
         {
-            GameFactory gameFactory = new GameFactory();
-            BoardView boardView = new BoardView(_container);
-            Game game = gameFactory.CreateGame(Mode.AI, _container, boardView, Color.White);
-
-            _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
+            _mainWindow.MainControl.Content = new AiOptionSelection(_mainWindow, _container);
         }
 
         private void TileNetworkPlay_OnClick(object sender, RoutedEventArgs e)
@@ -41,7 +37,7 @@ namespace WinEchek.Core
         {
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
-            Game game = gameFactory.CreateGame(Mode.Local, _container, boardView, Color.White);
+            Game game = gameFactory.CreateGame(Mode.Local, _container, boardView, Color.White, null);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }

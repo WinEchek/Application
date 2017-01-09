@@ -68,7 +68,7 @@ namespace WinEchek.IA
             _uciProcess.Start();
             _uciProcess.StandardInput.WriteLine("uci");
             _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
-            _uciProcess.StandardInput.WriteLine("setoption name Skill value {0}", skillLevel);
+            _uciProcess.StandardInput.WriteLine("setoption name Skill Level value {0}", skillLevel);
 
             string output = "";
             while (output != "uciok")

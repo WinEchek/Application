@@ -15,7 +15,7 @@ namespace WinEchek.Game
         /// <param name="boardView"></param>
         /// <param name="color">La couleur</param>
         /// <returns></returns>
-        public abstract Core.Game CreateGame(Container container, BoardView boardView, Color color);
+        public abstract Core.Game CreateGame(Container container, BoardView boardView, Color color, GameCreatorParameters parameters);
     }
 
 }

@@ -91,7 +91,7 @@ namespace WinEchek.Core
 
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
-            Game game = gameFactory.CreateGame(Mode.Network, _container, boardView, color);
+            Game game = gameFactory.CreateGame(Mode.Network, _container, boardView, color, null);
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
 
         }

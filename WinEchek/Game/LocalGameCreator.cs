@@ -10,7 +10,7 @@ namespace WinEchek.Game
     {
         public override Mode Mode => Mode.Local;
 
-        public override Core.Game CreateGame(Container container, BoardView boardView, Color color)
+        public override Core.Game CreateGame(Container container, BoardView boardView, Color color, GameCreatorParameters parameters)
         {
             IEngine engine = new RealEngine(container);
             PlayerControler whitePlayerControler = new BoardViewPlayerController(boardView);
