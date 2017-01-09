@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using JetBrains.Annotations;
 using WinEchek.Core;
 using WinEchek.Model;
 using WinEchek.Model.Pieces;
@@ -13,10 +14,12 @@ namespace WinEchek.IA
     {
         private Container _container;
         private Process _uciProcess;
-
+        private string search;
+        
         public UciProcessController(Container container)
         {
             _container = container;
+            search = "go movetime 1000";
             _uciProcess = new Process
             {
                 StartInfo =
@@ -32,7 +35,7 @@ namespace WinEchek.IA
 
             _uciProcess.Start();
             _uciProcess.StandardInput.WriteLine("uci");
-            Console.WriteLine("uci");
+            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
 
             string output = "";
             while (output != "uciok")
@@ -41,9 +44,42 @@ namespace WinEchek.IA
                 Console.WriteLine(output);
             }
             _uciProcess.StandardInput.WriteLine("ucinewgame");
-            //Console.WriteLine(Environment.ProcessorCount);
-            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
             Console.WriteLine("ucinewgame");
+        }
+
+        public UciProcessController(Container container, string searchType, int skillLevel, int searchValue)
+        {
+            _container = container;
+            search = "go " + searchType + " " + searchValue;
+
+            _uciProcess = new Process
+            {
+                StartInfo =
+                {
+                    //TODO stockfish not correctly referenced
+                    FileName = "stockfish_64.exe",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardInput = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            _uciProcess.Start();
+            _uciProcess.StandardInput.WriteLine("uci");
+            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
+            _uciProcess.StandardInput.WriteLine("setoption name Skill value {0}", skillLevel);
+
+            string output = "";
+            while (output != "uciok")
+            {
+                output = _uciProcess.StandardOutput.ReadLine();
+                Console.WriteLine(output);
+            }
+            _uciProcess.StandardInput.WriteLine("ucinewgame");
+            Console.WriteLine("ucinewgame");
+
+
         }
 
         public override void Play(Move move)
@@ -55,8 +91,7 @@ namespace WinEchek.IA
         {
             Console.WriteLine(FenTranslator.FenNotation(_container));
             await _uciProcess.StandardInput.WriteLineAsync("position fen " + FenTranslator.FenNotation(_container));
-            await _uciProcess.StandardInput.WriteLineAsync("go movetime 1000");
-
+            await _uciProcess.StandardInput.WriteLineAsync(search);
 
             string input = new string(' ', 1);
 
