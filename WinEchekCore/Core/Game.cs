@@ -83,7 +83,7 @@ namespace WinEchek.Core
             _currentPlayer.Stop();
             ChangePlayer();
             OnBoardStateChanged();
-            _currentPlayer.Play(move);
+            _currentPlayer.Play(null);
         }
 
         public void Undo(int count)
@@ -96,7 +96,7 @@ namespace WinEchek.Core
                 {
                     _currentPlayer.Stop();
                     ChangePlayer();
-                    _currentPlayer.Play(move);
+                    _currentPlayer.Play(null);
                     lastMove = move;
                 }
             }
@@ -116,7 +116,7 @@ namespace WinEchek.Core
             _currentPlayer.Stop();
             ChangePlayer();
             StateChanged?.Invoke(Engine.CurrentState());
-            _currentPlayer.Play(move);
+            _currentPlayer.Play(null);
         }
 
         #endregion

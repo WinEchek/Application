@@ -108,6 +108,7 @@
     <Compile Include="Game\AiGameCreator.cs" />
     <Compile Include="Game\BoardViewPlayerController.cs" />
     <Compile Include="Game\GameCreator.cs" />
+    <Compile Include="Game\GameCreatorParameters.cs" />
     <Compile Include="Game\GameFactory.cs" />
     <Compile Include="Game\LocalGameCreator.cs" />
     <Compile Include="Game\NetworkGame.cs" />
