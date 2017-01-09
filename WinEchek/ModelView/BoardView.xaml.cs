@@ -20,11 +20,9 @@ namespace WinEchek.ModelView
     /// </summary>
     public partial class BoardView : UserControl
     {
-        public static readonly DependencyProperty SetTextProperty =
-            DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(SquareView));
+        #region Fields
 
         private SquareView _lastChangedSquareView;
-
         private List<SquareView> _possibleMoves = new List<SquareView>();
         private List<SquareView> _lastMove = new List<SquareView>();
         private SquareView _clickedSquare;
@@ -35,6 +33,10 @@ namespace WinEchek.ModelView
         private bool _initDragAndDropOnMouseMove;
         private bool _hasBeginDragAndDrop;
         private Container _container;
+
+        #endregion
+
+        #region Constructor
 
         public BoardView(Container container)
         {
@@ -105,7 +107,7 @@ namespace WinEchek.ModelView
 
                         //TODO find better colors
                         targetSquare.SetResourceReference(BackgroundProperty,
-                            (command.Move.TargetCoordinate.X + command.Move.TargetCoordinate.Y) % 2 == 0
+                            (command.Move.TargetCoordinate.X + command.Move.TargetCoordinate.Y)%2 == 0
                                 ? "CleanWindowCloseButtonBackgroundBrush"
                                 : "CleanWindowCloseButtonPressedBackgroundBrush");
                         _lastMove.Add(targetSquare);
@@ -120,20 +122,19 @@ namespace WinEchek.ModelView
             };
         }
 
+        #endregion
+
+        #region Properties
+
         public List<SquareView> SquareViews { get; } = new List<SquareView>();
         public Board Board { get; set; }
 
         public List<BoardViewPlayerController> BoardViewPlayerControllers { get; set; } =
             new List<BoardViewPlayerController>();
 
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            base.OnRenderSizeChanged(sizeInfo);
-            //Pour rendre le plateau toujours carré
-            var minNewSizeOfParentUserControl = Math.Min(sizeInfo.NewSize.Height, sizeInfo.NewSize.Width);
-            Grid.Width = minNewSizeOfParentUserControl;
-            Grid.Height = minNewSizeOfParentUserControl;
-        }
+        #endregion
+
+        #region EventHandling
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
@@ -142,28 +143,34 @@ namespace WinEchek.ModelView
             _mouseDown = true;
             _mouseDownPoint = e.GetPosition(Grid);
 
-            if (_selected) return;
-
             _clickedSquare = SquareAt(e.GetPosition(Grid));
 
             if (_clickedSquare == null) return;
-
-            Console.WriteLine("Full mouse down");
-
+            if (_selected && _possibleMoves.Contains(_clickedSquare)) return;
+            ResetBoardColor();
             _selectedPiece = _clickedSquare.PieceView;
+
+
 
             //Concerned controllers to get the possible moves
             List<BoardViewPlayerController> concernedControllers =
-                BoardViewPlayerControllers.FindAll(x => (x.Player.Color == (_selectedPiece?.Piece.Color) && x.IsPlayable));
+                BoardViewPlayerControllers.FindAll(
+                    x => (x.Player.Color == (_selectedPiece?.Piece.Color) && x.IsPlayable));
 
             if (concernedControllers.Count == 0) return;
             _initDragAndDropOnMouseMove = true;
             Console.WriteLine("Set init to true");
+
             //Possible move drawing
             foreach (Square square in concernedControllers.First().PossibleMoves(_selectedPiece.Piece))
             {
-                SquareView squareView = Grid.Children.Cast<SquareView>().First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X);
-                squareView.SetResourceReference(BackgroundProperty, (square.X + square.Y) % 2 == 0 ? "CleanWindowCloseButtonBackgroundBrush" : "CleanWindowCloseButtonPressedBackgroundBrush");
+                SquareView squareView =
+                    Grid.Children.Cast<SquareView>()
+                        .First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X);
+                squareView.SetResourceReference(BackgroundProperty,
+                    (square.X + square.Y)%2 == 0
+                        ? "CleanWindowCloseButtonBackgroundBrush"
+                        : "CleanWindowCloseButtonPressedBackgroundBrush");
                 _possibleMoves.Add(squareView);
             }
         }
@@ -177,7 +184,8 @@ namespace WinEchek.ModelView
             _initDragAndDropOnMouseMove = false;
 
             List<BoardViewPlayerController> concernedControllers =
-                BoardViewPlayerControllers.FindAll(x => (x.Player.Color == (_selectedPiece?.Piece.Color) && x.IsPlayable));
+                BoardViewPlayerControllers.FindAll(
+                    x => (x.Player.Color == (_selectedPiece?.Piece.Color) && x.IsPlayable));
 
             if (concernedControllers.Count == 0) return;
 
@@ -185,7 +193,7 @@ namespace WinEchek.ModelView
             SquareView squareView = SquareAt(e.GetPosition(Grid));
             SquareView clickedSquareView = SquareAt(_mouseDownPoint);
 
-            bool select = Equals(squareView.Square.Coordinate, clickedSquareView?.Square?.Coordinate);
+            bool select = Equals(squareView.Square.Coordinate, clickedSquareView?.Square?.Coordinate); //Same square
 
             if (select)
             {
@@ -207,6 +215,7 @@ namespace WinEchek.ModelView
                 //Second click
                 else
                 {
+                    if (!_possibleMoves.Contains(_clickedSquare)) return;
                     Console.WriteLine("Target selected");
                     _selected = false;
                     ResetBoardColor();
@@ -299,11 +308,13 @@ namespace WinEchek.ModelView
                 _selectedPiece = null;
             }
             */
+
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
             //Use the threshold too
             if (!_mouseDown) return;
+            if (_selectedPiece == null) return;
             if (_initDragAndDropOnMouseMove && (_mouseDownPoint - e.GetPosition(Grid)).Length > 5)
             {
                 Console.WriteLine("Init drag and drop");
@@ -321,17 +332,21 @@ namespace WinEchek.ModelView
                 _initDragAndDropOnMouseMove = false;
                 _hasBeginDragAndDrop = true;
             }
-            Canvas.SetTop(_selectedPiece, e.GetPosition(this).Y - _selectedPiece.ActualHeight / 2);
-            Canvas.SetLeft(_selectedPiece, e.GetPosition(this).X - _selectedPiece.ActualWidth / 2);
+            Canvas.SetTop(_selectedPiece, e.GetPosition(this).Y - _selectedPiece.ActualHeight/2);
+            Canvas.SetLeft(_selectedPiece, e.GetPosition(this).X - _selectedPiece.ActualWidth/2);
         }
+
+        #endregion
+
+        #region Coloration
 
         private void ResetBoardColor()
         {
             _possibleMoves.ForEach(ResetSquareViewColor);
             _lastMove.ForEach(x => x.SetResourceReference(BackgroundProperty,
-                            (x.Square.X + x.Square.Y) % 2 == 0
-                                ? "CleanWindowCloseButtonBackgroundBrush"
-                                : "CleanWindowCloseButtonPressedBackgroundBrush"));
+                (x.Square.X + x.Square.Y)%2 == 0
+                    ? "CleanWindowCloseButtonBackgroundBrush"
+                    : "CleanWindowCloseButtonPressedBackgroundBrush"));
         }
 
         private static void ResetSquareViewColor(SquareView squareView)
@@ -340,47 +355,12 @@ namespace WinEchek.ModelView
                 (squareView.Square.X + squareView.Square.Y)%2 == 0 ? "AccentColorBrush" : "AccentColorBrush4");
         }
 
-        private SquareView SquareAt(Point point)
-        {
-            var row = 0;
-            var col = 0;
-            var accumulatedHeight = 0.0;
-            var accumulatedWidth = 0.0;
-
-            // calc row mouse was over
-            foreach (var rowDefinition in Grid.RowDefinitions)
-            {
-                accumulatedHeight += rowDefinition.ActualHeight;
-                if (accumulatedHeight >= point.Y)
-                    break;
-                row++;
-            }
-
-            // calc column mouse was over
-            foreach (var columnDefinition in Grid.ColumnDefinitions)
-            {
-                accumulatedWidth += columnDefinition.ActualWidth;
-                if (accumulatedWidth >= point.X)
-                    break;
-                col++;
-            }
-
-            var clickedControl = Grid.Children
-                .Cast<UIElement>() //TODO make it exception proof
-                .First(x => (Grid.GetRow(x) == row) && (Grid.GetColumn(x) == col));
-
-            return clickedControl as SquareView;
-        }
-
-        private SquareView SquareAt(Coordinate coordinate) => 
-            Grid.Children.Cast<UIElement>().FirstOrDefault(e => Grid.GetColumn(e) == coordinate.X && Grid.GetRow(e) == coordinate.Y) as SquareView;
-
         public void GameStateChanged(BoardState state)
         {
             SquareView squareView = null;
 
             ResetBoardColor();
-            
+
             switch (state)
             {
                 case BoardState.Normal:
@@ -428,6 +408,61 @@ namespace WinEchek.ModelView
             }
             _lastChangedSquareView = squareView;
         }
+
+        #endregion
+
+        #region Utils
+
+        private SquareView SquareAt(Point point)
+        {
+            var row = 0;
+            var col = 0;
+            var accumulatedHeight = 0.0;
+            var accumulatedWidth = 0.0;
+
+            // calc row mouse was over
+            foreach (var rowDefinition in Grid.RowDefinitions)
+            {
+                accumulatedHeight += rowDefinition.ActualHeight;
+                if (accumulatedHeight >= point.Y)
+                    break;
+                row++;
+            }
+
+            // calc column mouse was over
+            foreach (var columnDefinition in Grid.ColumnDefinitions)
+            {
+                accumulatedWidth += columnDefinition.ActualWidth;
+                if (accumulatedWidth >= point.X)
+                    break;
+                col++;
+            }
+
+            var clickedControl = Grid.Children
+                .Cast<UIElement>() //TODO make it exception proof
+                .First(x => (Grid.GetRow(x) == row) && (Grid.GetColumn(x) == col));
+
+            return clickedControl as SquareView;
+        }
+
+        private SquareView SquareAt(Coordinate coordinate) =>
+            Grid.Children.Cast<UIElement>()
+                .FirstOrDefault(e => Grid.GetColumn(e) == coordinate.X && Grid.GetRow(e) == coordinate.Y) as SquareView;
+
+
+        #endregion
+
+        #region Misc
+        public static readonly DependencyProperty SetTextProperty = DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(SquareView));
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            //Pour rendre le plateau toujours carré
+            var minNewSizeOfParentUserControl = Math.Min(sizeInfo.NewSize.Height, sizeInfo.NewSize.Width);
+            Grid.Width = minNewSizeOfParentUserControl;
+            Grid.Height = minNewSizeOfParentUserControl;
+        }
+        #endregion
     }
 }
  

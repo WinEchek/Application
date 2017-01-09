@@ -1,4 +1,5 @@
 ﻿using WinEchek.Model;
+using WinEchek.Model.Pieces;
 using WinEchek.ModelView;
 
 namespace WinEchek.Game
@@ -12,8 +13,9 @@ namespace WinEchek.Game
         /// </summary>
         /// <param name="container"></param>
         /// <param name="boardView"></param>
+        /// <param name="color">La couleur</param>
         /// <returns></returns>
-        public abstract Core.Game CreateGame(Container container, BoardView boardView);
+        public abstract Core.Game CreateGame(Container container, BoardView boardView, Color color);
     }
 
 }

@@ -30,6 +30,7 @@ namespace WinEchek.Model
                         OnMoveDone(Moves.Last().Move);
                         break;
                     case NotifyCollectionChangedAction.Remove:
+                        if(Moves.Count != 0)
                         OnMoveUndone(Moves.Last().Move);
                         break;
                     default:

@@ -7,10 +7,10 @@ using WinEchek.Network;
 
 namespace WinEchek.Game
 {
-    public class NetworkGameCreator
+    public class NetworkGameCreator : GameCreator
     {
-        public Mode Mode => Mode.Network;
-        public Core.Game CreateGame(Container container, BoardView boardView, NetworkServiceHost networkServiceHost, Color color)
+        public override Mode Mode => Mode.Network;
+        public override Core.Game CreateGame(Container container, BoardView boardView, Color color)
         {
             IEngine engine = new RealEngine(container);
             Core.Game game;
@@ -18,7 +18,7 @@ namespace WinEchek.Game
             if (color == Color.White)
             {
                 PlayerControler whitePlayerControler = new BoardViewPlayerController(boardView);
-                PlayerControler blackPlayerControler = new NetworkPlayerController(networkServiceHost);
+                PlayerControler blackPlayerControler = new NetworkPlayerController(NetworkServiceHost.GetNetworkServiceHost());
 
                 Player whitePlayer = new Player(Color.White, whitePlayerControler);
                 Player blackPlayer = new Player(Color.Black, blackPlayerControler);
@@ -35,7 +35,7 @@ namespace WinEchek.Game
             }
             else
             {
-                PlayerControler whitePlayerControler = new NetworkPlayerController(networkServiceHost);
+                PlayerControler whitePlayerControler = new NetworkPlayerController(NetworkServiceHost.GetNetworkServiceHost());
                 PlayerControler blackPlayerControler = new BoardViewPlayerController(boardView);
 
                 Player whitePlayer = new Player(Color.White, whitePlayerControler);

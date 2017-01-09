@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -7,6 +8,7 @@ using WinEchek.Core.Windows;
 using WinEchek.Game;
 using WinEchek.Model;
 using WinEchek.ModelView;
+using WinEchek.Network;
 using Color = WinEchek.Model.Pieces.Color;
 
 namespace WinEchek.Core
@@ -14,7 +16,7 @@ namespace WinEchek.Core
     /// <summary>
     /// Logique d'interaction pour HostGameOptions.xaml
     /// </summary>
-    public partial class HostGameOptions
+    public partial class HostGameOptions : UserControl
     {
         private MainWindow _mainWindow;
         private Container _container;
@@ -40,27 +42,50 @@ namespace WinEchek.Core
 
             foreach (IPAddress t in addr)
             {
-                ComboBoxIP.Items.Add(t.ToString());
+                if (t.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    ComboBoxIP.Items.Add(t.ToString());
+                }
+            }
+            if (ComboBoxIP.Items.Count == 0)
+            {
+                _mainWindow.ShowMessageAsync("Erreur réseau",
+                    "Vous n\'êtes connecté à aucun réseau, vous allez être redirigé vers l\'accueil.");
+                _mainWindow.MainControl.Content = new Home(_mainWindow);
             }
         }
 
         private void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
         {
-            Uri uri = new Uri("net.tcp://" + ComboBoxIP.SelectedItem + ":" + TextBoxPort.Text + "/" + TextBoxGameName.Text + TextBoxPseudo.Text);
+            if (ComboBoxIP.SelectedItem == null || TextBoxGameName.Text == "" || TextBoxPort.Text == "" ||
+                TextBoxPseudo.Text == "")
+            {
+                _mainWindow.ShowMessageAsync("Paramètres incorrects", "Veuillez remplir tout les champs.");
+                return;
+            }
+            Uri uri =
+                new Uri("net.tcp://" + ComboBoxIP.SelectedItem + ":" + TextBoxPort.Text + "/" + TextBoxGameName.Text +
+                        TextBoxPseudo.Text);
             WaitJoinWindow waitJoinWindow = new WaitJoinWindow(uri, GetComboBoxColor());
             if (waitJoinWindow.ShowDialog() == true)
             {
                 GameFactory gameFactory = new GameFactory();
                 BoardView boardView = new BoardView(_container);
-                WinEchek.Core.Game game = gameFactory.CreateNetworkGame(_container, boardView, waitJoinWindow.NetworkGameServiceHost, GetComboBoxColor());
+                Game game = gameFactory.CreateGame(Mode.Network, _container, boardView, GetComboBoxColor());
                 _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
-
             }
             else
             {
-                _mainWindow.ShowMessageAsync("Erreur réseau",
-                    "Il y a eu un problème lors de la connexion avec l'autre joueur... Vueillez réessayer.",
-                    MessageDialogStyle.Affirmative);
+                // Attention : pratique choquante
+                try
+                {
+                    NetworkServiceHost.Close();
+                }
+                catch (Exception)
+                {
+                    ; //Rien à faire (technique de pro)
+                }
+                _mainWindow.ShowMessageAsync("Erreur réseau", "Il y a eu un problème lors de la connexion avec l'autre joueur... Vueillez réessayer.");
             }
 
         }

@@ -11,7 +11,7 @@ namespace WinEchek.Game
     {
         public override Mode Mode => Mode.AI;
 
-        public override Core.Game CreateGame(Container container, BoardView boardView)
+        public override Core.Game CreateGame(Container container, BoardView boardView, Color color)
         {
             IEngine engine = new RealEngine(container);
             PlayerControler whitePlayerControler = new BoardViewPlayerController(boardView);

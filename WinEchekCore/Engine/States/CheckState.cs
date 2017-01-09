@@ -19,7 +19,7 @@ namespace WinEchek.Engine.States
 
             List<IRule> pawnMovementCheckRules = new List<IRule> {new PawnMovementRule(), new CanOnlyTakeEnnemyRule()};
 
-            List<IRule> kingMovementCheckRules = new List<IRule> {new KingMovementRule(), new CanOnlyTakeEnnemyRule()};
+            List<IRule> kingMovementCheckRules = new List<IRule> {new KingMovementRule(), new CanOnlyTakeEnnemyRule(), new CastlingRule()};
 
             List<IRule> knightMovementCheckRules = new List<IRule>
             {
@@ -41,10 +41,10 @@ namespace WinEchek.Engine.States
                 {Type.Pawn, pawnMovementCheckRules},
                 {Type.Knight, knightMovementCheckRules},
                 {Type.Rook, rookMovementCheckRules},
-                {Type.Bishop, bishopMovementCheckRules}
+                {Type.Bishop, bishopMovementCheckRules},
+                {Type.King, kingMovementCheckRules}
             };
-            //TODO why is this removed ?
-            //rulesGroup.Add(Type.King, KingMovementCheckRules);
+
 
             // On cherche le roi
             Piece concernedKing = tempBoard.Squares.OfType<Square>()

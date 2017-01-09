@@ -15,6 +15,7 @@ namespace WinEchek.Game
         {
             GameCreators.Add(new LocalGameCreator());
             GameCreators.Add(new AiGameCreator());
+            GameCreators.Add(new NetworkGameCreator());
         }
 
         /// <summary>
@@ -22,15 +23,9 @@ namespace WinEchek.Game
         /// </summary>
         /// <param name="mode">Mode de jeu souhaité</param>
         /// <returns>Une partie dans le mode de jeu passé en paramètre</returns>
-        public Core.Game CreateGame(Mode mode, Container container, BoardView boardView)
+        public Core.Game CreateGame(Mode mode, Container container, BoardView boardView, Color color)
         {
-            return GameCreators.FindAll(x => x.Mode == mode).First().CreateGame(container, boardView);
-        }
-
-        public Core.Game CreateNetworkGame(Container container, BoardView boardView, NetworkServiceHost networkServiceHost, Color color)
-        {
-            NetworkGameCreator networkGameCreator = new NetworkGameCreator();
-            return networkGameCreator.CreateGame(container, boardView, networkServiceHost, color);
+            return GameCreators.FindAll(x => x.Mode == mode).First().CreateGame(container, boardView, color);
         }
     }
 

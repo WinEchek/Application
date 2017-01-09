@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using WinEchek.Game;
 using WinEchek.Model;
+using WinEchek.Model.Pieces;
 using WinEchek.ModelView;
 
 namespace WinEchek.Core
@@ -24,7 +25,7 @@ namespace WinEchek.Core
         {
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
-            WinEchek.Core.Game game = gameFactory.CreateGame(Mode.AI, _container, boardView);
+            Game game = gameFactory.CreateGame(Mode.AI, _container, boardView, Color.White);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }
@@ -40,7 +41,7 @@ namespace WinEchek.Core
         {
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
-            WinEchek.Core.Game game = gameFactory.CreateGame(Mode.Local, _container, boardView);
+            Game game = gameFactory.CreateGame(Mode.Local, _container, boardView, Color.White);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }

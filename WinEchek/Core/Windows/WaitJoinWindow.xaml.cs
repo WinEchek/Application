@@ -8,17 +8,21 @@ namespace WinEchek.Core.Windows
     /// <summary>
     /// Logique d'interaction pour WaitJoinWindow.xaml
     /// </summary>
+    /// <summary>
+    /// Logique d'interaction pour WaitJoinWindow.xaml
+    /// </summary>
     public partial class WaitJoinWindow
     {
-        public NetworkServiceHost NetworkGameServiceHost { get; set; }
-
         public WaitJoinWindow(Uri uri, Color color)
         {
             InitializeComponent();
             LabelWait.Content = "Création de la partie";
-            NetworkGameServiceHost = new NetworkServiceHost(uri) { NetworkGameService = { PlayerColor = color } };
-            NetworkGameServiceHost.Open();
-            NetworkGameServiceHost.NetworkGameService.ClientUriReceived += NetworkGameServiceOnClientUriReceived;
+
+            NetworkServiceHost.Create(uri);
+            NetworkServiceHost.GetService().PlayerColor = color;
+            NetworkServiceHost.Open();
+
+            NetworkServiceHost.GetService().ClientUriReceived += NetworkGameServiceOnClientUriReceived;
             LabelWait.Content = "Attente d'un autre joueur";
         }
 
@@ -33,13 +37,18 @@ namespace WinEchek.Core.Windows
             }
             catch (Exception)
             {
-                NetworkGameServiceHost.Close();
+                NetworkServiceHost.Close();
                 DialogResult = false;
             }
 
             LabelWait.Content = "Tentative de connexion avec le client";
             DialogResult = true;
         }
+
+
+
+
+
 
         private bool Ping()
         {
@@ -50,14 +59,14 @@ namespace WinEchek.Core.Windows
                 string received = NetworkServiceClient.Channel().Echo(testMessage);
                 if (received != testMessage)
                 {
-                    NetworkGameServiceHost.Close();
+                    NetworkServiceHost.Close();
                     return false;
                 }
                 return true;
             }
             catch (Exception)
             {
-                NetworkGameServiceHost.Close();
+                NetworkServiceHost.Close();
                 return false;
             }
         }
