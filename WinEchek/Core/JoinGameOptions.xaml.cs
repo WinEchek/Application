@@ -84,7 +84,17 @@ namespace WinEchek.Core
                     "Il y a eu un problème lors de la connexion avec l\'autre joueur, cela peut provenir des paramètres que vous avez saisis.");
                 return;
             }
-            
+            finally
+            {
+                try
+                {
+                    NetworkServiceHost.Close();
+                }
+                catch (Exception)
+                {
+                    ;
+                }
+            }
 
             Color distantPlayerColor = NetworkServiceClient.Channel().GetColor() == "White" ? Color.White : Color.Black;
             Color color = distantPlayerColor == Color.White ? Color.Black : Color.White;

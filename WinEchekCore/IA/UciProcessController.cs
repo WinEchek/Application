@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.ServiceModel.Syndication;
 using WinEchek.Core;
 using WinEchek.Model;
 using WinEchek.Model.Pieces;
@@ -14,15 +13,9 @@ namespace WinEchek.IA
     {
         private Container _container;
         private Process _uciProcess;
-        private List<int> _parameters = new List<int>();
 
         public UciProcessController(Container container)
         {
-            _parameters.Add(5); //Skill
-            _parameters.Add(10000); //Movetime;
-            _parameters.Add(5); //Depth
-            _parameters.Add(0); //0 for movetime | 1 for depth
-
             _container = container;
             _uciProcess = new Process
             {
@@ -39,8 +32,7 @@ namespace WinEchek.IA
 
             _uciProcess.Start();
             _uciProcess.StandardInput.WriteLine("uci");
-            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
-            _uciProcess.StandardInput.WriteLine("setoption name Skill value {0}", _parameters[0]);
+            Console.WriteLine("uci");
 
             string output = "";
             while (output != "uciok")
@@ -49,6 +41,8 @@ namespace WinEchek.IA
                 Console.WriteLine(output);
             }
             _uciProcess.StandardInput.WriteLine("ucinewgame");
+            //Console.WriteLine(Environment.ProcessorCount);
+            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
             Console.WriteLine("ucinewgame");
         }
 
@@ -61,15 +55,7 @@ namespace WinEchek.IA
         {
             Console.WriteLine(FenTranslator.FenNotation(_container));
             await _uciProcess.StandardInput.WriteLineAsync("position fen " + FenTranslator.FenNotation(_container));
-
-            string search = "go ";
-            if (_parameters[3].Equals(0))
-                search += "movetime " + _parameters[1];
-            else
-                search += "depth " + _parameters[2];
-           
-            await _uciProcess.StandardInput.WriteLineAsync(search);
-
+            await _uciProcess.StandardInput.WriteLineAsync("go movetime 1000");
 
 
             string input = new string(' ', 1);
