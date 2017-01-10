@@ -15,7 +15,7 @@ namespace WinEchek.IA
         private Container _container;
         private Process _uciProcess;
         private string search;
-        
+
         public UciProcessController(Container container)
         {
             _container = container;
@@ -35,7 +35,7 @@ namespace WinEchek.IA
 
             _uciProcess.Start();
             _uciProcess.StandardInput.WriteLine("uci");
-            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
+
 
             string output = "";
             while (output != "uciok")
@@ -45,6 +45,7 @@ namespace WinEchek.IA
             }
             _uciProcess.StandardInput.WriteLine("ucinewgame");
             Console.WriteLine("ucinewgame");
+            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
         }
 
         public UciProcessController(Container container, string searchType, int skillLevel, int searchValue)
@@ -57,7 +58,7 @@ namespace WinEchek.IA
                 StartInfo =
                 {
                     //TODO stockfish not correctly referenced
-                    FileName = "stockfish_64.exe",
+                    FileName = "Files/stockfish_64.exe",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
@@ -67,8 +68,7 @@ namespace WinEchek.IA
 
             _uciProcess.Start();
             _uciProcess.StandardInput.WriteLine("uci");
-            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
-            _uciProcess.StandardInput.WriteLine("setoption name Skill Level value {0}", skillLevel);
+
 
             string output = "";
             while (output != "uciok")
@@ -78,6 +78,8 @@ namespace WinEchek.IA
             }
             _uciProcess.StandardInput.WriteLine("ucinewgame");
             Console.WriteLine("ucinewgame");
+            _uciProcess.StandardInput.WriteLine("setoption name Threads value {0}", Environment.ProcessorCount);
+            _uciProcess.StandardInput.WriteLine("setoption name Skill Level value {0}", skillLevel);
 
 
         }
@@ -91,7 +93,7 @@ namespace WinEchek.IA
         {
             Console.WriteLine(FenTranslator.FenNotation(_container));
             await _uciProcess.StandardInput.WriteLineAsync("position fen " + FenTranslator.FenNotation(_container));
-            await _uciProcess.StandardInput.WriteLineAsync(search);
+            await _uciProcess.StandardInput.WriteLineAsync("go depth 10");
 
             string input = new string(' ', 1);
 

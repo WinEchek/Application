@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WinEchek.Core;
 using WinEchek.Model;
 using WinEchek.Model.Pieces;
@@ -33,7 +34,15 @@ namespace WinEchek.Game
             if (move == null)
                 return;
             // On informe l'adversaire du coup que notre joueur local vient de réaliser
-            Client.Inform(move);
+            try
+            {
+                Client.Inform(move);
+            }
+            catch (Exception e)
+            {
+                Player.LeaveGame(e.Message);
+            }
+            
         }
 
         public override void Move(Move move)

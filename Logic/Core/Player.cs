@@ -33,6 +33,11 @@ namespace WinEchek.Core
             MoveDone?.Invoke(this, move);
         }
 
+        public void LeaveGame(string reason)
+        {
+            Game.PlayerLeave(this, reason);
+        }
+
         public delegate void MoveHandler(Player sender, Move move);
         public event MoveHandler MoveDone;
     }
