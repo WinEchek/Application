@@ -8,7 +8,7 @@ namespace WinEchek.Core
     public class Game
     {
         private Player _currentPlayer;
-
+        private bool _playerMissing;
         private Player WhitePlayer { get; }
         private Player BlackPlayer { get; }
         private IEngine Engine { get; }
@@ -23,6 +23,7 @@ namespace WinEchek.Core
         /// <param name="container">Model container</param>
         public Game(IEngine engine, Player whitePlayer, Player blackPlayer, Container container)
         {
+            _playerMissing = false;
             WhitePlayer = whitePlayer;
             BlackPlayer = blackPlayer;
             Engine = engine;
@@ -49,6 +50,9 @@ namespace WinEchek.Core
         /// <param name="move"></param>
         private void PlayerMoveHandler(Player sender, Move move)
         {
+            //Si un joueur n'est pas là, on ne peut pas jouer (réseau)
+            if (_playerMissing) return;
+
             if (sender != _currentPlayer)
             {
                 sender.Stop();
@@ -121,12 +125,23 @@ namespace WinEchek.Core
 
         #endregion
 
+        public void PlayerLeave(Player player, string reason)
+        {
+            _playerMissing = true;
+            PlayerDisconnectedEvent?.Invoke("Le joueur " + (player.Color == Color.White ? "Blanc" : "Noir") + " s'est déconnecté de la partie, si vous voulez reprendre la partie plus tard vous pouvez l'enregistrer...\n\n(" + reason + ")");
+        }
+
+
         #region Delegate and Events
 
         public delegate void StateHandler(BoardState state);
         public event StateHandler StateChanged;
         private void OnBoardStateChanged() => StateChanged?.Invoke(Engine.CurrentState());
 
+        public delegate void PlayerDisconnectedEventHandler(string message);
+        public event PlayerDisconnectedEventHandler PlayerDisconnectedEvent;
+
         #endregion
+
     }
 }

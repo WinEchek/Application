@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
@@ -16,13 +17,15 @@ namespace WinEchek.Views
     {
         private BoardView _boardView;
         private MainWindow _mainWindow;
-
+        
         public GameView(MainWindow mainWindow, Core.Game game, BoardView boardView)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
             _boardView = boardView;
             Game = game;
+
+            game.PlayerDisconnectedEvent += GameOnPlayerDisconnectedEvent;
 
             game.StateChanged += _boardView.GameStateChanged;
             game.StateChanged += state =>
@@ -54,6 +57,11 @@ namespace WinEchek.Views
             UcBoardView.Content = boardView;
 
             HistoryView.Content = new HistoryView(this);
+        }
+
+        private void GameOnPlayerDisconnectedEvent(string message)
+        {
+            _mainWindow.ShowMessageAsync("Erreur : Déconnexion d'un joueur", message);
         }
 
         public Core.Game Game { get; set; }
