@@ -10,6 +10,7 @@ using WinEchek.Command;
 using WinEchek.Engine;
 using WinEchek.Game;
 using WinEchek.Model;
+using WinEchek.Views.Windows;
 using Color = WinEchek.Model.Pieces.Color;
 using Type = WinEchek.Model.Pieces.Type;
 
@@ -142,16 +143,17 @@ namespace WinEchek.ModelView
             if (e.ChangedButton != MouseButton.Left) return;
             _mouseDown = true;
             _mouseDownPoint = e.GetPosition(Grid);
-
             _clickedSquare = SquareAt(e.GetPosition(Grid));
 
             if (_clickedSquare == null) return;
-            if (_selected && _possibleMoves.Contains(_clickedSquare)) return;
+
+            if (_selected && _possibleMoves.Contains(_clickedSquare)) return; 
+
             ResetBoardColor();
             _selectedPiece = _clickedSquare.PieceView;
 
 
-
+            //--Verified--//
             //Concerned controllers to get the possible moves
             List<BoardViewPlayerController> concernedControllers =
                 BoardViewPlayerControllers.FindAll(
@@ -159,7 +161,6 @@ namespace WinEchek.ModelView
 
             if (concernedControllers.Count == 0) return;
             _initDragAndDropOnMouseMove = true;
-            Console.WriteLine("Set init to true");
 
             //Possible move drawing
             foreach (Square square in concernedControllers.First().PossibleMoves(_selectedPiece.Piece))
@@ -167,10 +168,12 @@ namespace WinEchek.ModelView
                 SquareView squareView =
                     Grid.Children.Cast<SquareView>()
                         .First(x => Grid.GetRow(x) == square.Y && Grid.GetColumn(x) == square.X);
+
                 squareView.SetResourceReference(BackgroundProperty,
                     (square.X + square.Y)%2 == 0
                         ? "CleanWindowCloseButtonBackgroundBrush"
                         : "CleanWindowCloseButtonPressedBackgroundBrush");
+
                 _possibleMoves.Add(squareView);
             }
         }
@@ -183,14 +186,21 @@ namespace WinEchek.ModelView
             _mouseDown = false;
             _initDragAndDropOnMouseMove = false;
 
-            List<BoardViewPlayerController> concernedControllers =
-                BoardViewPlayerControllers.FindAll(
-                    x => (x.Player.Color == (_selectedPiece?.Piece.Color) && x.IsPlayable));
+            var concernedControllers = ConcernedControllers();
 
             if (concernedControllers.Count == 0) return;
 
-            Move move;
+            Move move = null;
             SquareView squareView = SquareAt(e.GetPosition(Grid));
+            if (squareView == null)
+            {
+                if (_selectedPiece == null) return;
+                Canvas.Children.Remove(_selectedPiece);
+                _clickedSquare.Square.Piece = _selectedPiece.Piece;
+                _selectedPiece = null;
+                _selected = false;
+                return;
+            }
             SquareView clickedSquareView = SquareAt(_mouseDownPoint);
 
             bool select = Equals(squareView.Square.Coordinate, clickedSquareView?.Square?.Coordinate); //Same square
@@ -216,39 +226,54 @@ namespace WinEchek.ModelView
                 else
                 {
                     if (!_possibleMoves.Contains(_clickedSquare)) return;
-                    Console.WriteLine("Target selected");
+
                     _selected = false;
                     ResetBoardColor();
-                    move = new Move(_selectedPiece.Piece, squareView.Square);
+                    if ((_selectedPiece.Piece.Type == Type.Pawn) &&
+                    (squareView.Square.Y == (_selectedPiece.Piece.Color == Color.White ? 0 : 7)))
+                    {
+                        var promoteDialog = new PieceTypeSelectionWindow(_selectedPiece.Piece.Color);
+                        promoteDialog.ShowDialog();
+                        move = new Move(_selectedPiece.Piece.Square, squareView.Square, _selectedPiece.Piece.Type,
+                            _selectedPiece.Piece.Color, promoteDialog.ChosenType);
+                    }
+                    else
+                    {
+                        move = new Move(_selectedPiece.Piece, squareView.Square);
+                    }
                     concernedControllers.ForEach(x => x.Move(move));
                 }
             }
             else //Drag case
             {
-                Console.WriteLine("Drag and drop");
-                ResetBoardColor();
-                Console.WriteLine("Reseted color");
-                //Add the selected piece back to the grid in the right place
-                //if the move wasn't valid, add it to the initial place
-                move = new Move(_selectedPiece.Piece, squareView.Square);
                 Canvas.Children.Remove(_selectedPiece);
-
-                foreach (var controller in concernedControllers)
+                if (!_possibleMoves.Contains(squareView))
                 {
-                    if (_possibleMoves.Contains(squareView))
-                    {
-                        controller.Move(move);
-                    }
-                    else
-                    {
-                        _clickedSquare.PieceView = _selectedPiece;
-                    }
+                    _clickedSquare.Square.Piece = _selectedPiece.Piece;
+                    return;
                 }
+
+                ResetBoardColor();
+
+                if ((_selectedPiece.Piece.Type == Type.Pawn) &&
+                    (squareView.Square.Y == (_selectedPiece.Piece.Color == Color.White ? 0 : 7)))
+                {
+                    var promoteDialog = new PieceTypeSelectionWindow(_selectedPiece.Piece.Color);
+                    promoteDialog.ShowDialog();
+                    move = new Move(_selectedPiece.Piece.Square, squareView.Square, _selectedPiece.Piece.Type,
+                        _selectedPiece.Piece.Color, promoteDialog.ChosenType);
+                }
+                else
+                {
+                    move = new Move(_selectedPiece.Piece, squareView.Square);
+                }
+                concernedControllers.ForEach(x => x.Move(move));
+                _selected = false;
                 _hasBeginDragAndDrop = false;
                 _selectedPiece = null;
             }
-            _possibleMoves.Clear();
         }
+
 
         /*
          *List<BoardViewPlayerController> concernedControllers =
@@ -312,6 +337,17 @@ namespace WinEchek.ModelView
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
+
+            Point p = e.GetPosition(Grid);
+            if (p.X < 0 || p.Y < 0 || p.X > Grid.ActualWidth || p.Y > Grid.ActualHeight)
+            {
+                if (_selectedPiece == null) return;
+                Canvas.Children.Remove(_selectedPiece);
+                _clickedSquare.Square.Piece = _selectedPiece.Piece;
+                _selectedPiece = null;
+                _selected = false;
+                return;
+            }
             //Use the threshold too
             if (!_mouseDown) return;
             if (_selectedPiece == null) return;
@@ -319,7 +355,7 @@ namespace WinEchek.ModelView
             {
                 Console.WriteLine("Init drag and drop");
                 _clickedSquare.PieceView = null;
-                //Todo should use fields for the number of pixel to align the piece where the mouse clicked and not centered
+
                 var width = _selectedPiece.ActualWidth;
                 var height = _selectedPiece.ActualHeight;
 
@@ -336,6 +372,7 @@ namespace WinEchek.ModelView
             Canvas.SetLeft(_selectedPiece, e.GetPosition(this).X - _selectedPiece.ActualWidth/2);
         }
 
+        //TODO add on mouse leave
         #endregion
 
         #region Coloration
@@ -439,7 +476,7 @@ namespace WinEchek.ModelView
             }
 
             var clickedControl = Grid.Children
-                .Cast<UIElement>() //TODO make it exception proof
+                .OfType<UIElement>() //TODO make it exception proof
                 .First(x => (Grid.GetRow(x) == row) && (Grid.GetColumn(x) == col));
 
             return clickedControl as SquareView;
@@ -449,6 +486,8 @@ namespace WinEchek.ModelView
             Grid.Children.Cast<UIElement>()
                 .FirstOrDefault(e => Grid.GetColumn(e) == coordinate.X && Grid.GetRow(e) == coordinate.Y) as SquareView;
 
+        private List<BoardViewPlayerController> ConcernedControllers() =>
+                BoardViewPlayerControllers.FindAll(x => (x.Player.Color == (_selectedPiece?.Piece.Color) && x.IsPlayable));
 
         #endregion
 
