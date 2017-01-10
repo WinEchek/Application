@@ -283,9 +283,9 @@
       <Project>{AFE729B0-C85C-423D-8C32-02685FD66875}</Project>
       <Name>Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinEchekCore\Business.csproj">
+    <ProjectReference Include="..\Logic\Logic.csproj">
       <Project>{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}</Project>
-      <Name>Business</Name>
+      <Name>Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,17 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "WinEchek\GUI.csproj", "{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AFE729B0-C85C-423D-8C32-02685FD66875} = {AFE729B0-C85C-423D-8C32-02685FD66875}
-		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00} = {F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}
-	EndProjectSection
-EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WinEchekSetup", "WinEchekSetup\WinEchekSetup.vdproj", "{BB98D7FC-DE71-423E-8837-ABCCB3B23401}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "WinEchekCore\Business.csproj", "{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{AFE729B0-C85C-423D-8C32-02685FD66875}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00} = {F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,20 +20,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{BB98D7FC-DE71-423E-8837-ABCCB3B23401}.Debug|Any CPU.ActiveCfg = Debug
 		{BB98D7FC-DE71-423E-8837-ABCCB3B23401}.Release|Any CPU.ActiveCfg = Release
-		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{AFE729B0-C85C-423D-8C32-02685FD66875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFE729B0-C85C-423D-8C32-02685FD66875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFE729B0-C85C-423D-8C32-02685FD66875}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFE729B0-C85C-423D-8C32-02685FD66875}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3B6A4CA-E4C4-474E-98D2-1F9780CBCE00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF5F3FE-D8FA-42BC-81B2-49BD39A6A36A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
