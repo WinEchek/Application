@@ -25,7 +25,7 @@ namespace WinEchek.IA
                 StartInfo =
                 {
                     //TODO stockfish not correctly referenced
-                    FileName = "stockfish_64.exe",
+                    FileName = "Files/stockfish_64.exe",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
