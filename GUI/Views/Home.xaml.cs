@@ -7,7 +7,7 @@ using Microsoft.Win32;
 using WinEchek.IO;
 using WinEchek.Model;
 
-namespace WinEchek.Core
+namespace WinEchek.Views
 {
     /// <summary>
     ///     Logique d'interaction pour Home.xaml

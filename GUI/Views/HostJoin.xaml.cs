@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using WinEchek.Model;
 
-namespace WinEchek.Core
+namespace WinEchek.Views
 {
     /// <summary>
     /// Logique d'interaction pour HostJoin.xaml

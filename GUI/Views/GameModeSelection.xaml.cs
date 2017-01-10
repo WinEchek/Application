@@ -4,7 +4,7 @@ using WinEchek.Model;
 using WinEchek.Model.Pieces;
 using WinEchek.ModelView;
 
-namespace WinEchek.Core
+namespace WinEchek.Views
 {
     /// <summary>
     /// Interaction logic for GameModeSelection.xaml
@@ -37,7 +37,7 @@ namespace WinEchek.Core
         {
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
-            Game game = gameFactory.CreateGame(Mode.Local, _container, boardView, Color.White, null);
+            Core.Game game = gameFactory.CreateGame(Mode.Local, _container, boardView, Color.White, null);
 
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }

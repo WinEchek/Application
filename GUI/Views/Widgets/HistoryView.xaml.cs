@@ -7,7 +7,7 @@ using WinEchek.Command;
 using WinEchek.Model;
 using WinEchek.ModelView;
 
-namespace WinEchek.Core.Widgets
+namespace WinEchek.Views.Widgets
 {
     /// <summary>
     ///     Logique d'interaction pour HistoryView.xaml
@@ -18,7 +18,7 @@ namespace WinEchek.Core.Widgets
         private Board _board = new Board();
         private BoardView _boardView;
         private HistoryViewConversation _conversation;
-        private Game _game;
+        private Core.Game _game;
         private GameView _gameView;
         private int _lastIndex = -1;
         private ObservableCollection<ICompensableCommand> _moves = new ObservableCollection<ICompensableCommand>();

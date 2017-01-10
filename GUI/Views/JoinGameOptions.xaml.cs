@@ -11,7 +11,7 @@ using Color = WinEchek.Model.Pieces.Color;
 using Container = WinEchek.Model.Container;
 using GameFactory = WinEchek.Game.GameFactory;
 
-namespace WinEchek.Core
+namespace WinEchek.Views
 {
     /// <summary>
     /// Logique d'interaction pour JoinGameOptions.xaml
@@ -91,7 +91,7 @@ namespace WinEchek.Core
 
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
-            Game game = gameFactory.CreateGame(Mode.Network, _container, boardView, color, null);
+            Core.Game game = gameFactory.CreateGame(Mode.Network, _container, boardView, color, null);
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
 
         }

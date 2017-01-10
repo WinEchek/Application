@@ -3,7 +3,7 @@ using System.ServiceModel;
 using WinEchek.Network;
 using Color = WinEchek.Model.Pieces.Color;
 
-namespace WinEchek.Core.Windows
+namespace WinEchek.Views.Windows
 {
     /// <summary>
     /// Logique d'interaction pour WaitJoinWindow.xaml

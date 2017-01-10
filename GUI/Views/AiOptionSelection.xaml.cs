@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WinEchek.Game;
 using WinEchek.Model;
 using WinEchek.Model.Pieces;
 using WinEchek.ModelView;
 
-namespace WinEchek.Core
+namespace WinEchek.Views
 {
     /// <summary>
     /// Interaction logic for AiOptionSelection.xaml
@@ -72,7 +61,7 @@ namespace WinEchek.Core
             //TODO le controle pour l'antoine
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
-            Game game = gameFactory.CreateGame(Mode.AI, _container, boardView, Color.White, new GameCreatorParameters()
+            Core.Game game = gameFactory.CreateGame(Mode.AI, _container, boardView, Color.White, new GameCreatorParameters()
             {
                 AiSearchType = ComboBoxSearchMode.SelectedIndex == 0 ? "depth" : "movetime",
                 AiSearchValue = (int) ComboBoxValue.SelectedValue,

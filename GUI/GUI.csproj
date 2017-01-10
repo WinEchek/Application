@@ -81,31 +81,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\AiOptionSelection.xaml.cs">
+    <Compile Include="Views\AiOptionSelection.xaml.cs">
       <DependentUpon>AiOptionSelection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\FlyoutContent\GameViewFlyout.xaml.cs">
+    <Compile Include="Views\FlyoutContent\GameViewFlyout.xaml.cs">
       <DependentUpon>GameViewFlyout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\GameModeSelection.xaml.cs">
+    <Compile Include="Views\GameModeSelection.xaml.cs">
       <DependentUpon>GameModeSelection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\HostGameOptions.xaml.cs">
+    <Compile Include="Views\HostGameOptions.xaml.cs">
       <DependentUpon>HostGameOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\HostJoin.xaml.cs">
+    <Compile Include="Views\HostJoin.xaml.cs">
       <DependentUpon>HostJoin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\JoinGameOptions.xaml.cs">
+    <Compile Include="Views\JoinGameOptions.xaml.cs">
       <DependentUpon>JoinGameOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Widgets\HistoryView.xaml.cs">
+    <Compile Include="Views\Widgets\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Windows\PieceTypeSelectionWindow.xaml.cs">
+    <Compile Include="Views\Windows\PieceTypeSelectionWindow.xaml.cs">
       <DependentUpon>PieceTypeSelectionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Windows\WaitJoinWindow.xaml.cs">
+    <Compile Include="Views\Windows\WaitJoinWindow.xaml.cs">
       <DependentUpon>WaitJoinWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game\AiGameCreator.cs" />
@@ -118,47 +118,47 @@
     <Compile Include="Game\NetworkGameCreator.cs" />
     <Compile Include="Game\NetworkPlayerController.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Page Include="Core\AiOptionSelection.xaml">
+    <Page Include="Views\AiOptionSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\FlyoutContent\GameViewFlyout.xaml">
+    <Page Include="Views\FlyoutContent\GameViewFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\GameModeSelection.xaml">
+    <Page Include="Views\GameModeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\GameView.xaml">
+    <Page Include="Views\GameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\Home.xaml">
+    <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\HostGameOptions.xaml">
+    <Page Include="Views\HostGameOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\HostJoin.xaml">
+    <Page Include="Views\HostJoin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\JoinGameOptions.xaml">
+    <Page Include="Views\JoinGameOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\Widgets\HistoryView.xaml">
+    <Page Include="Views\Widgets\HistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\Windows\PieceTypeSelectionWindow.xaml">
+    <Page Include="Views\Windows\PieceTypeSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\Windows\WaitJoinWindow.xaml">
+    <Page Include="Views\Windows\WaitJoinWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,10 +182,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\GameView.xaml.cs">
+    <Compile Include="Views\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Home.xaml.cs">
+    <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModelView\PieceView.xaml.cs">

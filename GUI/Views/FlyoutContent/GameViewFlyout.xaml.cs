@@ -5,7 +5,7 @@ using System.Windows;
 using Microsoft.Win32;
 using WinEchek.IO;
 
-namespace WinEchek.Core.FlyoutContent
+namespace WinEchek.Views.FlyoutContent
 {
     /// <summary>
     ///     Logique d'interaction pour GameViewFlyout.xaml

@@ -5,7 +5,7 @@ using System.Windows.Input;
 using WinEchek.Model.Pieces;
 using WinEchek.ModelView;
 
-namespace WinEchek.Core.Windows
+namespace WinEchek.Views.Windows
 {
     /// <summary>
     ///     Logique d'interaction pour PieceTypeSelectionWindow.xaml

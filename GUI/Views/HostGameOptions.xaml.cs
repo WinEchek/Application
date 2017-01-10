@@ -4,14 +4,14 @@ using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using WinEchek.Core.Windows;
 using WinEchek.Game;
 using WinEchek.Model;
 using WinEchek.ModelView;
 using WinEchek.Network;
+using WinEchek.Views.Windows;
 using Color = WinEchek.Model.Pieces.Color;
 
-namespace WinEchek.Core
+namespace WinEchek.Views
 {
     /// <summary>
     /// Logique d'interaction pour HostGameOptions.xaml
@@ -71,7 +71,7 @@ namespace WinEchek.Core
             {
                 GameFactory gameFactory = new GameFactory();
                 BoardView boardView = new BoardView(_container);
-                Game game = gameFactory.CreateGame(Mode.Network, _container, boardView, GetComboBoxColor(), null);
+                Core.Game game = gameFactory.CreateGame(Mode.Network, _container, boardView, GetComboBoxColor(), null);
                 _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
             }
             else

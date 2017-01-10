@@ -2,12 +2,12 @@
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
-using WinEchek.Core.FlyoutContent;
-using WinEchek.Core.Widgets;
 using WinEchek.Engine;
 using WinEchek.ModelView;
+using WinEchek.Views.FlyoutContent;
+using WinEchek.Views.Widgets;
 
-namespace WinEchek.Core
+namespace WinEchek.Views
 {
     /// <summary>
     ///     Logique d'interaction pour GameView.xaml
@@ -17,7 +17,7 @@ namespace WinEchek.Core
         private BoardView _boardView;
         private MainWindow _mainWindow;
 
-        public GameView(MainWindow mainWindow, Game game, BoardView boardView)
+        public GameView(MainWindow mainWindow, Core.Game game, BoardView boardView)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
@@ -56,7 +56,7 @@ namespace WinEchek.Core
             HistoryView.Content = new HistoryView(this);
         }
 
-        public Game Game { get; set; }
+        public Core.Game Game { get; set; }
 
         private void ButtonUndo_OnClick(object sender, RoutedEventArgs e) => Game.Undo();
         private void ButtonRedo_OnClick(object sender, RoutedEventArgs e) => Game.Redo();

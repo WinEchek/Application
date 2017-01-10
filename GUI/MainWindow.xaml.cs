@@ -11,6 +11,8 @@ using MahApps.Metro.Controls.Dialogs;
 using WinEchek.Core;
 using WinEchek.IO;
 using Container = WinEchek.Model.Container;
+using GameModeSelection = WinEchek.Views.GameModeSelection;
+using Home = WinEchek.Views.Home;
 
 namespace WinEchek
 {
