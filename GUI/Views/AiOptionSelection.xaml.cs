@@ -28,8 +28,9 @@ namespace WinEchek.Views
             {
                 ComboBoxValue.Items.Add(new ComboBoxItem().Content = i);
             }
-            ComboBoxLevel.SelectedValue = 20;
-            ComboBoxValue.SelectedValue = 10;
+            ComboBoxLevel.SelectedIndex = 19;
+            ComboBoxValue.SelectedIndex = 10;
+            ComboBoxSearchMode.SelectedIndex = 0;
         }
         
         private void ComboBoxSearchMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,7 +44,8 @@ namespace WinEchek.Views
                 for (int i = 0; i <= 42; i++)
                 {
                     ComboBoxValue.Items.Add(new ComboBoxItem().Content = i);
-                }  
+                }
+                ComboBoxValue.SelectedIndex = 10;
             }
             else
             {
@@ -53,6 +55,7 @@ namespace WinEchek.Views
                 {
                     ComboBoxValue.Items.Add(new ComboBoxItem().Content = i);
                 }
+                ComboBoxValue.SelectedIndex = 3;
             }
         }
 
@@ -61,11 +64,13 @@ namespace WinEchek.Views
             //TODO le controle pour l'antoine
             GameFactory gameFactory = new GameFactory();
             BoardView boardView = new BoardView(_container);
+            int skillLevel = ComboBoxLevel.SelectedValue as int? ?? 0;
+            int searchValue = ComboBoxValue.SelectedValue as int? ?? 0;
             Core.Game game = gameFactory.CreateGame(Mode.AI, _container, boardView, Color.White, new GameCreatorParameters()
             {
                 AiSearchType = ComboBoxSearchMode.SelectedIndex == 0 ? "depth" : "movetime",
-                AiSearchValue = (int) ComboBoxValue.SelectedValue,
-                AiSkillLevel = (int) ComboBoxLevel.SelectedValue
+                AiSearchValue = searchValue,
+                AiSkillLevel = skillLevel
             });
             _mainWindow.MainControl.Content = new GameView(_mainWindow, game, boardView);
         }

@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" >
+    <ScrollViewer HorizontalAlignment="Center" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <StackPanel Orientation="Vertical">
     <GroupBox Header="Selectionnez les paramètres de l'ordinateur">
-        <StackPanel >
+        <StackPanel Orientation="Vertical" >
             <TextBlock >Niveau de jeu</TextBlock>
             <ComboBox Name="ComboBoxLevel" Margin="8"/>
             <TextBlock>Mode de recherche</TextBlock>
@@ -18,4 +20,6 @@
             <Button Margin="8" Click="ButtonBase_OnClick">Créer la partie</Button>
         </StackPanel>
     </GroupBox>
+    </StackPanel>
+    </ScrollViewer>
 </UserControl>
