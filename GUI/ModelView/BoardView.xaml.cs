@@ -10,6 +10,7 @@ using WinEchek.Command;
 using WinEchek.Engine;
 using WinEchek.Game;
 using WinEchek.Model;
+using WinEchek.Model.Pieces;
 using WinEchek.Views.Windows;
 using Color = WinEchek.Model.Pieces.Color;
 using Type = WinEchek.Model.Pieces.Type;
@@ -106,17 +107,8 @@ namespace WinEchek.ModelView
                         SquareView startSquare = SquareAt(command.Move.StartCoordinate);
                         SquareView targetSquare = SquareAt(command.Move.TargetCoordinate);
 
-                        //TODO find better colors
-                        targetSquare.SetResourceReference(BackgroundProperty,
-                            (command.Move.TargetCoordinate.X + command.Move.TargetCoordinate.Y)%2 == 0
-                                ? "CleanWindowCloseButtonBackgroundBrush"
-                                : "CleanWindowCloseButtonPressedBackgroundBrush");
                         _lastMove.Add(targetSquare);
 
-                        startSquare.SetResourceReference(BackgroundProperty,
-                            (command.Move.StartCoordinate.X + command.Move.StartCoordinate.Y)%2 == 0
-                                ? "CleanWindowCloseButtonBackgroundBrush"
-                                : "CleanWindowCloseButtonPressedBackgroundBrush");
                         _lastMove.Add(startSquare);
                     }
                 }
@@ -178,7 +170,6 @@ namespace WinEchek.ModelView
             }
         }
 
-        //TODO take care of promotion
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
@@ -270,7 +261,6 @@ namespace WinEchek.ModelView
                 concernedControllers.ForEach(x => x.Move(move));
                 _selected = false;
                 _hasBeginDragAndDrop = false;
-                _selectedPiece = null;
             }
         }
 
@@ -382,8 +372,8 @@ namespace WinEchek.ModelView
             _possibleMoves.ForEach(ResetSquareViewColor);
             _lastMove.ForEach(x => x.SetResourceReference(BackgroundProperty,
                 (x.Square.X + x.Square.Y)%2 == 0
-                    ? "CleanWindowCloseButtonBackgroundBrush"
-                    : "CleanWindowCloseButtonPressedBackgroundBrush"));
+                    ? "CheckBoxBrush"
+                    : "CheckBoxMouseOverBrush"));
             _possibleMoves.Clear();
         }
 
