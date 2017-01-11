@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
 using WinEchek.Engine;
+using WinEchek.Model.Pieces;
 using WinEchek.ModelView;
 using WinEchek.Views.FlyoutContent;
 using WinEchek.Views.Widgets;
@@ -28,6 +29,7 @@ namespace WinEchek.Views
             game.PlayerDisconnectedEvent += GameOnPlayerDisconnectedEvent;
 
             game.StateChanged += _boardView.GameStateChanged;
+            
             game.StateChanged += state =>
             {
                 switch (state)
@@ -55,6 +57,16 @@ namespace WinEchek.Views
             GameViewFlyout gameViewFlyout = new GameViewFlyout(this);
             _mainWindow.Flyout.Content = gameViewFlyout.Content;
             UcBoardView.Content = boardView;
+
+            game.Container.MoveDone += move =>
+            {
+                LabelPlayerTurn.Content = move.PieceColor == Color.Black ? "blanc" : "noir";
+            };
+
+            game.Container.MoveUndone += move =>
+            {
+                LabelPlayerTurn.Content = move.PieceColor == Color.Black ? "blanc" : "noir";
+            };
 
             HistoryView.Content = new HistoryView(this);
         }

@@ -30,7 +30,7 @@ namespace WinEchek.Game
             boardView.BoardViewPlayerControllers.Add((BoardViewPlayerController) blackPlayerControler);
 
             //TODO Remvoe the logger
-            SMTPLogger smtpLogger = new SMTPLogger(game);
+            //SMTPLogger smtpLogger = new SMTPLogger(game);
             return game;
         }
     }

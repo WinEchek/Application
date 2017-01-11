@@ -50,7 +50,6 @@ namespace WinEchek.Views
             else
             {
                 ComboBoxValue.Items.Clear();
-                ComboBoxValue.IsEditable = true;
                 for (int i = 500; i <= 5000; i+=500)
                 {
                     ComboBoxValue.Items.Add(new ComboBoxItem().Content = i);

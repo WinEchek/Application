@@ -39,6 +39,26 @@ namespace WinEchek.Model
             };
         }
 
+        public Container(Board board, ObservableCollection<ICompensableCommand> moves)
+        {
+            Board = board;
+            Moves = moves;
+            Moves.CollectionChanged += (sender, args) =>
+            {
+                switch (args.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        OnMoveDone(Moves.Last().Move);
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        if (Moves.Count != 0)
+                            OnMoveUndone(Moves.Last().Move);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            };
+        }
         /// <summary>
         ///     The game board
         /// </summary>
