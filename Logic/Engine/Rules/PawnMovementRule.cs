@@ -38,10 +38,10 @@ namespace WinEchek.Engine.Rules
                         ? board.Squares[square.X + 1, square.Y]?.Piece as Pawn
                         : null;
 
-                if (leftPiece?.EnPassant == true)
+                if (leftPiece?.EnPassant == true && leftPiece.Color != piece.Color)
                     if ((targetSquare.X == square.X - 1) && (piece.Square.Y - targetSquare.Y == (isWhite ? 1 : -1)))
                         return true;
-                if (rightPiece?.EnPassant == true)
+                if (rightPiece?.EnPassant == true && rightPiece.Color != piece.Color)
                     if ((targetSquare.X == square.X + 1) && (piece.Square.Y - targetSquare.Y == (isWhite ? 1 : -1)))
                         return true;
 

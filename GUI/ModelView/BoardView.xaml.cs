@@ -265,64 +265,6 @@ namespace WinEchek.ModelView
         }
 
 
-        /*
-         *List<BoardViewPlayerController> concernedControllers =
-                BoardViewPlayerControllers.FindAll(
-                    x =>
-                        (x.Player.Color ==
-                         (_selectedPiece == null ? clickedPieceView?.Piece.Color : _selectedPiece?.Piece.Color)) &&
-                        x.IsPlayable);
-
-            if (concernedControllers.Count == 0) return;
-
-
-            if (_previousSquare == null)
-            {
-                _previousSquare = clickedSquare;
-                _selectedPiece = clickedSquare.PieceView;
-                clickedSquare.BorderThickness = new Thickness(4);
-
-                foreach (Square square in concernedControllers.First().PossibleMoves(_selectedPiece.Piece))
-                {
-                    SquareView squareView =
-                        Grid.Children.Cast<SquareView>()
-                            .First(x => (Grid.GetRow(x) == square.Y) && (Grid.GetColumn(x) == square.X));
-                    squareView.SetResourceReference(BackgroundProperty,
-                        (square.X + square.Y)%2 == 0
-                            ? "CleanWindowCloseButtonBackgroundBrush"
-                            : "CleanWindowCloseButtonPressedBackgroundBrush");
-                    _possibleMoves.Add(squareView);
-                }
-            }
-            else
-            {
-                _previousSquare.BorderThickness = new Thickness(0);
-                Move move;
-                if ((_selectedPiece.Piece.Type == Type.Pawn) &&
-                    (clickedSquare.Square.Y == (_selectedPiece.Piece.Color == Color.White ? 0 : 7)) &&
-                    _possibleMoves.Contains(clickedSquare))
-                {
-                    var promoteDialog = new PieceTypeSelectionWindow(_selectedPiece.Piece.Color);
-                    promoteDialog.ShowDialog();
-
-                    move = new Move(_selectedPiece.Piece.Square, clickedSquare.Square, _selectedPiece.Piece.Type,
-                        _selectedPiece.Piece.Color, promoteDialog.ChosenType);
-                }
-                else
-                {
-                    move = new Move(_selectedPiece.Piece, clickedSquare.Square);
-                }
-
-                concernedControllers.ForEach(x => x.Move(move));
-
-                ResetBoardColor();
-
-                _possibleMoves.Clear();
-
-                _previousSquare = null;
-                _selectedPiece = null;
-            }
-            */
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
@@ -476,7 +418,7 @@ namespace WinEchek.ModelView
             }
 
             var clickedControl = Grid.Children
-                .OfType<UIElement>() //TODO make it exception proof
+                .OfType<UIElement>()
                 .First(x => (Grid.GetRow(x) == row) && (Grid.GetColumn(x) == col));
 
             return clickedControl as SquareView;

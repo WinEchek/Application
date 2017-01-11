@@ -5,7 +5,6 @@ using Type = WinEchek.Model.Pieces.Type;
 
 namespace WinEchek.Model
 {
-    //TODO remove data contract ?
     /// <summary>
     ///     Represent a chess move independantly of the board
     /// </summary>
