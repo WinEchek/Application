@@ -9,6 +9,7 @@ namespace WinEchek.Core
     {
         private Player _currentPlayer;
         private bool _playerMissing;
+        private readonly bool _canUndoRedo;
         private Player WhitePlayer { get; }
         private Player BlackPlayer { get; }
         private IEngine Engine { get; }
@@ -21,14 +22,15 @@ namespace WinEchek.Core
         /// <param name="whitePlayer">White player</param>
         /// <param name="blackPlayer">Black player</param>
         /// <param name="container">Model container</param>
-        public Game(IEngine engine, Player whitePlayer, Player blackPlayer, Container container)
+        /// <param name="canUndoRedo"></param>
+        public Game(IEngine engine, Player whitePlayer, Player blackPlayer, Container container, bool canUndoRedo)
         {
             _playerMissing = false;
+            _canUndoRedo = canUndoRedo;
             WhitePlayer = whitePlayer;
             BlackPlayer = blackPlayer;
             Engine = engine;
             Container = container;
-
             WhitePlayer.MoveDone += PlayerMoveHandler;
             BlackPlayer.MoveDone += PlayerMoveHandler;
 
@@ -81,6 +83,8 @@ namespace WinEchek.Core
         /// </summary>
         public void Undo()
         {
+            if (!_canUndoRedo) return;
+
             Move move = Engine.Undo();
             if (move == null) return;
 
@@ -92,19 +96,20 @@ namespace WinEchek.Core
 
         public void Undo(int count)
         {
+            if (!_canUndoRedo) return;
+
             Move lastMove = null;
+            _currentPlayer.Stop();
             for (int i = 0; i < count; i++)
             {
                 Move move = Engine.Undo();
                 if (move != null)
                 {
-                    _currentPlayer.Stop();
                     ChangePlayer();
-                    _currentPlayer.Play(null);
                     lastMove = move;
                 }
             }
-
+            _currentPlayer.Play(lastMove);
             if(lastMove != null)
                 OnBoardStateChanged();
         }
@@ -114,6 +119,8 @@ namespace WinEchek.Core
         /// </summary>
         public void Redo()
         {
+            if (!_canUndoRedo) return;
+
             Move move = Engine.Redo();
             if (move == null) return;
 

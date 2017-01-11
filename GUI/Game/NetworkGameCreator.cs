@@ -23,7 +23,7 @@ namespace WinEchek.Game
                 Player whitePlayer = new Player(Color.White, whitePlayerControler);
                 Player blackPlayer = new Player(Color.Black, blackPlayerControler);
 
-                game = new Core.Game(engine, whitePlayer, blackPlayer, container);
+                game = new Core.Game(engine, whitePlayer, blackPlayer, container, false);
 
                 whitePlayer.Game = game;
                 blackPlayer.Game = game;
@@ -41,7 +41,7 @@ namespace WinEchek.Game
                 Player whitePlayer = new Player(Color.White, whitePlayerControler);
                 Player blackPlayer = new Player(Color.Black, blackPlayerControler);
 
-                game = new Core.Game(engine, whitePlayer, blackPlayer, container);
+                game = new Core.Game(engine, whitePlayer, blackPlayer, container, false);
 
                 whitePlayer.Game = game;
                 blackPlayer.Game = game;

@@ -149,7 +149,12 @@ namespace WinEchek.IA
 
         public override void Stop()
         {
-            //throw new System.NotImplementedException();
+            StopAsync();
+        }
+
+        private async void StopAsync()
+        {
+            await _uciProcess.StandardInput.WriteLineAsync("stop");
         }
     }
 }

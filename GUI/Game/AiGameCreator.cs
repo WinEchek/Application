@@ -19,7 +19,7 @@ namespace WinEchek.Game
             Player whitePlayer = new Player(Color.White, whitePlayerControler);
             Player blackPlayer = new Player(Color.Black, blackPlayerControler);
 
-            Core.Game game = new Core.Game(engine, whitePlayer, blackPlayer, container);
+            Core.Game game = new Core.Game(engine, whitePlayer, blackPlayer, container, true);
 
             whitePlayer.Game = game;
             blackPlayer.Game = game;
