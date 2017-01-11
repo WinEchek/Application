@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
@@ -56,7 +57,7 @@ namespace WinEchek.Views.Widgets
                 }
             };
 
-            _boardView = new BoardView(_game.Container);
+            _boardView = new BoardView(new Container(_board, _moves));
             ListViewHistory.ItemsSource = _moves;
         }
 
@@ -72,6 +73,7 @@ namespace WinEchek.Views.Widgets
         private void EventSetter_OnHandler(object sender, MouseEventArgs e)
         {
             var item = (sender as FrameworkElement)?.DataContext;
+            Console.WriteLine("wow");
             int index = ListViewHistory.Items.IndexOf(item);
             var plop = sender as ListViewItem;
             if (_lastIndex == -1)
