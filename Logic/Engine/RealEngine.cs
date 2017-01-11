@@ -74,7 +74,6 @@ namespace WinEchek.Engine
                 else
                     command = new MoveCommand(move, Board);
 
-                //TODO correct en passant
                 //En passant
                 if (move.PieceColor == Color.White)
                 {

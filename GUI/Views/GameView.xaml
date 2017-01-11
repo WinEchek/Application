@@ -26,10 +26,13 @@
                     <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Redo" />
                 </Button>
             </StackPanel>
+            <Label Name="LabelPlayerTurn" Height="Auto">Blanc</Label>
         </StackPanel>
 
+        
+            
         <UserControl Name="UcBoardView" Grid.Column="1" />
-        <UserControl Grid.Column="2" Name="HistoryView" />
+        <UserControl Grid.Column="2" Name="HistoryView"/>
         <StackPanel Grid.Column="3">
             <Button Background="{DynamicResource AccentColorBrush}" Name="ButtonMenu" Click="ButtonMenu_OnClick">
                 <Button.LayoutTransform>
