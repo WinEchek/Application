@@ -246,13 +246,13 @@ namespace WinEchek.ModelView
             }
             else //Drag case
             {
-                Canvas.Children.Remove(_selectedPiece);
                 if (!_possibleMoves.Contains(squareView))
                 {
-                    _clickedSquare.Square.Piece = _selectedPiece.Piece;
+                    ResetDragAndDrop();
+                    ResetBoardColor();
                     return;
                 }
-
+                Canvas.Children.Remove(_selectedPiece);
                 ResetBoardColor();
 
                 if ((_selectedPiece.Piece.Type == Type.Pawn) &&
@@ -384,6 +384,7 @@ namespace WinEchek.ModelView
                 (x.Square.X + x.Square.Y)%2 == 0
                     ? "CleanWindowCloseButtonBackgroundBrush"
                     : "CleanWindowCloseButtonPressedBackgroundBrush"));
+            _possibleMoves.Clear();
         }
 
         private static void ResetSquareViewColor(SquareView squareView)
@@ -449,6 +450,15 @@ namespace WinEchek.ModelView
         #endregion
 
         #region Utils
+
+        private void ResetDragAndDrop()
+        {
+            if (_selectedPiece == null) return;
+            Canvas.Children.Remove(_selectedPiece);
+            _clickedSquare.PieceView = _selectedPiece;
+            _selectedPiece = null;
+            _hasBeginDragAndDrop = false;
+        }
 
         private SquareView SquareAt(Point point)
         {
