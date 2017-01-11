@@ -60,12 +60,12 @@ namespace WinEchek.Views
 
             game.Container.MoveDone += move =>
             {
-                LabelPlayerTurn.Content = move.PieceColor == Color.Black ? "blanc" : "noir";
+                LabelPlayerTurn.Content = move.PieceColor == Color.Black ? "Blanc" : "Noir";
             };
 
             game.Container.MoveUndone += move =>
             {
-                LabelPlayerTurn.Content = move.PieceColor == Color.Black ? "blanc" : "noir";
+                LabelPlayerTurn.Content = move.PieceColor == Color.Black ? "Blanc" : "Noir";
             };
 
             HistoryView.Content = new HistoryView(this);

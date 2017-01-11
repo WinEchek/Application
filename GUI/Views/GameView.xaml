@@ -16,8 +16,10 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <StackPanel>
+            <GroupBox Header="Annuler / Refaire un coup">
             <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-                <Button Name="ButtonUndo" Click="ButtonUndo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}"
+            
+            <Button Name="ButtonUndo" Click="ButtonUndo_OnClick" Style="{DynamicResource MetroCircleButtonStyle}"
                         Width="48" Height="48" Margin="4" ToolTip="Annuler le dernier coup">
                     <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Undo" />
                 </Button>
@@ -26,7 +28,10 @@
                     <iconPacks:PackIconMaterial Width="20" Height="20" Kind="Redo" />
                 </Button>
             </StackPanel>
-            <Label Name="LabelPlayerTurn" Height="Auto">Blanc</Label>
+            </GroupBox>
+            <GroupBox Header="Tour">
+                <Label Name="LabelPlayerTurn" Height="Auto" FontSize="24">Blanc</Label>
+            </GroupBox>
         </StackPanel>
 
         
