@@ -93,7 +93,7 @@ namespace WinEchek.IA
         {
             Console.WriteLine(FenTranslator.FenNotation(_container));
             await _uciProcess.StandardInput.WriteLineAsync("position fen " + FenTranslator.FenNotation(_container));
-            await _uciProcess.StandardInput.WriteLineAsync("go depth 10");
+            await _uciProcess.StandardInput.WriteLineAsync(search);
 
             string input = new string(' ', 1);
 
