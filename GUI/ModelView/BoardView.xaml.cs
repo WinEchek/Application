@@ -183,6 +183,7 @@ namespace WinEchek.ModelView
 
             Move move = null;
             SquareView squareView = SquareAt(e.GetPosition(Grid));
+            //TODO Put all the fields in the corresponding state
             if (squareView == null)
             {
                 if (_selectedPiece == null) return;
