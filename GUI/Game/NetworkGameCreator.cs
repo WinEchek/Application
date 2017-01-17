@@ -52,7 +52,7 @@ namespace WinEchek.Game
                 boardView.BoardViewPlayerControllers.Add((BoardViewPlayerController)blackPlayerControler);
             }
 
-            SMTPLogger smtpLogger = new SMTPLogger(game);
+            //SMTPLogger smtpLogger = new SMTPLogger(game);
             return game;
 
         }
